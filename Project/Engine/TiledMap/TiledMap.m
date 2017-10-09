@@ -155,7 +155,7 @@
 		NSLog(@"--> TILESET found named: %@, width=%d, height=%d, firstgid=%d, spacing=%d, id=%d", tileSetName, tileSetWidth, tileSetHeight, tileSetFirstGID, tileSetSpacing, currentTileSetID);
 		
 		// Retrieve the image element
-		NSArray *imageElements = [tileSetElement nodesForXPath:@"/tileset/image" error:nil];
+		NSArray *imageElements = [tileSetElement nodesForXPath:@"image" error:nil];
 		NSString *source = [[[imageElements objectAtIndex:0] attributeForName:@"source"] stringValue];
 		NSLog(@"----> Found source for tileset called '%@'.", source);
 		
@@ -212,7 +212,7 @@
 		
 		// Process any layer properties
 		NSMutableDictionary *layerProps = [[NSMutableDictionary alloc] init];
-		NSArray *layerProperties = [layerElement nodesForXPath:@"/layer/properties/property" error:&theError];
+		NSArray *layerProperties = [layerElement nodesForXPath:@"/properties/property" error:&theError];
 		
 		for(DDXMLElement *property in layerProperties) 
 		{
@@ -225,7 +225,7 @@
 		[layerProps release];
 		
 		// Process the data and tile elements
-		NSArray *dataElements = [layerElement nodesForXPath:@"/layer/data" error:nil];
+		NSArray *dataElements = [layerElement nodesForXPath:@"data" error:nil];
 		
 		// As we are starting the data element we need to make sure that the tileX and tileY ivars are
 		// reset ready to process the tile elements

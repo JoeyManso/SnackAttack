@@ -15,6 +15,4 @@
     UIWindow *window;
     EAGLView *glView;
 }
-
-@property(strong, nonatomic)UIWindow *window;
 @end

@@ -25,7 +25,7 @@
     // EAGLView manually.
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[EAGLViewController alloc] initWithNibName:@"SnackView" bundle:nil];
+    self.window.rootViewController = [[EAGLViewController alloc] initWithNibName:nil bundle:nil];
     
 	[window setUserInteractionEnabled:YES];
 	[window setMultipleTouchEnabled:YES];
