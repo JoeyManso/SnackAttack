@@ -8,28 +8,39 @@
 
 #import "towerDefenseAppDelegate.h"
 #import "EAGLView.h"
+#import "EAGLViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation towerDefenseAppDelegate
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application 
+@synthesize window;
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions
 {
+    [Fabric with:@[[Crashlytics class]]];
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	
 	// Not using any NIB files anymore, we are creating the window and the
     // EAGLView manually.
-	if(!window)
-		window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [[EAGLViewController alloc] initWithNibName:@"SnackView" bundle:nil];
+    
 	[window setUserInteractionEnabled:YES];
 	[window setMultipleTouchEnabled:YES];
 
 	glView = [[[EAGLView alloc] initWithFrame:[UIScreen mainScreen].bounds] retain];
+
 	
     // Add the glView to the window which has been defined
 	[window addSubview:glView];
 	[window makeKeyAndVisible];
     
 	// main game loop
-    [glView performSelectorOnMainThread:@selector(mainLoop) withObject:nil waitUntilDone:NO]; 
+    [glView performSelectorOnMainThread:@selector(mainLoop) withObject:nil waitUntilDone:NO];
+    
+    return true;
 }
 
 

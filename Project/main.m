@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {    
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	// call the app delegate to run everything!
-    int retVal = UIApplicationMain(argc, argv, nil, @"towerDefenseAppDelegate");
+    int retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([towerDefenseAppDelegate class]));
     [pool release];
     return retVal;
 }

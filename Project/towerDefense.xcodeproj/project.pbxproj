@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15A9DDFC1F8BDE5100B1064D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDF81F8BDE5100B1064D /* Security.framework */; };
+		15A9DDFD1F8BDE5100B1064D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */; };
+		15A9DDFE1F8BDE5100B1064D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDFA1F8BDE5100B1064D /* Fabric.framework */; };
+		15A9DDFF1F8BDE5100B1064D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDFB1F8BDE5100B1064D /* Crashlytics.framework */; };
+		15A9DE011F8BE27600B1064D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DE001F8BE27600B1064D /* libc++.tbd */; };
+		15A9DE031F8BE27E00B1064D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DE021F8BE27E00B1064D /* libz.tbd */; };
+		15A9DE051F8BEAE700B1064D /* SnackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A9DE041F8BEAE700B1064D /* SnackView.xib */; };
+		15A9DE081F8BECA500B1064D /* EAGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A9DE071F8BECA500B1064D /* EAGLViewController.m */; };
 		1D3623260D0F684500981E51 /* towerDefenseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -181,6 +189,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15A9DDF81F8BDE5100B1064D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		15A9DDFA1F8BDE5100B1064D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		15A9DDFB1F8BDE5100B1064D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		15A9DE001F8BE27600B1064D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		15A9DE021F8BE27E00B1064D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		15A9DE041F8BEAE700B1064D /* SnackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SnackView.xib; sourceTree = "<group>"; };
+		15A9DE061F8BEC8700B1064D /* EAGLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EAGLViewController.h; sourceTree = "<group>"; };
+		15A9DE071F8BECA500B1064D /* EAGLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLViewController.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* towerDefenseAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = towerDefenseAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = towerDefenseAppDelegate.m; sourceTree = "<group>"; };
@@ -418,21 +435,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15A9DE031F8BE27E00B1064D /* libz.tbd in Frameworks */,
+				15A9DE011F8BE27600B1064D /* libc++.tbd in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				15A9DDFF1F8BDE5100B1064D /* Crashlytics.framework in Frameworks */,
 				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
 				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
 				F60F308B100AB3C3003FB9FA /* CoreGraphics.framework in Frameworks */,
 				F6EBC4511029487F00D256E5 /* AVFoundation.framework in Frameworks */,
+				15A9DDFD1F8BDE5100B1064D /* SystemConfiguration.framework in Frameworks */,
+				15A9DDFC1F8BDE5100B1064D /* Security.framework in Frameworks */,
 				F6EBC4531029487F00D256E5 /* AudioToolbox.framework in Frameworks */,
 				F6EBC4551029487F00D256E5 /* CoreAudio.framework in Frameworks */,
 				F6EBC4561029487F00D256E5 /* OpenAL.framework in Frameworks */,
+				15A9DDFE1F8BDE5100B1064D /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15A9DDF71F8BDE2B00B1064D /* Crashlytics */ = {
+			isa = PBXGroup;
+			children = (
+				15A9DDF81F8BDE5100B1064D /* Security.framework */,
+				15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */,
+				15A9DDFA1F8BDE5100B1064D /* Fabric.framework */,
+				15A9DDFB1F8BDE5100B1064D /* Crashlytics.framework */,
+			);
+			name = Crashlytics;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +493,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				15A9DDF71F8BDE2B00B1064D /* Crashlytics */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
@@ -476,6 +511,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15A9DE041F8BEAE700B1064D /* SnackView.xib */,
 				F6C5DBD510A76E2500745C4D /* AppIcon.png */,
 				8D1107310486CEB800E47090 /* towerDefense-Info.plist */,
 			);
@@ -485,6 +521,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15A9DE021F8BE27E00B1064D /* libz.tbd */,
+				15A9DE001F8BE27600B1064D /* libc++.tbd */,
 				F6EBC44B1029483E00D256E5 /* OpenAL.framework */,
 				F6EBC4501029487F00D256E5 /* AVFoundation.framework */,
 				F6EBC4521029487F00D256E5 /* AudioToolbox.framework */,
@@ -879,7 +917,9 @@
 			isa = PBXGroup;
 			children = (
 				28FD14FC0DC6FC130079059D /* EAGLView.h */,
+				15A9DE061F8BEC8700B1064D /* EAGLViewController.h */,
 				28FD14FD0DC6FC130079059D /* EAGLView.m */,
+				15A9DE071F8BECA500B1064D /* EAGLViewController.m */,
 				1D3623240D0F684500981E51 /* towerDefenseAppDelegate.h */,
 				1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */,
 			);
@@ -1001,6 +1041,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				15A9DDED1F8BDA1500B1064D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1041,6 +1082,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F60F3FCD1013B841003FB9FA /* Map1TileMap.tmx in Resources */,
+				15A9DE051F8BEAE700B1064D /* SnackView.xib in Resources */,
 				F6A0C5CA1024C6F3003665AD /* texture.png in Resources */,
 				F6A0C5E41024CEC2003665AD /* chubbyWalkCycle.png in Resources */,
 				F6A0D0FB10291D17003665AD /* jeanieWalkCycle.png in Resources */,
@@ -1152,6 +1194,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		15A9DDED1F8BDA1500B1064D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 792c0725bda6a0ab2f01dcc768ad23009918237e 11930f9adebb444eb27763d3ff4e930213be2645e4a80b45c95b54606b7dc7d2";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1188,6 +1246,7 @@
 				F672C0BF101A3BE600BBBE94 /* Enemies.m in Sources */,
 				F6A0B752101A67E7003665AD /* Map.m in Sources */,
 				F6A0B773101A68F7003665AD /* Map1.m in Sources */,
+				15A9DE081F8BECA500B1064D /* EAGLViewController.m in Sources */,
 				F6A0BBEC101C0DF2003665AD /* Math.m in Sources */,
 				F6A0BC8E101C167E003665AD /* ProjectileFactory.m in Sources */,
 				F6A0C12C101D1ACB003665AD /* ParticleEmitter.m in Sources */,
@@ -1223,6 +1282,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1243,6 +1306,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = towerDefense_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
@@ -1366,6 +1433,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joey Manso";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = towerDefense_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";

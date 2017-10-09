@@ -42,7 +42,7 @@ void interruptionListener(	void *inClientData, UInt32 inInterruptionState)
 	else if	(inInterruptionState == kAudioSessionEndInterruption) 
 	{
         OSStatus result = [[AVAudioSession sharedInstance] setActive:YES error:nil];
-		if (result) printf("Error setting audio session active! %d\n", result);
+		if (result) printf("Error setting audio session active! %d\n", (int)result);
         [soundManager setActivated:YES];
 	}
 }
