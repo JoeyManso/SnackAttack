@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class EAGLView;
+@class EAGLViewController;
 
 @interface towerDefenseAppDelegate : NSObject <UIApplicationDelegate> 
 {
     UIWindow *window;
     EAGLView *glView;
+    EAGLViewController *glViewController;
 }
 @end

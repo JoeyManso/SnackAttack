@@ -24,17 +24,18 @@
 	// Not using any NIB files anymore, we are creating the window and the
     // EAGLView manually.
 
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[EAGLViewController alloc] initWithNibName:nil bundle:nil];
+    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    glView = [[[EAGLView alloc] initWithFrame:[UIScreen mainScreen].bounds] retain];
+    glViewController = [[EAGLViewController alloc] initWithNibName:nil bundle:nil];
     
+    [glViewController setView:glView];
+    
+    [window setRootViewController:glViewController];
 	[window setUserInteractionEnabled:YES];
 	[window setMultipleTouchEnabled:YES];
-
-	glView = [[[EAGLView alloc] initWithFrame:[UIScreen mainScreen].bounds] retain];
-
-	
+    
     // Add the glView to the window which has been defined
-	[window addSubview:glView];
+	//[window addSubview:glView];
 	[window makeKeyAndVisible];
     
 	// main game loop

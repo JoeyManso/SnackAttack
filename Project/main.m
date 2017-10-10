@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Tower.h"
+#import "towerDefenseAppDelegate.h"
 
 int main(int argc, char *argv[]) 
 {    
