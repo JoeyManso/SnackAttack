@@ -7,6 +7,9 @@
 //
 
 #import "GameView.h"
+#import "TouchManager.h"
+#import "UIManager.h"
+#import "Map1.h"
 
 @interface GameView()
 

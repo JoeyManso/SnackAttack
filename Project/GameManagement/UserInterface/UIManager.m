@@ -156,7 +156,7 @@ static MessageScreen *messageScreen;
 					{
 						[bottomUIBar setState:BAR_HIDE];
 						bottomUIBar = confirmBar;
-						[towerDetails resetButtonPressed];;
+						[towerDetails resetButtonPressed];
 						returnVal = YES;
 					}
 				}

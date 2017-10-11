@@ -7,9 +7,9 @@
 //
 
 #import "BaseView.h"
-#import "TouchManager.h"
-#import "UIManager.h"
-#import "Map1.h"
+@class TouchManager;
+@class UIManager;
+@class Map1;
 
 @interface GameView : BaseView 
 {
@@ -17,5 +17,4 @@
     UIManager *UIMan;
     Map1 *map;
 }
-
 @end

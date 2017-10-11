@@ -27,8 +27,6 @@
 		tower = nil;
 		towerCost = 0;
 		towerCostText = nil;
-		towerDetails = [[UIManager getInstance] getTowerDetailsBarReference];
-		touchMan = [TouchManager getInstance];
 		renderOnSelectBar = YES;
 	}
 		
@@ -47,6 +45,8 @@
 	// set tower attributes
 	[tower setObjectScale:UIObjectScale];
 	[tower setSelected:NO];
+    
+    TowerDetails *towerDetails = [[UIManager getInstance] getTowerDetailsBarReference];
 	[towerDetails setDescription:[tower objectName] cost:[tower towerCost] range:[tower towerRange] damage:[tower towerDamage] rof:[tower towerRateOfFire] 
 					   descLine1:[tower towerDescriptionText1] descLine2:[tower towerDescriptionText2] descLine3:[tower towerDescriptionText3] 
 				   requiredRound:[tower minimumRound]];
@@ -58,7 +58,7 @@
 	[towerDetails setTowerFactory:self];
 	
 	// here we hand off control of movement/placement to the touch manager
-	[touchMan setPendingTower:tower];
+	[[TouchManager getInstance] setPendingTower:tower];
 	
 	// release the initial allocation
 	[tower release];
@@ -75,11 +75,12 @@
 		
 	if(CGRectContainsPoint(controlBounds, touchPosition))
 	{
-		if(![touchMan hasPendingTower])
+		if(![[TouchManager getInstance] hasPendingTower])
 			[self createTower];
 		else
 			return NO;
 		[self playScaleAnimation];
+        TowerDetails *towerDetails = [[UIManager getInstance] getTowerDetailsBarReference];
 		[towerDetails scaleTransitionSpeed:1.0f + ((UIObjectPosition.x/320.0f)-0.1f)];
 		return YES;
 	}

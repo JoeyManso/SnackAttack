@@ -20,8 +20,6 @@
 static TowerDetails *towerDetails;
 @interface TowerFactory : UIObject 
 {
-@private
-    TouchManager *touchMan;
 @public
     Tower *tower; // pointer to the tower we create (THIS NEEDS TO BE RELEASED TO REMOVE A TOWER)
 	SpriteSheet *towerSpriteSheet; // the sprite sheet that all towers created by the factory will share (yey memory!)
