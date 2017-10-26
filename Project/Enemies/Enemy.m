@@ -93,7 +93,10 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 	else
 	{
 		if(selected)
-			[enemyStatusBar setHitPoints:(uint)enemyHitPoints total:enemyMaxHitPoints];
+        {
+            uint intHP = floorf(fmaxf(enemyHitPoints, 0.0f));
+			[enemyStatusBar setHitPoints:intHP total:enemyMaxHitPoints];
+        }
 		[healthBar setFillRatio:(enemyHitPoints/(float)enemyMaxHitPoints)];
 		[healthBar playScaleAnimation];
 	}
