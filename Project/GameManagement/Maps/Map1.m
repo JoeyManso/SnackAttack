@@ -16,7 +16,7 @@
 	if(self = [super init])
 	{		
 		// init tile map
-		tileMap = [[TiledMap alloc] initWithTiledFile:@"Map1TileMap2" fileExtension:@"tmx"];
+		tileMap = [[TiledMap alloc] initWithTiledFile:@"Map1TileMap" fileExtension:@"tmx"];
 		backgroundMap = [[Image alloc] initWithImage:[UIImage imageNamed:@"map1.png"]];
 		backgroundMapPoint = CGPointMake(0.0f,0.0f);
 	}

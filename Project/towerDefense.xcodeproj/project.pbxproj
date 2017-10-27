@@ -78,7 +78,6 @@
 		F64DCD2A109E685100ECD416 /* mascotWalkCycle.png in Resources */ = {isa = PBXBuildFile; fileRef = F64DCD24109E685100ECD416 /* mascotWalkCycle.png */; };
 		F64DCD2B109E685100ECD416 /* promQueenWalkCycle.png in Resources */ = {isa = PBXBuildFile; fileRef = F64DCD25109E685100ECD416 /* promQueenWalkCycle.png */; };
 		F64DCD2C109E685100ECD416 /* punkWalkCycle.png in Resources */ = {isa = PBXBuildFile; fileRef = F64DCD26109E685100ECD416 /* punkWalkCycle.png */; };
-		F6519343108E7D0A004374ED /* Map1TileMap2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = F6519341108E7D0A004374ED /* Map1TileMap2.tmx */; };
 		F651934B108E8498004374ED /* map1.png in Resources */ = {isa = PBXBuildFile; fileRef = F651934A108E8498004374ED /* map1.png */; };
 		F657402510587C3F0063C980 /* Upgrades.m in Sources */ = {isa = PBXBuildFile; fileRef = F657402410587C3F0063C980 /* Upgrades.m */; };
 		F66FB1C2106844230070842D /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F66FB1C1106844230070842D /* FontManager.m */; };
@@ -291,7 +290,6 @@
 		F64DCD24109E685100ECD416 /* mascotWalkCycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mascotWalkCycle.png; sourceTree = "<group>"; };
 		F64DCD25109E685100ECD416 /* promQueenWalkCycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promQueenWalkCycle.png; sourceTree = "<group>"; };
 		F64DCD26109E685100ECD416 /* punkWalkCycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = punkWalkCycle.png; sourceTree = "<group>"; };
-		F6519341108E7D0A004374ED /* Map1TileMap2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map1TileMap2.tmx; sourceTree = "<group>"; };
 		F651934A108E8498004374ED /* map1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map1.png; sourceTree = "<group>"; };
 		F657402410587C3F0063C980 /* Upgrades.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Upgrades.m; sourceTree = "<group>"; };
 		F66FB1C0106844230070842D /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
@@ -687,7 +685,6 @@
 			isa = PBXGroup;
 			children = (
 				F651934A108E8498004374ED /* map1.png */,
-				F6519341108E7D0A004374ED /* Map1TileMap2.tmx */,
 				F67001101054BC9C009121FC /* Map1Tiles.png */,
 				F60F3FCC1013B841003FB9FA /* Map1TileMap.tmx */,
 			);
@@ -1160,7 +1157,6 @@
 				F676DB1D108BD0000055BEA8 /* MascotDeath.caf in Resources */,
 				F676DB1E108BD0000055BEA8 /* PromQueenDeath.caf in Resources */,
 				F676DB1F108BD0000055BEA8 /* PunkDeath.caf in Resources */,
-				F6519343108E7D0A004374ED /* Map1TileMap2.tmx in Resources */,
 				F651934B108E8498004374ED /* map1.png in Resources */,
 				F67A69CB108FFDED0050ACA0 /* CashFont.fnt in Resources */,
 				F67A69CC108FFDED0050ACA0 /* CashFont.png in Resources */,
