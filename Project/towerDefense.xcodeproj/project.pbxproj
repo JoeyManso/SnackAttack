@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1542548C1FA3A5090050CCA9 /* map2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542548A1FA3A5090050CCA9 /* map2.png */; };
+		1542548D1FA3A5090050CCA9 /* map3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542548B1FA3A5090050CCA9 /* map3.png */; };
+		154254901FA3A5FC0050CCA9 /* Map2TileMap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1542548E1FA3A5FC0050CCA9 /* Map2TileMap.tmx */; };
+		154254911FA3A5FC0050CCA9 /* Map3TileMap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1542548F1FA3A5FC0050CCA9 /* Map3TileMap.tmx */; };
 		15A9DDFC1F8BDE5100B1064D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDF81F8BDE5100B1064D /* Security.framework */; };
 		15A9DDFD1F8BDE5100B1064D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */; };
 		15A9DDFE1F8BDE5100B1064D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDFA1F8BDE5100B1064D /* Fabric.framework */; };
@@ -82,7 +86,7 @@
 		F657402510587C3F0063C980 /* Upgrades.m in Sources */ = {isa = PBXBuildFile; fileRef = F657402410587C3F0063C980 /* Upgrades.m */; };
 		F66FB1C2106844230070842D /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F66FB1C1106844230070842D /* FontManager.m */; };
 		F66FB2F21069C7460070842D /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66FB2F11069C7460070842D /* MenuView.m */; };
-		F67001111054BC9C009121FC /* Map1Tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = F67001101054BC9C009121FC /* Map1Tiles.png */; };
+		F67001111054BC9C009121FC /* MapTiles.png in Resources */ = {isa = PBXBuildFile; fileRef = F67001101054BC9C009121FC /* MapTiles.png */; };
 		F670CC991001732800B6F324 /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = F670CC981001732800B6F324 /* Tower.m */; };
 		F671727A104D682F009A8A9D /* TowerTitleFont.fnt in Resources */ = {isa = PBXBuildFile; fileRef = F6717278104D682F009A8A9D /* TowerTitleFont.fnt */; };
 		F671727B104D682F009A8A9D /* TowerTitleFont.png in Resources */ = {isa = PBXBuildFile; fileRef = F6717279104D682F009A8A9D /* TowerTitleFont.png */; };
@@ -187,6 +191,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1542548A1FA3A5090050CCA9 /* map2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map2.png; sourceTree = "<group>"; };
+		1542548B1FA3A5090050CCA9 /* map3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map3.png; sourceTree = "<group>"; };
+		1542548E1FA3A5FC0050CCA9 /* Map2TileMap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map2TileMap.tmx; sourceTree = "<group>"; };
+		1542548F1FA3A5FC0050CCA9 /* Map3TileMap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map3TileMap.tmx; sourceTree = "<group>"; };
 		15A9DDF81F8BDE5100B1064D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		15A9DDFA1F8BDE5100B1064D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -296,7 +304,7 @@
 		F66FB1C1106844230070842D /* FontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontManager.m; sourceTree = "<group>"; };
 		F66FB2F01069C7460070842D /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
 		F66FB2F11069C7460070842D /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
-		F67001101054BC9C009121FC /* Map1Tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map1Tiles.png; sourceTree = "<group>"; };
+		F67001101054BC9C009121FC /* MapTiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapTiles.png; sourceTree = "<group>"; };
 		F670CC971001732800B6F324 /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tower.h; sourceTree = "<group>"; };
 		F670CC981001732800B6F324 /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tower.m; sourceTree = "<group>"; };
 		F6717278104D682F009A8A9D /* TowerTitleFont.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TowerTitleFont.fnt; sourceTree = "<group>"; };
@@ -685,8 +693,12 @@
 			isa = PBXGroup;
 			children = (
 				F651934A108E8498004374ED /* map1.png */,
-				F67001101054BC9C009121FC /* Map1Tiles.png */,
 				F60F3FCC1013B841003FB9FA /* Map1TileMap.tmx */,
+				1542548A1FA3A5090050CCA9 /* map2.png */,
+				1542548E1FA3A5FC0050CCA9 /* Map2TileMap.tmx */,
+				1542548B1FA3A5090050CCA9 /* map3.png */,
+				1542548F1FA3A5FC0050CCA9 /* Map3TileMap.tmx */,
+				F67001101054BC9C009121FC /* MapTiles.png */,
 			);
 			path = TileMaps;
 			sourceTree = "<group>";
@@ -1081,6 +1093,7 @@
 				F6A0D0FB10291D17003665AD /* jeanieWalkCycle.png in Resources */,
 				F6F91560103A271A0061E261 /* PopCan.png in Resources */,
 				F67CD0A21040EFB3004D95E1 /* GameStatFont.fnt in Resources */,
+				154254901FA3A5FC0050CCA9 /* Map2TileMap.tmx in Resources */,
 				F67CD0A31040EFB3004D95E1 /* GameStatFont.png in Resources */,
 				F67CD0CB10411682004D95E1 /* EnemyStatFont.fnt in Resources */,
 				F67CD0CC10411682004D95E1 /* EnemyStatFont.png in Resources */,
@@ -1112,7 +1125,7 @@
 				F680DB8F104B139F00A95FE2 /* SmartyDeath.caf in Resources */,
 				F671727A104D682F009A8A9D /* TowerTitleFont.fnt in Resources */,
 				F671727B104D682F009A8A9D /* TowerTitleFont.png in Resources */,
-				F67001111054BC9C009121FC /* Map1Tiles.png in Resources */,
+				F67001111054BC9C009121FC /* MapTiles.png in Resources */,
 				F60E76541070026700AFDDD8 /* BackgroundMenu.png in Resources */,
 				F60E76551070026700AFDDD8 /* BarBlank.png in Resources */,
 				F60E76561070026700AFDDD8 /* BarEnemyStats.png in Resources */,
@@ -1121,6 +1134,7 @@
 				F60E76591070026700AFDDD8 /* BarTowerStats.png in Resources */,
 				F60E765A1070026700AFDDD8 /* ButtonBuy.png in Resources */,
 				F60E765B1070026700AFDDD8 /* ButtonCancel.png in Resources */,
+				1542548C1FA3A5090050CCA9 /* map2.png in Resources */,
 				F60E765C1070026700AFDDD8 /* ButtonConfirm.png in Resources */,
 				F60E765D1070026700AFDDD8 /* ButtonCredits.png in Resources */,
 				F60E765E1070026700AFDDD8 /* ButtonInstructions.png in Resources */,
@@ -1130,6 +1144,7 @@
 				F60E76621070026700AFDDD8 /* ButtonSell.png in Resources */,
 				F60E76641070026700AFDDD8 /* ButtonStart.png in Resources */,
 				F60E76651070026700AFDDD8 /* ButtonUpgrade.png in Resources */,
+				1542548D1FA3A5090050CCA9 /* map3.png in Resources */,
 				F60E76671070026700AFDDD8 /* TitleCredits.png in Resources */,
 				F60E76681070026700AFDDD8 /* TitleInstructions.png in Resources */,
 				F60E76691070026700AFDDD8 /* TitleMenu.png in Resources */,
@@ -1155,6 +1170,7 @@
 				F676DB1B108BD0000055BEA8 /* BannerDeath.caf in Resources */,
 				F676DB1C108BD0000055BEA8 /* CheerleaderDeath.caf in Resources */,
 				F676DB1D108BD0000055BEA8 /* MascotDeath.caf in Resources */,
+				154254911FA3A5FC0050CCA9 /* Map3TileMap.tmx in Resources */,
 				F676DB1E108BD0000055BEA8 /* PromQueenDeath.caf in Resources */,
 				F676DB1F108BD0000055BEA8 /* PunkDeath.caf in Resources */,
 				F651934B108E8498004374ED /* map1.png in Resources */,
