@@ -233,7 +233,7 @@
 		tileY = 0;
 		
 		// Process the tile elements
-		NSArray *tileElements = [[dataElements objectAtIndex:0] nodesForXPath:@"/data/tile" error:nil];
+		NSArray *tileElements = [[dataElements objectAtIndex:0] nodesForXPath:@"tile" error:nil];
         NSLog(@"----> Found '%lu' tile elements", (unsigned long)[tileElements count]);
 		
 		for(DDXMLElement *tileElement in tileElements) 
