@@ -324,7 +324,12 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 
 -(id)initWithBackground:(Image*)i
 {
-	if(self = [super initWithDisplayPos:[[Point2D alloc] initWithX:0.0f y:430.0] hidePos:[[Point2D alloc] initWithX:0.0f y:480] imageRef:i])
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
+	if(self = [super initWithDisplayPos:
+               [[Point2D alloc] initWithX:0.0f y:screenBounds.size.height - 50.0f]
+                                hidePos:[[Point2D alloc] initWithX:0.0f y:screenBounds.size.height]
+                               imageRef:i])
 	{
 		[barObjects setObject:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMenu.png"] filter:GL_LINEAR]
 													   position:[[Point2D alloc] initWithX:0.16f * backgroundWidth y:0.3f * backgroundHeight]]
@@ -620,11 +625,16 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 
 -(id)initWithBackground:(Image*)i
 {
-	if(self = [super initWithDisplayPos:[[Point2D alloc] initWithX:20.0f y:70.0] hidePos:[[Point2D alloc] initWithX:-300.0f y:70.0f] imageRef:i])
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGPoint screenOffset = CGPointMake(0.0f,0.0f);
+    screenOffset.x = (screenBounds.size.width - [i imageWidth]) * 0.5f;
+    screenOffset.y = (screenBounds.size.height - [i imageHeight]) * 0.5f;
+    
+	if(self = [super initWithDisplayPos:[[Point2D alloc] initWithX:screenOffset.x y:screenOffset.y] hidePos:[[Point2D alloc] initWithX:screenOffset.x - 300.0f y:screenOffset.y] imageRef:i])
 	{
 		buttonPressed = BUTTON_ROUND;
 		transitionSpeed = 545.0f;
-		startPosition = [[Point2D alloc] initWithX:340.0f y:70.0f];
+		startPosition = [[Point2D alloc] initWithX:screenOffset.x + 340.0f y:screenOffset.y];
 		[currentPosition setX:startPosition.x y:startPosition.y];
 		[direction setX:-1 y:0.0f];
 		

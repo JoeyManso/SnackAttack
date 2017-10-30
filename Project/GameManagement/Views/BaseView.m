@@ -10,6 +10,9 @@
 
 @implementation BaseView
 
+@synthesize screenBounds;
+@synthesize screenScale;
+@synthesize screenSize;
 @synthesize viewState;
 @synthesize viewAlpha;
 
@@ -18,6 +21,9 @@
 	if(self = [super init])
 	{
 		screenBounds = [[UIScreen mainScreen] bounds];
+        screenScale = [[UIScreen mainScreen] scale];
+        screenSize = CGSizeMake(screenBounds.size.width * screenScale,
+                                screenBounds.size.height * screenScale);
 		viewState = 0;
 		viewAlpha = 1.0f;
 		nextViewKey = nil;

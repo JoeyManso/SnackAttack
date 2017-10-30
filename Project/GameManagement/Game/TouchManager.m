@@ -37,6 +37,13 @@ BOOL touchedUI; // flag saying if user started touch on UI
 {
 	if(self = [super init])
 	{
+        screenBounds = [[UIScreen mainScreen] bounds];
+        CGPoint mapOffset = CGPointMake(0.0f,0.0f);
+        mapOffset.x = (screenBounds.size.width - 320.0f) * 0.5f;
+        mapOffset.y = (screenBounds.size.height - 480.0f) * 0.5f;
+        
+        uiOffset = CGPointMake(mapOffset.x, fmaxf(mapOffset.y, 50.0f));
+        
 		game = [GameState sharedGameStateInstance];
 		UIMan = [UIManager getInstance];
 		tileCenterPoint = [[Point2D alloc] init];
@@ -85,7 +92,8 @@ BOOL touchedUI; // flag saying if user started touch on UI
 	{
 		if(initTowerOnMap)
 			return NO;
-		if(touchPosition.y < 50.0f + 16.0f || touchPosition.y > 430.0f - 16.0f)
+		if(touchPosition.y < uiOffset.y + 16.0f
+           || touchPosition.y > (screenBounds.size.height - uiOffset.y) - 16.0f)
 			touchedUI = YES;
 		else if([Math CGdistance:[pendingTower objectPosition] :touchPosition] > [pendingTower towerRange]*1.3)
 		{
@@ -119,11 +127,11 @@ BOOL touchedUI; // flag saying if user started touch on UI
 				[pendingTower setObjectPositionX:position.x - towerDeltaX y:position.y - towerDeltaY];
 			}
 		
-			// hardcoded prevention from going over UI boundaries
-			if([pendingTower objectPosition].y < 50.0f)
-				[[pendingTower objectPosition] setY:50.0f];
-			else if([pendingTower objectPosition].y > 430.0f)
-				[[pendingTower objectPosition] setY:430.0f];
+			// Prevention from going over UI boundaries
+			if([pendingTower objectPosition].y < uiOffset.y)
+				[[pendingTower objectPosition] setY:uiOffset.y];
+			else if([pendingTower objectPosition].y > (screenBounds.size.height - uiOffset.y))
+				[[pendingTower objectPosition] setY:(screenBounds.size.height - uiOffset.y)];
 		
 			[self checkTowerPosition];
 			return YES;

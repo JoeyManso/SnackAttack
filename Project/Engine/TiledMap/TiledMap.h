@@ -22,7 +22,10 @@
 #import "GameState.h"
 
 @interface TiledMap : NSObject 
-{	
+{
+    CGRect screenBounds;
+    CGPoint mapOffset;
+    
 	// The width of the map in tiles
 	unsigned int mapWidth;
 	// The height of the map in tiles
@@ -82,7 +85,7 @@
 @property(nonatomic, readonly)unsigned int tileWidth;
 @property(nonatomic, readonly)unsigned int tileHeight;
 
-- (id)initWithTiledFile:(NSString*)tiledFile fileExtension:(NSString*)fileExtension;
+- (id)initWithTiledFile:(NSString*)tiledFile fileExtension:(NSString*)fileExtension offset:(CGPoint)offset;
 - (TileSet*)findTileSetWithGlobalID:(int)gid;
 - (void)renderAtPoint:(CGPoint)point mapX:(int)mapX mapY:(int)mapY width:(int)width height:(int)height layer:(int)lid;
 - (int)getLayerIndexWithName:(NSString*)name;

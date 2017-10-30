@@ -12,7 +12,7 @@
 @interface Map1 : Map
 {
 	Image *backgroundMap;
-	CGPoint backgroundMapPoint;
+	CGPoint mapOffset;
 }
 
 @end

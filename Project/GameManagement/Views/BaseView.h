@@ -11,12 +11,17 @@
 @interface BaseView : NSObject 
 {	
 	CGRect screenBounds;
+    CGFloat screenScale;
+    CGSize screenSize;
 	uint viewState;
 	float viewAlpha;
 	NSString *nextViewKey;
     float viewFadeSpeed;
 }
 
+@property(nonatomic, readonly)CGRect screenBounds;
+@property(nonatomic, readonly)CGFloat screenScale;
+@property(nonatomic, readonly)CGSize screenSize;
 @property (nonatomic, assign)uint viewState;
 @property (nonatomic, assign)float viewAlpha;
 

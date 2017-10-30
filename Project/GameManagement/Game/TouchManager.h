@@ -14,6 +14,8 @@
 
 @interface TouchManager : NSObject 
 {
+    CGRect screenBounds;
+    CGPoint uiOffset;
 }
 
 // get instance of this singleton

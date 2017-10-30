@@ -24,10 +24,19 @@ static BOOL ignoreTouchesEnded;
 
 @implementation ViewManager
 
+@synthesize screenBounds;
+@synthesize screenScale;
+@synthesize screenSize;
+
 - (id)init 
 {
 	if(self = [super init])
-	{		
+	{
+        screenBounds = [[UIScreen mainScreen] bounds];
+        screenScale = [[UIScreen mainScreen] scale];
+        screenSize = CGSizeMake(screenBounds.size.width * screenScale,
+                                screenBounds.size.height * screenScale);
+        
 		// Initialize OpenGL
 		[self initOpenGL];
 		
@@ -92,8 +101,6 @@ static BOOL ignoreTouchesEnded;
 
 - (void)initOpenGL 
 {
-	screenBounds = [[UIScreen mainScreen] bounds];
-	
 	// Switch to GL_PROJECTION matrix mode and reset the current matrix with the identity matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

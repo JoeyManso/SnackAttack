@@ -31,12 +31,15 @@
 
 - (id)init
 {
-	return [self initWithTiledFile:nil fileExtension:nil];
+    return [self initWithTiledFile:nil fileExtension:nil offset:CGPointMake(0.0f, 0.0f)];
 }
-- (id)initWithTiledFile:(NSString*)tiledFile fileExtension:(NSString*)fileExtension 
+- (id)initWithTiledFile:(NSString*)tiledFile fileExtension:(NSString*)fileExtension offset:(CGPoint)offset
 {
 	if (self = [super init]) 
 	{
+        screenBounds = [[UIScreen mainScreen] bounds];
+        mapOffset = offset;
+        
 		tileHighlight[0] = 0.0f;
 		tileHighlight[1] = 0.0f;
 		tileHighlight[2] = 0.0f;
@@ -63,7 +66,7 @@
 		// Calculate the total number of tiles it would take to fill the visible screen.  The values below which define the screen
 		// size would need to be changed based on the size of the area you need the tilemap to fill.  I am adding a couple of tiles
 		// to the total to cover fractions of a tile which may have resulted in the calculation
-		int totalQuads = ((480 / tileWidth) + 1) * ((320 / tileHeight) + 1);
+		int totalQuads = ((screenBounds.size.width / tileWidth) + 1) * ((screenBounds.size.height / tileHeight) + 1);
 		NSLog(@"--> Initializing vertex arrays for '%d' quads.", totalQuads);
 		
 		// Set up the vertex arrays
@@ -400,11 +403,15 @@
 			for(int y = 0; y < layerHeight; ++y)
 			{
 				// we have to adjust y here because opengl is dumb
-				if(CGRectContainsPoint(CGRectMake(x*tileWidth, (480-tileHeight)-y*tileHeight, tileWidth, tileHeight), CGPointMake(point.x,point.y)))
+                CGRect tileBounds =
+                CGRectMake(mapOffset.x + (x*tileWidth),
+                           screenBounds.size.height - (mapOffset.y + (y+1)*tileHeight),
+                           tileWidth, tileHeight);
+				if(CGRectContainsPoint(tileBounds, CGPointMake(point.x,point.y)))
 				{
 					// returns origin for the tile
-					tileHighlight[0]=x*tileWidth;
-					tileHighlight[1]=(480-tileHeight)-y*tileHeight;
+					tileHighlight[0]=tileBounds.origin.x;
+					tileHighlight[1]=tileBounds.origin.y;
 					tileHighlight[2]=tileHighlight[0];
 					tileHighlight[3]=tileHighlight[1]+tileHeight;
 					tileHighlight[4]=tileHighlight[0]+tileWidth;

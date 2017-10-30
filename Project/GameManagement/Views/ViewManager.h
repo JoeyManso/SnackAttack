@@ -18,10 +18,17 @@
 {	
 	// Grab the bounds of the screen
 	CGRect screenBounds;
+    CGFloat screenScale;
+    CGSize screenSize;
 	
 	NSMutableDictionary *appViews;
 	BaseView *currentView;
 }
+
+@property(nonatomic, readonly)CGRect screenBounds;
+@property(nonatomic, readonly)CGFloat screenScale;
+@property(nonatomic, readonly)CGSize screenSize;
+
 +(ViewManager*)getInstance;
 -(void)showMainMenu;
 -(void)showMainMenuDeactivateResume;
