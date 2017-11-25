@@ -65,7 +65,7 @@
 					[[ViewManager getInstance] resumeGame];
 					break;
 				case MENU_BUTTON_NEWGAME:
-					[[ViewManager getInstance] newGame];
+					[[ViewManager getInstance] showSelectMap];
 					break;
 				case MENU_BUTTON_INSTRUCTIONS:
 					[[ViewManager getInstance] showInstructions];

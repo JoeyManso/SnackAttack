@@ -33,6 +33,7 @@
 -(void)showMainMenu;
 -(void)showMainMenuDeactivateResume;
 -(void)showMainMenuNoIgnore;
+-(void)showSelectMap;
 -(void)showInstructions;
 -(void)showCredits;
 -(void)newGame;

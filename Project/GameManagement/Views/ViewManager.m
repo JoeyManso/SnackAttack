@@ -9,6 +9,7 @@
 #import "ViewManager.h"
 #import "GameState.h"
 #import "GameView.h"
+#import "MapSelectView.h"
 #import "MenuView.h"
 #import "TextView.h"
 #import "Image.h"
@@ -98,6 +99,9 @@ static BOOL ignoreTouchesEnded;
 													 images:[[NSMutableArray alloc] initWithObjects:
 															 [[Image alloc] initWithImage:[UIImage imageNamed:@"TextCredits.png"]], nil]
 												 background:baseBackgroundImage backgroundMaskLower:baseBackgroundMaskLowerImage backgroundMaskUpper:baseBackgroundMaskUpperImage] forKey:@"credits"];
+        
+        [appViews setObject:[[MapSelectView alloc] initWithTitle:[[Image alloc] initWithImage:[UIImage imageNamed:@"TitleSelectMap"] filter:GL_LINEAR]
+                                                      background:baseBackgroundImage backgroundMaskLower:baseBackgroundMaskLowerImage backgroundMaskUpper:baseBackgroundMaskUpperImage] forKey:@"selectMap"];
 		
 		// get the current view we want to start with
 		currentView = [appViews objectForKey:@"mainMenu"];
@@ -165,6 +169,10 @@ static BOOL ignoreTouchesEnded;
 	[resumeButton setActive:YES];
 	currentView = [appViews objectForKey:@"game"];
 	[[GameState sharedGameStateInstance] resetGame];
+}
+-(void)showSelectMap
+{
+    currentView = [appViews objectForKey:@"selectMap"];
 }
 -(void)showInstructions
 {

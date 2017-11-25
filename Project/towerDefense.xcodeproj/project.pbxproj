@@ -19,6 +19,11 @@
 		15A9DE031F8BE27E00B1064D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DE021F8BE27E00B1064D /* libz.tbd */; };
 		15AC982F1FC8B24800AE9A18 /* BackgroundMaskLower.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC982D1FC8B24800AE9A18 /* BackgroundMaskLower.png */; };
 		15AC98301FC8B24800AE9A18 /* BackgroundMaskUpper.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC982E1FC8B24800AE9A18 /* BackgroundMaskUpper.png */; };
+		15AC98331FC9CDBE00AE9A18 /* MapSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC98321FC9CDBE00AE9A18 /* MapSelectView.m */; };
+		15AC98351FC9CF3500AE9A18 /* TitleSelectMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC98341FC9CF3500AE9A18 /* TitleSelectMap.png */; };
+		15AC98381FC9D2C800AE9A18 /* ButtonArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC98361FC9D2C800AE9A18 /* ButtonArrowLeft.png */; };
+		15AC98391FC9D2C800AE9A18 /* ButtonArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC98371FC9D2C800AE9A18 /* ButtonArrowRight.png */; };
+		15AC983B1FC9F68400AE9A18 /* ButtonStartBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC983A1FC9F68400AE9A18 /* ButtonStartBig.png */; };
 		15F465A51F8C373700FB8115 /* EAGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F465A41F8C373700FB8115 /* EAGLViewController.m */; };
 		1D3623260D0F684500981E51 /* towerDefenseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -204,6 +209,12 @@
 		15A9DE021F8BE27E00B1064D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		15AC982D1FC8B24800AE9A18 /* BackgroundMaskLower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundMaskLower.png; sourceTree = "<group>"; };
 		15AC982E1FC8B24800AE9A18 /* BackgroundMaskUpper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundMaskUpper.png; sourceTree = "<group>"; };
+		15AC98311FC9CDBE00AE9A18 /* MapSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSelectView.h; sourceTree = "<group>"; };
+		15AC98321FC9CDBE00AE9A18 /* MapSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapSelectView.m; sourceTree = "<group>"; };
+		15AC98341FC9CF3500AE9A18 /* TitleSelectMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleSelectMap.png; sourceTree = "<group>"; };
+		15AC98361FC9D2C800AE9A18 /* ButtonArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonArrowLeft.png; sourceTree = "<group>"; };
+		15AC98371FC9D2C800AE9A18 /* ButtonArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonArrowRight.png; sourceTree = "<group>"; };
+		15AC983A1FC9F68400AE9A18 /* ButtonStartBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonStartBig.png; sourceTree = "<group>"; };
 		15F465A31F8C373700FB8115 /* EAGLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLViewController.h; sourceTree = "<group>"; };
 		15F465A41F8C373700FB8115 /* EAGLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLViewController.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -842,6 +853,8 @@
 				F60E76411070026700AFDDD8 /* BarGameStats.png */,
 				F60E76421070026700AFDDD8 /* BarTowerDesc.png */,
 				F60E76431070026700AFDDD8 /* BarTowerStats.png */,
+				15AC98361FC9D2C800AE9A18 /* ButtonArrowLeft.png */,
+				15AC98371FC9D2C800AE9A18 /* ButtonArrowRight.png */,
 				F672188D10718ECC0094A9B2 /* ButtonBack.png */,
 				F60E76441070026700AFDDD8 /* ButtonBuy.png */,
 				F60E76451070026700AFDDD8 /* ButtonCancel.png */,
@@ -855,6 +868,7 @@
 				F60E764B1070026700AFDDD8 /* ButtonResume.png */,
 				F60E764C1070026700AFDDD8 /* ButtonSell.png */,
 				F60E764E1070026700AFDDD8 /* ButtonStart.png */,
+				15AC983A1FC9F68400AE9A18 /* ButtonStartBig.png */,
 				F676D35E10829D200055BEA8 /* ButtonStartRound.png */,
 				F60E764F1070026700AFDDD8 /* ButtonUpgrade.png */,
 				F60E76D810703AC100AFDDD8 /* TextCredits.png */,
@@ -865,6 +879,7 @@
 				F60E76511070026700AFDDD8 /* TitleCredits.png */,
 				F60E76521070026700AFDDD8 /* TitleInstructions.png */,
 				F60E76531070026700AFDDD8 /* TitleMenu.png */,
+				15AC98341FC9CF3500AE9A18 /* TitleSelectMap.png */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -969,16 +984,18 @@
 		F6D8BD6A1037537F008420E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F6D8BD66103751E2008420E6 /* ViewManager.h */,
-				F6D8BD67103751E2008420E6 /* ViewManager.m */,
 				F6D8BD821037543D008420E6 /* BaseView.h */,
 				F6D8BD831037543D008420E6 /* BaseView.m */,
 				F6D8BFAC103776D6008420E6 /* GameView.h */,
 				F6D8BFAD103776D6008420E6 /* GameView.m */,
+				15AC98311FC9CDBE00AE9A18 /* MapSelectView.h */,
+				15AC98321FC9CDBE00AE9A18 /* MapSelectView.m */,
 				F66FB2F01069C7460070842D /* MenuView.h */,
 				F66FB2F11069C7460070842D /* MenuView.m */,
 				F6F50925106E9F8700A103D5 /* TextView.h */,
 				F6F50926106E9F8700A103D5 /* TextView.m */,
+				F6D8BD66103751E2008420E6 /* ViewManager.h */,
+				F6D8BD67103751E2008420E6 /* ViewManager.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1114,6 +1131,7 @@
 				F680DB77104B137800A95FE2 /* CookieShoot.caf in Resources */,
 				F680DB78104B137800A95FE2 /* FreezerShoot.caf in Resources */,
 				F680DB79104B137800A95FE2 /* MatronShoot.caf in Resources */,
+				15AC98391FC9D2C800AE9A18 /* ButtonArrowRight.png in Resources */,
 				F680DB7A104B137800A95FE2 /* PieShoot.caf in Resources */,
 				F680DB7B104B137800A95FE2 /* VendingShoot.caf in Resources */,
 				F680DB81104B138700A95FE2 /* CookieHit.caf in Resources */,
@@ -1138,11 +1156,13 @@
 				F60E76591070026700AFDDD8 /* BarTowerStats.png in Resources */,
 				F60E765A1070026700AFDDD8 /* ButtonBuy.png in Resources */,
 				F60E765B1070026700AFDDD8 /* ButtonCancel.png in Resources */,
+				15AC98381FC9D2C800AE9A18 /* ButtonArrowLeft.png in Resources */,
 				1542548C1FA3A5090050CCA9 /* map2.png in Resources */,
 				F60E765C1070026700AFDDD8 /* ButtonConfirm.png in Resources */,
 				F60E765D1070026700AFDDD8 /* ButtonCredits.png in Resources */,
 				F60E765E1070026700AFDDD8 /* ButtonInstructions.png in Resources */,
 				F60E765F1070026700AFDDD8 /* ButtonMenu.png in Resources */,
+				15AC98351FC9CF3500AE9A18 /* TitleSelectMap.png in Resources */,
 				F60E76601070026700AFDDD8 /* ButtonNewGame.png in Resources */,
 				F60E76611070026700AFDDD8 /* ButtonResume.png in Resources */,
 				F60E76621070026700AFDDD8 /* ButtonSell.png in Resources */,
@@ -1172,6 +1192,7 @@
 				F676DB13108BCFA60055BEA8 /* PopcornHit.caf in Resources */,
 				F676DB1A108BD0000055BEA8 /* BandieDeath.caf in Resources */,
 				F676DB1B108BD0000055BEA8 /* BannerDeath.caf in Resources */,
+				15AC983B1FC9F68400AE9A18 /* ButtonStartBig.png in Resources */,
 				F676DB1C108BD0000055BEA8 /* CheerleaderDeath.caf in Resources */,
 				F676DB1D108BD0000055BEA8 /* MascotDeath.caf in Resources */,
 				154254911FA3A5FC0050CCA9 /* Map3TileMap.tmx in Resources */,
@@ -1233,6 +1254,7 @@
 				F670CC991001732800B6F324 /* Tower.m in Sources */,
 				F60F3088100AB3B3003FB9FA /* Texture2D.m in Sources */,
 				F60F3136100C2173003FB9FA /* Image.m in Sources */,
+				15AC98331FC9CDBE00AE9A18 /* MapSelectView.m in Sources */,
 				F60F3309100D5345003FB9FA /* ImageObject.m in Sources */,
 				F60F333B100D90E5003FB9FA /* Enemy.m in Sources */,
 				F60F3384100D9337003FB9FA /* Projectile.m in Sources */,
