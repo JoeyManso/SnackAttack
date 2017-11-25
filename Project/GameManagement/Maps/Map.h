@@ -19,6 +19,8 @@
 	TiledMap *tileMap;
 	CGPoint mapPoint;
 	NSMutableArray *rounds;
+    Image *backgroundMap;
+    CGPoint mapOffset;
 }
 
 -(void)update:(float)deltaTime;

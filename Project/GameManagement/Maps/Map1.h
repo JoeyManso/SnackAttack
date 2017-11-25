@@ -11,8 +11,6 @@
 
 @interface Map1 : Map
 {
-	Image *backgroundMap;
-	CGPoint mapOffset;
 }
 
 @end
