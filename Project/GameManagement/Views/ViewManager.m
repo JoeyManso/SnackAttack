@@ -14,7 +14,8 @@
 #import "Image.h"
 
 static Image *baseBackgroundImage;
-static Image *baseBackgroundMaskImage;
+static Image *baseBackgroundMaskLowerImage;
+static Image *baseBackgroundMaskUpperImage;
 static MenuButton *resumeButton;
 static BOOL ignoreTouchesEnded;
 
@@ -37,31 +38,51 @@ static BOOL ignoreTouchesEnded;
         screenSize = CGSizeMake(screenBounds.size.width * screenScale,
                                 screenBounds.size.height * screenScale);
         
+        float buttonYLower = 130;
+        float buttonBaseX = screenBounds.size.width / 2;
+        float buttonBaseY = screenBounds.size.height - buttonYLower;
+        
+        float buttonHeight = 64;
+        // Space on the main menu used for buttons
+        float buttonSpace = buttonBaseY - buttonYLower;
+        // Padding between buttons, based on there being 4 buttons displayed
+        float buttonTween = buttonHeight + ((buttonSpace - (3 * buttonHeight)) / 3);
+        
 		// Initialize OpenGL
 		[self initOpenGL];
 		
 		if(!baseBackgroundImage)
 			baseBackgroundImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"BackgroundMenu.png"] filter:GL_LINEAR];
-		if(!baseBackgroundMaskImage)
-			baseBackgroundMaskImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"BackgroundMask.png"] filter:GL_LINEAR];
+        if(!baseBackgroundMaskLowerImage)
+            baseBackgroundMaskLowerImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"BackgroundMaskLower.png"] filter:GL_LINEAR];
+        if(!baseBackgroundMaskUpperImage)
+            baseBackgroundMaskUpperImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"BackgroundMaskUpper.png"] filter:GL_LINEAR];
 		
 		// initialize the view dictionary
 		appViews = [[NSMutableDictionary alloc] init];
 		
-		MenuView *menu = [[MenuView alloc] initWithTitle:[[Image alloc] initWithImage:[UIImage imageNamed:@"TitleMenu.png"]  filter:GL_LINEAR]
-											  background:baseBackgroundImage];
+		MenuView *menu = [[MenuView alloc] initWithTitle:[[Image alloc] initWithImage:[UIImage imageNamed:@"TitleMenu.png"] filter:GL_LINEAR]
+											  background:baseBackgroundImage backgroundMaskLower:baseBackgroundMaskLowerImage backgroundMaskUpper:baseBackgroundMaskUpperImage];
 		
-		resumeButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonResume.png"]  filter:GL_LINEAR] 
-												position:[[Point2D alloc] initWithX:160.0f y:375.0f] type:MENU_BUTTON_RESUME];
+		resumeButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonResume.png"] filter:GL_LINEAR]
+												position:[[Point2D alloc]
+                                                          initWithX:buttonBaseX y:buttonBaseY]
+                                                    type:MENU_BUTTON_RESUME];
 		[resumeButton setActive:NO];
 		
 		[menu addButton:resumeButton];
-		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonNewGame.png"]  filter:GL_LINEAR] 
-												 position:[[Point2D alloc] initWithX:160.0f y:285.0f] type:MENU_BUTTON_NEWGAME]];
-		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonInstructions.png"]  filter:GL_LINEAR] 
-												 position:[[Point2D alloc] initWithX:160.0f y:195.0f] type:MENU_BUTTON_INSTRUCTIONS]];
-		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonCredits.png"]  filter:GL_LINEAR] 
-												 position:[[Point2D alloc] initWithX:160.0f y:105.0f] type:MENU_BUTTON_CREDITS]];
+		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonNewGame.png"] filter:GL_LINEAR]
+												 position:[[Point2D alloc]
+                                                           initWithX:buttonBaseX y:buttonBaseY - buttonTween]
+                                                     type:MENU_BUTTON_NEWGAME]];
+		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonInstructions.png"] filter:GL_LINEAR]
+												 position:[[Point2D alloc]
+                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 2)]
+                                                     type:MENU_BUTTON_INSTRUCTIONS]];
+		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonCredits.png"] filter:GL_LINEAR]
+												 position:[[Point2D alloc]
+                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 3)]
+                                                     type:MENU_BUTTON_CREDITS]];
 		
 		// Initialize the game views and add them to our dictionary
 		[appViews setObject:[[GameView alloc] init] forKey:@"game"];
@@ -72,11 +93,11 @@ static BOOL ignoreTouchesEnded;
 															 [[Image alloc] initWithImage:[UIImage imageNamed:@"TextInstructions3.png"]],
 															 [[Image alloc] initWithImage:[UIImage imageNamed:@"TextInstructions2.png"]],
 															 [[Image alloc] initWithImage:[UIImage imageNamed:@"TextInstructions1.png"]], nil]
-												 background:baseBackgroundImage backgroundMask:baseBackgroundMaskImage] forKey:@"instructions"];
+												 background:baseBackgroundImage backgroundMaskLower:baseBackgroundMaskLowerImage backgroundMaskUpper:baseBackgroundMaskUpperImage] forKey:@"instructions"];
 		[appViews setObject:[[TextView alloc] initWithTitle:[[Image alloc] initWithImage:[UIImage imageNamed:@"TitleCredits.png"]]
 													 images:[[NSMutableArray alloc] initWithObjects:
 															 [[Image alloc] initWithImage:[UIImage imageNamed:@"TextCredits.png"]], nil]
-												 background:baseBackgroundImage backgroundMask:baseBackgroundMaskImage] forKey:@"credits"];
+												 background:baseBackgroundImage backgroundMaskLower:baseBackgroundMaskLowerImage backgroundMaskUpper:baseBackgroundMaskUpperImage] forKey:@"credits"];
 		
 		// get the current view we want to start with
 		currentView = [appViews objectForKey:@"mainMenu"];
@@ -196,6 +217,8 @@ static BOOL ignoreTouchesEnded;
 		[[appViews objectForKey:key] release];
 	[appViews release];
 	[baseBackgroundImage dealloc];
+    [baseBackgroundMaskLowerImage dealloc];
+    [baseBackgroundMaskUpperImage dealloc];
 	[super dealloc];
 }
 

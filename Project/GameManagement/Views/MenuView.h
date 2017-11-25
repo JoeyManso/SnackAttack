@@ -21,12 +21,16 @@ enum
 {
 	Image *menuTitle;
 	Image *menuBackground;
+    Image *menuBackgroundMaskLower;
+    Image *menuBackgroundMaskUpper;
 	NSMutableArray *menuButtons;
 	
 	CGPoint menuDisplayPoint;
+    CGPoint backgroundDisplayPointLower;
+    CGPoint backgroundDisplayPointUpper;
 	CGPoint titleDisplayPoint;
 }
--(id)initWithTitle:(Image*)titleImage background:(Image*)backgroundImage;
+-(id)initWithTitle:(Image*)titleImage background:(Image*)backgroundImage backgroundMaskLower:(Image*)maskImageLower backgroundMaskUpper:(Image*)maskImageUpper;
 -(void)addButton:(MenuButton*)button;
 
 @end

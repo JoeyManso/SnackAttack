@@ -13,15 +13,21 @@
 
 @implementation MenuView
 
--(id)initWithTitle:(Image*)titleImage background:(Image*)backgroundImage
+-(id)initWithTitle:(Image*)titleImage background:(Image*)backgroundImage backgroundMaskLower:(Image*)maskImageLower backgroundMaskUpper:(Image*)maskImageUpper
 {
 	if(self = [super init])
 	{
 		menuTitle = titleImage;
 		menuButtons = [[NSMutableArray alloc] init];
 		menuBackground	= backgroundImage;
+        menuBackgroundMaskLower	= maskImageLower;
+        menuBackgroundMaskUpper	= maskImageUpper;
+        menuBackground	= backgroundImage;
 		menuDisplayPoint = CGPointMake(0.0f,0.0f);
-		titleDisplayPoint = CGPointMake(160.0f,450.0f);
+        backgroundDisplayPointLower = CGPointMake(0.0f,0.0f);
+        backgroundDisplayPointUpper = CGPointMake(0.0f,
+                                                  screenBounds.size.height - [maskImageUpper imageHeight]);
+		titleDisplayPoint = CGPointMake(screenBounds.size.width / 2, screenBounds.size.height - 50.0f);
 	}
 	return self;
 }
@@ -78,9 +84,12 @@
 -(void)drawView
 {	
 	[menuBackground renderAtPoint:menuDisplayPoint centerOfImage:NO];
-	[menuTitle renderAtPoint:titleDisplayPoint centerOfImage:YES];
 	for(MenuButton *b in menuButtons)
 		[b drawUIObject];
+    
+    [menuBackgroundMaskLower renderAtPoint:backgroundDisplayPointLower centerOfImage:NO];
+    [menuBackgroundMaskUpper renderAtPoint:backgroundDisplayPointUpper centerOfImage:NO];
+    [menuTitle renderAtPoint:titleDisplayPoint centerOfImage:YES];
 }
 
 -(void)dealloc

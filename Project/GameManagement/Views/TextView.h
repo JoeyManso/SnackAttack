@@ -19,15 +19,17 @@
 	Image *textTitle;
 	NSMutableArray *textImages;
 	Image *textBackground;
-	Image *textBackgroundMask;
+	Image *textBackgroundMaskLower;
+    Image *textBackgroundMaskUpper;
 	MenuButton *backButton;
 	float scrollSpeed;
 	BOOL isTouching;
 	
 	CGPoint titleDisplayPoint;
 	CGPoint textDisplayPoint;
-	CGPoint backgroundDisplayPoint;
+	CGPoint backgroundDisplayPointLower;
+    CGPoint backgroundDisplayPointUpper;
 }
--(id)initWithTitle:(Image*)titleImage images:(NSMutableArray*)imagesArray background:(Image*)backgroundImage backgroundMask:(Image*)maskImage;
+-(id)initWithTitle:(Image*)titleImage images:(NSMutableArray*)imagesArray background:(Image*)backgroundImage backgroundMaskLower:(Image*)maskImageLower backgroundMaskUpper:(Image*)maskImageUpper;
 
 @end

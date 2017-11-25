@@ -14,28 +14,53 @@
 
 const float DECEL_RATE = 0.9f;
 
--(id)initWithTitle:(Image*)titleImage images:(NSMutableArray*)imagesArray background:(Image*)backgroundImage backgroundMask:(Image*)maskImage
+-(id)initWithTitle:(Image*)titleImage images:(NSMutableArray*)imagesArray background:(Image*)backgroundImage backgroundMaskLower:(Image*)maskImageLower backgroundMaskUpper:(Image*)maskImageUpper
 {
 	if(self = [super init])
 	{
-		// minimum y position based off total height of images
-		textMinYPos = 410.0f; 
+        float baseXPos = (320.0f - screenBounds.size.width) / 2.0f;
+        float baseYPos = (568.0f - screenBounds.size.height) / 2.0f;
+        float maskBounds = 70.0f;
+        float textImagesHeight = 0.0f;
 		textImages = imagesArray;
 		for(Image *i in textImages)
-			textMinYPos -= (float)[i imageHeight];
-		textMaxYPos = 20.0f;
-		if(textMinYPos > textMaxYPos)
+        {
+			textImagesHeight += (float)[i imageHeight];
+        }
+        
+        float textSpace = (screenBounds.size.height - (maskBounds * 2));
+		if(textImagesHeight < textSpace)
+        {
+            textMinYPos = maskBounds + ((textSpace - textImagesHeight) / 2);
 			textMaxYPos = textMinYPos;
+        }
+        else
+        {
+            // minimum y position based off total height of images
+            textMinYPos = (screenBounds.size.height - maskBounds) - textImagesHeight;
+            textMaxYPos = 20.0f;
+        }
+        
+        textMinYPos += baseYPos;
+        textMaxYPos += baseYPos;
+        
 		textTitle = titleImage;
 		textBackground	= backgroundImage;
-		textBackgroundMask = maskImage;
-		textDisplayPoint = CGPointMake(20.0f,textMinYPos);
-		titleDisplayPoint = CGPointMake(160.0f,450.0f);
-		backgroundDisplayPoint = CGPointMake(0.0f,0.0f);
+		textBackgroundMaskLower = maskImageLower;
+        textBackgroundMaskUpper = maskImageUpper;
+		textDisplayPoint = CGPointMake(baseXPos + 20.0f, textMinYPos);
+		titleDisplayPoint = CGPointMake(baseXPos + (screenBounds.size.width / 2),
+                                        baseYPos + (screenBounds.size.height - 50.0f));
+		backgroundDisplayPointLower = CGPointMake(baseXPos, baseYPos);
+        backgroundDisplayPointUpper = CGPointMake(baseXPos,
+                                                  baseYPos + (screenBounds.size.height - [maskImageUpper imageHeight]));
 		lastTouchedY = touchY = 0.0f;
 		heightOffset = 0;
 		backButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonBack.png"]  filter:GL_LINEAR] 
-											  position:[[Point2D alloc] initWithX:160.0f y:25.0f] type:99];
+											  position:[[Point2D alloc]
+                                                        initWithX:baseXPos + (screenBounds.size.width / 2)
+                                                        y:baseYPos + 48.0f]
+                                                  type:99];
 		scrollSpeed = 0.0f;
 		isTouching = NO;
 	}
@@ -104,13 +129,14 @@ const float DECEL_RATE = 0.9f;
 }
 -(void)drawView
 {	
-	[textBackground renderAtPoint:backgroundDisplayPoint centerOfImage:NO];
+	[textBackground renderAtPoint:backgroundDisplayPointLower centerOfImage:NO];
 	for(Image *i in textImages)
 	{
 		[i renderAtPoint:CGPointMake(textDisplayPoint.x,textDisplayPoint.y+heightOffset) centerOfImage:NO];
 		heightOffset += [i imageHeight];
 	}
-	[textBackgroundMask renderAtPoint:backgroundDisplayPoint centerOfImage:NO];
+	[textBackgroundMaskLower renderAtPoint:backgroundDisplayPointLower centerOfImage:NO];
+    [textBackgroundMaskUpper renderAtPoint:backgroundDisplayPointUpper centerOfImage:NO];
 	[textTitle renderAtPoint:titleDisplayPoint centerOfImage:YES];
 	[backButton drawUIObject];
 	heightOffset = 0;
