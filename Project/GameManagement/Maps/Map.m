@@ -16,11 +16,24 @@
 	{
 		game = [GameState sharedGameStateInstance];
 		tileMap = nil;
-		mapPoint = CGPointMake(0,448);
-		rounds = [[NSMutableArray alloc] init];
+		rounds = [[NSMutableArray alloc] init];        
 		[self initRounds];
 	}
 	return self;
+}
+
+-(void)initMap:(NSString*)mapName tiledFile:(NSString*)fileName
+{
+    backgroundMap = [[Image alloc] initWithImage:[UIImage imageNamed:mapName]];
+    
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    mapOffset = CGPointMake(0.0f,0.0f);
+    mapOffset.x = (screenBounds.size.width - [backgroundMap imageWidth]) * 0.5f;
+    mapOffset.y = (screenBounds.size.height - [backgroundMap imageHeight]) * 0.5f;
+    
+    CGPoint tiledOffset = CGPointMake(mapOffset.x, mapOffset.y + ([backgroundMap imageHeight] - 480)/2);
+    tileMap = [[TiledMap alloc] initWithTiledFile:fileName fileExtension:@"tmx" offset:tiledOffset];
+    tileMapPoint = CGPointMake(0,[backgroundMap imageHeight] - 76);
 }
 
 -(void)update:(float)deltaTime
@@ -31,7 +44,7 @@
 -(void)draw
 {
     [backgroundMap renderAtPoint:mapOffset centerOfImage:NO];
-	[tileMap renderAtPoint:mapPoint mapX:0 mapY:0 width:10 height:15 layer:0];
+	[tileMap renderAtPoint:tileMapPoint mapX:0 mapY:0 width:10 height:15 layer:0];
 	[game draw];
 }
 -(BOOL)getCenterOfValidTile:(Point2D*)point originOut:(Point2D*)outPoint

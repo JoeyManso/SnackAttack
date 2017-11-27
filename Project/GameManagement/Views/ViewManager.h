@@ -36,7 +36,7 @@
 -(void)showSelectMap;
 -(void)showInstructions;
 -(void)showCredits;
--(void)newGame;
+-(void)newGame:(int)mapIdx;
 -(void)resumeGame;
 
 -(void)drawCurrentView;

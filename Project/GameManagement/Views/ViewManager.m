@@ -163,11 +163,12 @@ static BOOL ignoreTouchesEnded;
 {
 	currentView = [appViews objectForKey:@"mainMenu"];
 }
--(void)newGame
+-(void)newGame:(int)mapIdx
 {
 	ignoreTouchesEnded = YES;
 	[resumeButton setActive:YES];
 	currentView = [appViews objectForKey:@"game"];
+    [((GameView*)currentView) setMapIdx:mapIdx];
 	[[GameState sharedGameStateInstance] resetGame];
 }
 -(void)showSelectMap

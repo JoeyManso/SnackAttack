@@ -9,12 +9,15 @@
 #import "BaseView.h"
 @class TouchManager;
 @class UIManager;
-@class Map1;
 
 @interface GameView : BaseView 
 {
     TouchManager *touchManager;
     UIManager *UIMan;
-    Map1 *map;
+    NSMutableArray *maps;
+    int currentMapIdx;
 }
+
+-(void)setMapIdx:(int)idx;
+
 @end

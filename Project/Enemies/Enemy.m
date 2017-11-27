@@ -45,7 +45,9 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 		enemyImmunity = NONE; // default immunity is none
 		deathSoundKey = nil;
 		target = t;
-		dirToTarget = [[Vector2D alloc] initWithX:objectDirection.x y:objectDirection.y];
+        dirToTarget = [Point2D subtract:[target nodePosition] :objectPosition];
+        [self setObjectDirection:dirToTarget];
+        
 		killValue = 0;
 		
 		isFrozen = NO;

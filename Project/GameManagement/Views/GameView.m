@@ -10,6 +10,8 @@
 #import "TouchManager.h"
 #import "UIManager.h"
 #import "Map1.h"
+#import "Map2.h"
+#import "Map3.h"
 
 @interface GameView()
 
@@ -25,16 +27,31 @@
 		touchManager = [TouchManager getInstance];
 		UIMan = [UIManager getInstance];
 		
-		// initialize Map
-		map = [[Map1 alloc] init];
-		[touchManager setMap:map];
-		[[GameState sharedGameStateInstance] setMap:map];
+		// initialize Maps
+        maps = [[NSMutableArray alloc] initWithObjects:
+                     [[Map1 alloc] init],
+                     [[Map2 alloc] init],
+                     [[Map3 alloc] init], nil];
+		
+		
 	}
 	return self;
 }
 
+-(void)setMapIdx:(int)idx
+{
+    if(idx >= 0 && idx < maps.count)
+    {
+        currentMapIdx = idx;
+        Map* map = maps[currentMapIdx];
+        [touchManager setMap:map];
+        [[GameState sharedGameStateInstance] setMap:map];
+    }
+}
+
 -(void)updateView:(float)deltaTime
 {
+    Map* map = maps[currentMapIdx];
 	[map update:deltaTime];
 	
 	// update any UI
@@ -66,11 +83,20 @@
 }
 
 -(void)drawView
-{	
+{
+    Map* map = maps[currentMapIdx];
 	[map draw];
 	
 	// draw active UI
 	[UIMan drawActiveUI];
+}
+
+-(void)dealloc
+{
+    for(Map* m in maps)
+        [m release];
+    [maps release];
+    [super dealloc];
 }
 
 @end

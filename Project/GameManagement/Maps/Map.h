@@ -17,12 +17,13 @@
 	GameState *game;
 	EnemySpawner *spawnNode;
 	TiledMap *tileMap;
-	CGPoint mapPoint;
+	CGPoint tileMapPoint;
 	NSMutableArray *rounds;
     Image *backgroundMap;
     CGPoint mapOffset;
 }
 
+-(void)initMap:(NSString*)mapName tiledFile:(NSString*)fileName;
 -(void)update:(float)deltaTime;
 -(void)draw;
 -(BOOL)getCenterOfValidTile:(Point2D*)point originOut:(Point2D*)outPoint;

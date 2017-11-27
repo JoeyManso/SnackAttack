@@ -24,6 +24,8 @@
 		15AC98381FC9D2C800AE9A18 /* ButtonArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC98361FC9D2C800AE9A18 /* ButtonArrowLeft.png */; };
 		15AC98391FC9D2C800AE9A18 /* ButtonArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC98371FC9D2C800AE9A18 /* ButtonArrowRight.png */; };
 		15AC983B1FC9F68400AE9A18 /* ButtonStartBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AC983A1FC9F68400AE9A18 /* ButtonStartBig.png */; };
+		15AC98461FCB64A600AE9A18 /* Map2.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC98431FCB64A600AE9A18 /* Map2.m */; };
+		15AC98471FCB64A600AE9A18 /* Map3.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC98451FCB64A600AE9A18 /* Map3.m */; };
 		15F465A51F8C373700FB8115 /* EAGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F465A41F8C373700FB8115 /* EAGLViewController.m */; };
 		1D3623260D0F684500981E51 /* towerDefenseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -215,6 +217,10 @@
 		15AC98361FC9D2C800AE9A18 /* ButtonArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonArrowLeft.png; sourceTree = "<group>"; };
 		15AC98371FC9D2C800AE9A18 /* ButtonArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonArrowRight.png; sourceTree = "<group>"; };
 		15AC983A1FC9F68400AE9A18 /* ButtonStartBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonStartBig.png; sourceTree = "<group>"; };
+		15AC98421FCB64A600AE9A18 /* Map2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map2.h; sourceTree = "<group>"; };
+		15AC98431FCB64A600AE9A18 /* Map2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map2.m; sourceTree = "<group>"; };
+		15AC98441FCB64A600AE9A18 /* Map3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map3.h; sourceTree = "<group>"; };
+		15AC98451FCB64A600AE9A18 /* Map3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map3.m; sourceTree = "<group>"; };
 		15F465A31F8C373700FB8115 /* EAGLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLViewController.h; sourceTree = "<group>"; };
 		15F465A41F8C373700FB8115 /* EAGLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLViewController.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -957,6 +963,10 @@
 				F6A0B751101A67E7003665AD /* Map.m */,
 				F6A0B771101A68F7003665AD /* Map1.h */,
 				F6A0B772101A68F7003665AD /* Map1.m */,
+				15AC98421FCB64A600AE9A18 /* Map2.h */,
+				15AC98431FCB64A600AE9A18 /* Map2.m */,
+				15AC98441FCB64A600AE9A18 /* Map3.h */,
+				15AC98451FCB64A600AE9A18 /* Map3.m */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -1252,6 +1262,7 @@
 				1D3623260D0F684500981E51 /* towerDefenseAppDelegate.m in Sources */,
 				28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */,
 				F670CC991001732800B6F324 /* Tower.m in Sources */,
+				15AC98471FCB64A600AE9A18 /* Map3.m in Sources */,
 				F60F3088100AB3B3003FB9FA /* Texture2D.m in Sources */,
 				F60F3136100C2173003FB9FA /* Image.m in Sources */,
 				15AC98331FC9CDBE00AE9A18 /* MapSelectView.m in Sources */,
@@ -1301,6 +1312,7 @@
 				F680D8B4104A250B00A95FE2 /* TouchManager.m in Sources */,
 				F680D8B8104A252700A95FE2 /* Round.m in Sources */,
 				F657402510587C3F0063C980 /* Upgrades.m in Sources */,
+				15AC98461FCB64A600AE9A18 /* Map2.m in Sources */,
 				F66FB1C2106844230070842D /* FontManager.m in Sources */,
 				F66FB2F21069C7460070842D /* MenuView.m in Sources */,
 				F6F50927106E9F8700A103D5 /* TextView.m in Sources */,
