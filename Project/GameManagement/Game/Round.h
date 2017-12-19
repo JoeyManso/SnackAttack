@@ -50,6 +50,6 @@
 -(id)initWithMessage1:(NSString*)m1 message2:(NSString*)m2 message3:(NSString*)m3
 				bonus:(uint)b chubbies:(uint)c jeanies:(uint)j lankies:(uint)l smarties:(uint)s airplanes:(uint)a
 			  banners:(uint)bn bandies:(uint)bd cheeries:(uint)ch punkies:(uint)p mascots:(uint)m queenies:(uint)q;
--(Round*)appendRound:(Round*)r;
+-(void)appendRound:(Round*)r;
 
 @end

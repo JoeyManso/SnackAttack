@@ -76,9 +76,9 @@
                                                            y:mapOffset.y + 124.0f]
                                                      next:node03 value:2];
     
-	spawnNode = [[EnemySpawner alloc] initWithPath:self position:[[Point2D alloc]
-                                                                  initWithX:mapOffset.x + 240.0f
-                                                                  y:-20.0f]
-                                              next:node02];
+    [spawnNodes addObject:[[PathNode alloc] initWithPosition:[[Point2D alloc]
+                                                              initWithX:mapOffset.x + 240.0f
+                                                              y:-20.0f]
+                                                        next:node02 value:1]];
 }
 @end

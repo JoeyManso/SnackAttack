@@ -19,6 +19,7 @@
 	{
 		nodePosition = position;
 		nextNode = n;
+        [nextNode retain];
 		value = v;
 	}
 	return self;
@@ -32,7 +33,7 @@
 {
 	[nodePosition release];
 	// chain dealloc each node by calling this
-	[nextNode release];
+    [nextNode release];
 	[super dealloc];
 }
 @end

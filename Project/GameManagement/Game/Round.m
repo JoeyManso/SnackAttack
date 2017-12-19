@@ -55,7 +55,7 @@
 	}
 	return self;
 }
--(Round*)appendRound:(Round*)r
+-(void)appendRound:(Round*)r
 {
 	numChubbies += [r numChubbies];
 	numJeanies += [r numJeanies];
@@ -68,7 +68,6 @@
 	numPunkies += [r numPunkies];
 	numMascots += [r numMascots];
 	numQueenies += [r numQueenies];
-	return self;
 }
 
 @end

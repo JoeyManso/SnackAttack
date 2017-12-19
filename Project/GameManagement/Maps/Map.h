@@ -8,19 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import "GameState.h"
-#import "EnemySpawner.h"
 #import "TiledMap.h"
 #import "Round.h"
+
+@class PathNode;
 
 @interface Map : NSObject 
 {
 	GameState *game;
-	EnemySpawner *spawnNode;
+	NSMutableArray *spawnNodes;
 	TiledMap *tileMap;
 	CGPoint tileMapPoint;
 	NSMutableArray *rounds;
     Image *backgroundMap;
     CGPoint mapOffset;
+    float spawnDelay;
+    float lastSpawnTime;
+    Round *currentRound;
 }
 
 -(void)initMap:(NSString*)mapName tiledFile:(NSString*)fileName;
@@ -32,6 +36,7 @@
 -(void)turnOffHighlight;
 -(Round*)getFirstRound;
 -(Round*)getNextRound;
+-(PathNode*)getRandSpawnNode;
 
 -(void)initRounds;
 -(void)resetRounds;
