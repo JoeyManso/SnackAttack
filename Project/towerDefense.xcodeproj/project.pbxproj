@@ -28,6 +28,8 @@
 		15AC98471FCB64A600AE9A18 /* Map3.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AC98451FCB64A600AE9A18 /* Map3.m */; };
 		15F465A51F8C373700FB8115 /* EAGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F465A41F8C373700FB8115 /* EAGLViewController.m */; };
 		15FD09271FE96ABD0083A439 /* PathNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD09261FE96ABD0083A439 /* PathNode.m */; };
+		15FD092A1FE98FC00083A439 /* ButtonSpeedDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FD09281FE98FC00083A439 /* ButtonSpeedDown.png */; };
+		15FD092B1FE98FC00083A439 /* ButtonSpeedUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FD09291FE98FC00083A439 /* ButtonSpeedUp.png */; };
 		1D3623260D0F684500981E51 /* towerDefenseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -224,6 +226,8 @@
 		15F465A41F8C373700FB8115 /* EAGLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLViewController.m; sourceTree = "<group>"; };
 		15FD09251FE96ABD0083A439 /* PathNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathNode.h; sourceTree = "<group>"; };
 		15FD09261FE96ABD0083A439 /* PathNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathNode.m; sourceTree = "<group>"; };
+		15FD09281FE98FC00083A439 /* ButtonSpeedDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonSpeedDown.png; sourceTree = "<group>"; };
+		15FD09291FE98FC00083A439 /* ButtonSpeedUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonSpeedUp.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* towerDefenseAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = towerDefenseAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = towerDefenseAppDelegate.m; sourceTree = "<group>"; };
@@ -871,6 +875,8 @@
 				F697253010B0B17B009D7369 /* ButtonPause.png */,
 				F60E764B1070026700AFDDD8 /* ButtonResume.png */,
 				F60E764C1070026700AFDDD8 /* ButtonSell.png */,
+				15FD09281FE98FC00083A439 /* ButtonSpeedDown.png */,
+				15FD09291FE98FC00083A439 /* ButtonSpeedUp.png */,
 				F60E764E1070026700AFDDD8 /* ButtonStart.png */,
 				15AC983A1FC9F68400AE9A18 /* ButtonStartBig.png */,
 				F676D35E10829D200055BEA8 /* ButtonStartRound.png */,
@@ -1168,6 +1174,7 @@
 				1542548D1FA3A5090050CCA9 /* map3.png in Resources */,
 				F60E76671070026700AFDDD8 /* TitleCredits.png in Resources */,
 				F60E76681070026700AFDDD8 /* TitleInstructions.png in Resources */,
+				15FD092B1FE98FC00083A439 /* ButtonSpeedUp.png in Resources */,
 				F60E76691070026700AFDDD8 /* TitleMenu.png in Resources */,
 				F60E76DA10703AC100AFDDD8 /* TextCredits.png in Resources */,
 				F672188E10718ECC0094A9B2 /* ButtonBack.png in Resources */,
@@ -1191,6 +1198,7 @@
 				F676DB1B108BD0000055BEA8 /* BannerDeath.caf in Resources */,
 				15AC983B1FC9F68400AE9A18 /* ButtonStartBig.png in Resources */,
 				F676DB1C108BD0000055BEA8 /* CheerleaderDeath.caf in Resources */,
+				15FD092A1FE98FC00083A439 /* ButtonSpeedDown.png in Resources */,
 				F676DB1D108BD0000055BEA8 /* MascotDeath.caf in Resources */,
 				154254911FA3A5FC0050CCA9 /* Map3TileMap.tmx in Resources */,
 				F676DB1E108BD0000055BEA8 /* PromQueenDeath.caf in Resources */,

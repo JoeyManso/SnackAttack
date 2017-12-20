@@ -50,6 +50,7 @@
 -(void)setLives:(uint)l;
 -(void)setRound:(uint)r;
 -(void)setCash:(uint)c;
+-(void)setGameSpeed:(float)s;
 -(void)resetStartButton;
 @end
 

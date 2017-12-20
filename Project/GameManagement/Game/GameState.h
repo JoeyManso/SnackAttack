@@ -40,6 +40,9 @@
 	uint currentScore;
 	uint currentCash;
 	uint currentRound;
+    
+    // game deltatime scalar
+    float gameSpeed;
 	
 	// cumulative time
 	float time;
@@ -56,6 +59,7 @@
 @property(nonatomic, readonly)uint currentLives;
 @property(nonatomic, readonly)uint currentCash;
 @property(nonatomic, readonly)uint currentRound;
+@property(nonatomic, readonly)float gameSpeed;
 @property(nonatomic, readonly)float time;
 @property(nonatomic, readonly)BOOL paused;
 
@@ -74,6 +78,8 @@
 -(void)goToNextRound;
 -(void)pause;
 -(void)unpause;
+-(void)speedDown;
+-(void)speedUp;
 -(void)upgradeSelectedTower;
 -(void)sellSelectedTower;
 -(void)showMenu;

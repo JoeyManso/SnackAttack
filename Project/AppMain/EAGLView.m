@@ -86,7 +86,7 @@
 		
 		// Get the current time and calculate the delta between the lasttime and now
 		time = CACurrentMediaTime();
-		deltaTime = (time-lastTime);
+		deltaTime = MIN((time-lastTime), 0.166666666666667f);
 		
 		// Go and update the game logic and then render the scene
 		[viewMan updateCurrentView:deltaTime];

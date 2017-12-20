@@ -334,21 +334,41 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 		[barObjects setObject:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMenu.png"] filter:GL_LINEAR]
 													   position:[[Point2D alloc] initWithX:0.16f * backgroundWidth y:0.3f * backgroundHeight]]
 					   forKey:@"menuButton"];
-		[barObjects setObject:[[Text alloc] initWithString:@"Lives: " position:[[Point2D alloc] initWithX:0.05f * backgroundWidth y:1.1f * backgroundHeight]
-												  fontName:@"GameStatFont"]
-					   forKey:@"currentLives"];
-		[barObjects setObject:[[Text alloc] initWithString:@"Score: " position:[[Point2D alloc] initWithX:0.35f * backgroundWidth y:0.6f * backgroundHeight]
-												  fontName:@"GameStatFont"]
-					   forKey:@"currentScore"];
-		[barObjects setObject:[[Text alloc] initWithString:@"Cash: " position:[[Point2D alloc] initWithX:0.37f * backgroundWidth y:1.1f * backgroundHeight]
+        
+        [barObjects setObject:[[Text alloc] initWithString:@"Round: " position:[[Point2D alloc] initWithX:0.05f * backgroundWidth y:1.1f * backgroundHeight]
+                                                  fontName:@"GameStatFont"]
+                       forKey:@"currentRound"];
+		
+		[barObjects setObject:[[Text alloc] initWithString:@"$" position:[[Point2D alloc] initWithX:0.35f * backgroundWidth y:1.1f * backgroundHeight]
 											      fontName:@"GameStatFont"]
 					   forKey:@"currentCash"];
-		[barObjects setObject:[[Text alloc] initWithString:@"Round: " position:[[Point2D alloc] initWithX:0.72f * backgroundWidth y:1.07f * backgroundHeight]
-												  fontName:@"GameStatFont"]
-					   forKey:@"currentRound"];
+        
+        [barObjects setObject:[[Text alloc] initWithString:@"" position:[[Point2D alloc] initWithX:0.57f * backgroundWidth y:1.1f * backgroundHeight]
+                                                  fontName:@"GameStatFont"]
+                       forKey:@"currentLives"];
+        
+        [barObjects setObject:[[Text alloc] initWithString:@"Score: " position:[[Point2D alloc] initWithX:0.71f * backgroundWidth y:1.07f * backgroundHeight]
+                                                  fontName:@"GameStatFont"]
+                       forKey:@"currentScore"];
+        
 		[barObjects setObject:[[Button alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonStart.png"] filter:GL_LINEAR]
 												   position:[[Point2D alloc] initWithX:0.82f * backgroundWidth y:0.3f * backgroundHeight]]
 					   forKey:@"pauseButton"];
+        
+        [barObjects setObject:[[Button alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonSpeedDown"] filter:GL_LINEAR]
+                                                   position:[[Point2D alloc] initWithX:0.385f * backgroundWidth y:0.3f * backgroundHeight]]
+                       forKey:@"speedDownButton"];
+        
+        [barObjects setObject:[[Text alloc] initWithString:@"1.0X" position:[[Point2D alloc] initWithX:0.44f * backgroundWidth y:0.6f * backgroundHeight]
+                                                  fontName:@"GameStatFont"]
+                       forKey:@"gameSpeed"];
+        
+        [barObjects setObject:[[Button alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonSpeedUp"] filter:GL_LINEAR]
+                                                   position:[[Point2D alloc] initWithX:0.61f * backgroundWidth y:0.3f * backgroundHeight]]
+                       forKey:@"speedUpButton"];
+        
+        [[barObjects objectForKey:@"speedDownButton"] setUIObjectScale:0.8f];
+        [[barObjects objectForKey:@"speedUpButton"] setUIObjectScale:0.8f];
 		visible = YES;
 		startButtonWasPressed = NO;
 		[self setState:BAR_DISPLAY];
@@ -390,11 +410,21 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 		}
 		return YES;
 	}
-	if([[barObjects objectForKey:@"menuButton"] respondToTouchAt:touchPosition])
-	{
-		buttonPressed = BUTTON_MENU;
-		return YES;
-	}
+    else if([[barObjects objectForKey:@"menuButton"] respondToTouchAt:touchPosition])
+    {
+        buttonPressed = BUTTON_MENU;
+        return YES;
+    }
+    else if([[barObjects objectForKey:@"speedDownButton"] respondToTouchAt:touchPosition])
+    {
+        buttonPressed = BUTTON_SPEEDDOWN;
+        return YES;
+    }
+    else if([[barObjects objectForKey:@"speedUpButton"] respondToTouchAt:touchPosition])
+    {
+        buttonPressed = BUTTON_SPEEDUP;
+        return YES;
+    }
 	return NO;
 }
 
@@ -420,7 +450,11 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 }
 -(void)setCash:(uint)c
 {
-	[(Text*)[barObjects objectForKey:@"currentCash"] append_uint:c];
+    [(Text*)[barObjects objectForKey:@"currentCash"] append_uint:c];
+}
+-(void)setGameSpeed:(float)s
+{
+    [(Text*)[barObjects objectForKey:@"gameSpeed"] setText:[NSString stringWithFormat:@"%0.1fX",s]];
 }
 @end
 

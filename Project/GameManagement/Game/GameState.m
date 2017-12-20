@@ -17,6 +17,8 @@
 #import "EnemyQueue.h"
 #import "Map.h"
 
+static const float GAME_SPEED_MIN = 0.5f;
+static const float GAME_SPEED_MAX = 4.0f;
 static UIManager *UIMan;
 static SoundManager *soundMan;
 static GameStatus *statusBar;
@@ -41,6 +43,7 @@ static EnemyQueue *enemyQueue;
 @synthesize currentLives;
 @synthesize currentCash;
 @synthesize currentRound;
+@synthesize gameSpeed;
 @synthesize time;
 @synthesize paused;
 
@@ -62,6 +65,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 		enemyQueue = [[EnemyQueue alloc] init];
 		sortCounter = 0;
 		roundBuffer = 0.0f;
+        gameSpeed = 1.0f;
 		
 		[self setBeginningStats];
 	}
@@ -88,6 +92,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 			[statusBar setLives:sharedGameStateInstance.currentLives];
 			[statusBar setCash:sharedGameStateInstance.currentCash];
 			[statusBar setScore:sharedGameStateInstance.currentScore];
+            [statusBar setGameSpeed:sharedGameStateInstance.gameSpeed];
 		}
 	}
 	
@@ -138,6 +143,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 
 -(void)update:(float)deltaTime
 {
+    deltaTime *= gameSpeed;
 	if(!paused)
 	{		
 		[self updateAllObjects:deltaTime];
@@ -448,7 +454,17 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)unpause
 {
-	paused = NO;
+    paused = NO;
+}
+-(void)speedDown
+{
+    gameSpeed = MAX(gameSpeed / 2.0f, GAME_SPEED_MIN);
+    [[UIMan getGameStatBarReference] setGameSpeed:gameSpeed];
+}
+-(void)speedUp
+{
+    gameSpeed = MIN(gameSpeed * 2.0f, GAME_SPEED_MAX);
+    [[UIMan getGameStatBarReference] setGameSpeed:gameSpeed];
 }
 -(void)alterCash:(int)deltaCash
 {

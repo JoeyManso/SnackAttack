@@ -129,9 +129,18 @@ static MessageScreen *messageScreen;
 					[gameStatus resetButtonPressed];
 					[[GameState sharedGameStateInstance] unpause];
 					break;
-				case BUTTON_MENU:
-					[gameStatus resetButtonPressed];
-					[[GameState sharedGameStateInstance] showMenu];
+                case BUTTON_MENU:
+                    [gameStatus resetButtonPressed];
+                    [[GameState sharedGameStateInstance] showMenu];
+                    break;
+                case BUTTON_SPEEDDOWN:
+                    [gameStatus resetButtonPressed];
+                    [[GameState sharedGameStateInstance] speedDown];
+                    break;
+                case BUTTON_SPEEDUP:
+                    [gameStatus resetButtonPressed];
+                    [[GameState sharedGameStateInstance] speedUp];
+                    break;
 				default:
 					break;
 			}
