@@ -44,13 +44,16 @@
     return true;
 }
 
-
 - (void)applicationWillResignActive:(UIApplication *)application 
 {
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application 
+{
+}
+
+-(void)appWillTerminate:(NSNotification*)note
 {
 }
 

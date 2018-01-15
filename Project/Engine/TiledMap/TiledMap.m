@@ -54,8 +54,6 @@
 		tileHighlightColor[2]=0.0f;
 		tileHighlightColor[3]=1.0f;
 		
-		sharedGameState = [GameState sharedGameStateInstance];
-		
 		// Set up the arrays and default values for layers and tilesets
 		tileSets = [[NSMutableArray alloc] init];
 		layers = [[NSMutableArray alloc] init];
@@ -299,6 +297,10 @@
 - (void)renderAtPoint:(CGPoint)point mapX:(int)mapX mapY:(int)mapY width:(int)width height:(int)height layer:(int)lid 
 {	
 	/* -- don't draw the tiles!!
+    if(sharedGameState == nil)
+    {
+        sharedGameState = [GameState sharedGameStateInstance];
+    }
 	Layer *layer = [layers objectAtIndex:lid];
 	int x = point.x;
 	int y = point.y;

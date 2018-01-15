@@ -60,13 +60,14 @@
 	Animation *aniWalk;
 }
 @property(nonatomic, readonly)float enemyHitPoints;
+@property(nonatomic, readonly)uint enemyMaxHitPoints;
 @property(nonatomic, readonly)float enemySpeed;
 @property(nonatomic, readonly)uint enemyType;
 @property(nonatomic, readonly)uint enemyImmunity;
 @property(nonatomic, readonly)NSString *deathSoundKey;
 @property(nonatomic)uint kernelCount;
 
--(id)initWithName:(NSString*)n position:(Point2D*)p hitPoints:(float)hp speed:(float)s spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithName:(NSString*)n position:(Point2D*)p hitPoints:(float)hp hitPointsMax:(float)hpm speed:(float)s spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 -(void)takeDamage:(float)d;
 -(void)addDamageOverTime:(float)duration damage:(float)damage;

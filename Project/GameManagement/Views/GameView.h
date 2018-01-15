@@ -17,6 +17,7 @@
     NSMutableArray *maps;
     int currentMapIdx;
 }
+@property(nonatomic, readonly)int currentMapIdx;
 
 -(void)setMapIdx:(int)idx;
 

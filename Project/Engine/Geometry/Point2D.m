@@ -50,4 +50,9 @@
 	return [[Vector2D alloc] initWithX:p1.x-p2.x y:p1.y-p2.y];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    return [[Point2D alloc] initWithX:x y:y];
+}
+
 @end

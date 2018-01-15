@@ -169,7 +169,8 @@
     }
     else if([startButton respondToTouchAt:touchPosition])
     {
-        [[ViewManager getInstance] newGame:targetMapIdx];
+        [[ViewManager getInstance] setGameMapIdx:targetMapIdx];
+        [[ViewManager getInstance] newGame];
     }
     else if([backButton respondToTouchAt:touchPosition])
     {

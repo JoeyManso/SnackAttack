@@ -50,6 +50,20 @@ float const VM_RANGE = 70.0f;
 	}
 	return nil;
 }
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
+}
 -(void)setExpRatio:(float)ratio expDamage:(float)damage
 {
 	[(PopCanFactory*)projectileFactory setPcExpChance:ratio];
@@ -113,6 +127,20 @@ float const FR_RANGE = 45.0f;
 		return self;
 	}
 	return nil;
+}
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
 }
 -(void)shoot
 {
@@ -205,6 +233,20 @@ float const MT_RANGE = 70.0f;
 	}
 	return nil;
 }
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
+}
 -(void)setTimeDamage:(uint)dmg timeDuration:(float)dur
 {
 	[(SlopFactory*)projectileFactory setSpDamageOverTime:dmg];
@@ -291,6 +333,20 @@ float const CL_RANGE = 40.0f;
 	}
 	return nil;
 }
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
+}
 
 -(BOOL)targetGameObject:(Enemy*)gameObject
 {
@@ -355,6 +411,20 @@ float const PL_RANGE = 90.0f;
 		objectSound.key = shootSoundKey;
 	}
 	return self;
+}
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
 }
 -(void)setSplashDamage:(float)damage splashRadius:(float)radius
 {
@@ -423,6 +493,20 @@ uint const PF_KERNEL_MAX_COUNT = 3;
 		objectSound.gain = 0.6f;
 	}
 	return self;
+}
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
 }
 -(void)shoot
 {
@@ -516,7 +600,20 @@ const float RADIAL_MAX_ALPHA = 0.35f;
 	}
 	return self;
 }
--(BOOL)isTouchedAtPoint:(CGPoint)p
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+{
+    if(self = [self initWithPosition:p spriteSheet:ss])
+    {
+        while(towerLevel < l)
+        {
+            [upgrades[towerLevel-1] upgradeTower:self];
+            ++towerLevel;
+        }
+        canBeMoved = NO;
+        return self;
+    }
+    return nil;
+}-(BOOL)isTouchedAtPoint:(CGPoint)p
 {
 	BOOL returnVal = [super isTouchedAtPoint:p];
 	if(![touchMan towerIsBeingPlaced] && !returnVal)

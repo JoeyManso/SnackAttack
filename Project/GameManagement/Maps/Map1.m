@@ -7,7 +7,6 @@
 //
 
 #import "Map1.h"
-#import "TowerFactory.h"
 #import "BaseView.h"
 
 @implementation Map1

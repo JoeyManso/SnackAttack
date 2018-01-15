@@ -30,13 +30,16 @@
 @property(nonatomic, readonly)CGSize screenSize;
 
 +(ViewManager*)getInstance;
+-(void)postInit;
 -(void)showMainMenu;
--(void)showMainMenuDeactivateResume;
 -(void)showMainMenuNoIgnore;
+-(void)setResumeEnabled:(BOOL)enabled;
 -(void)showSelectMap;
 -(void)showInstructions;
 -(void)showCredits;
--(void)newGame:(int)mapIdx;
+-(int)getMapIdx;
+-(void)setGameMapIdx:(int)mapIdx;
+-(void)newGame;
 -(void)resumeGame;
 
 -(void)drawCurrentView;

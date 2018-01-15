@@ -21,16 +21,18 @@
     NSMutableArray *gameObjects;
     NSMutableArray *addQueue;
     NSMutableArray *removeQueue;
+    NSMutableDictionary *defeatedEnemiesMap;
     
     NSMutableArray *registerPoints; // array of register points on map to apply boosts, index these for speed
     
     float roundBuffer;
-    uint enemiesDefeatedThisRound;
     uint bonusToApply;
     Round *currentRoundInfo;
     BOOL enemiesOnMap;
     
     int sortCounter;
+    
+    NSString *savePath;
 @public
 	// currently bound texture
 	GLuint currentlyBoundTexture;
@@ -65,8 +67,10 @@
 
 // return this singleton
 +(GameState*)sharedGameStateInstance;
-
+-(void)appWillResignActive:(NSNotification*)note;
+-(void)appWillTerminate:(NSNotification*)note;
 -(GameObject*)findObjectAtPosition:(CGPoint)p;
+-(BOOL)hasGameStarted;
 -(BOOL)pointIsWithinTower:(Point2D*)p;
 -(BOOL)debugMode;
 -(void)addObject:(GameObject*)o;
@@ -86,11 +90,15 @@
 -(void)showMenuEndGame;
 -(void)messageScreenHasFinished;
 -(void)resetGame;
+-(void)saveGame;
+-(void)loadGame;
+-(BOOL)hasSaveGame;
 
 // for stats
 -(void)subtractLife;
 -(void)alterCash:(int)deltaCash;
--(void)enemyDefeated:(uint)enemyValue;
+-(void)enemyDefeated:(NSString*)enemyName value:(uint)enemyValue;
+-(uint)enemiesDefeatedThisRound;
 
 // for radius effects
 -(void)damageEnemiesInRadius:(float)radius origin:(Point2D*)originPoint damage:(float)damage damageType:(uint)type;

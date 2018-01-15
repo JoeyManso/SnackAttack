@@ -9,19 +9,9 @@
 #import "Map.h"
 #import "Enemies.h"
 
-static SpriteSheet *chubbySpriteSheet; // sprite sheet shared by all chubbies
-static SpriteSheet *jeanieSpriteSheet; // sprite sheet shared by all jeanies
-static SpriteSheet *lankySpriteSheet; // sprite sheet shared by all lankies
-static SpriteSheet *smartySpriteSheet; // sprite sheet shared by all smarties
-static SpriteSheet *airplaneSpriteSheet; // sprite sheet shared by all paper airplanes
-static SpriteSheet *bannerSpriteSheet; // you get the idea
-static SpriteSheet *bandieSpriteSheet;
-static SpriteSheet *cheerieSpriteSheet;
-static SpriteSheet *punkieSpriteSheet;
-static SpriteSheet *mascotSpriteSheet;
-static SpriteSheet *queenieSpriteSheet;
-
 @implementation Map
+
+@synthesize mapName;
 
 -(id)init
 {
@@ -29,7 +19,6 @@ static SpriteSheet *queenieSpriteSheet;
 	{
         spawnDelay = 0.75f;
         lastSpawnTime = 0.0f;
-        currentRound = nil;
         
         chubbySpriteSheet = [[SpriteSheet alloc] initWithImageName:@"chubbyWalkCycle.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
         jeanieSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"jeanieWalkCycle.png" spriteWidth:24 spriteHeight:24 spacing:0 imageScale:1.0f];
@@ -43,7 +32,21 @@ static SpriteSheet *queenieSpriteSheet;
         mascotSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"mascotWalkCycle.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
         queenieSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"promQueenWalkCycle.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
         
-		game = [GameState sharedGameStateInstance];
+        vendingSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"VendingMachineSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[vendingSpriteSheet image] setRotationAngle:180.0f];
+        matronSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"MatronSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[matronSpriteSheet image] setRotationAngle:180.0f];
+        cookieSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"CookieShellerSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[cookieSpriteSheet image] setRotationAngle:180.0f];
+        freezerSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"FreezerSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[freezerSpriteSheet image] setRotationAngle:180.0f];
+        popcornSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"PopcornSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[popcornSpriteSheet image] setRotationAngle:180.0f];
+        pieSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"PieLauncherSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[pieSpriteSheet image] setRotationAngle:180.0f];
+        registerSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"CashRegisterSpriteSheet.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
+        [[registerSpriteSheet image] setRotationAngle:180.0f];
+        
 		tileMap = nil;
 		rounds = [[NSMutableArray alloc] init];
         spawnNodes = [[NSMutableArray alloc] init];
@@ -52,8 +55,9 @@ static SpriteSheet *queenieSpriteSheet;
 	return self;
 }
 
--(void)initMap:(NSString*)mapName tiledFile:(NSString*)fileName
+-(void)initMap:(NSString*)inMapName tiledFile:(NSString*)fileName
 {
+    mapName = inMapName;
     backgroundMap = [[Image alloc] initWithImage:[UIImage imageNamed:mapName]];
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -68,6 +72,10 @@ static SpriteSheet *queenieSpriteSheet;
 
 -(void)update:(float)deltaTime
 {
+    if(game == nil)
+    {
+        game = [GameState sharedGameStateInstance];
+    }
     if(currentRound)
     {
         if([GameObject getCurrentTime] - spawnDelay > lastSpawnTime)
@@ -78,89 +86,66 @@ static SpriteSheet *queenieSpriteSheet;
             
             if([currentRound numChubbies] > 0 && chooseEnemyRatio < 0.09f)
             {
-                enemy = [[Chubby alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
+                enemy = [[Chubby alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:chubbySpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumChubbies:[currentRound numChubbies]-1];
             }
             else if([currentRound numJeanies] > 0 && chooseEnemyRatio < 0.18f)
             {
-                enemy = [[Jeanie alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
+                enemy = [[Jeanie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:jeanieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumJeanies:[currentRound numJeanies]-1];
             }
             else if([currentRound numLankies] > 0 && chooseEnemyRatio < 0.27f)
             {
-                enemy = [[Lanky alloc] initWithPosition:[[Point2D alloc]
-                                                         initWithX:spawnNode.nodePosition.x
-                                                         y:spawnNode.nodePosition.y]
+                enemy = [[Lanky alloc] initWithPosition:[spawnNode.nodePosition copy]
                                             spriteSheet:lankySpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumLankies:[currentRound numLankies]-1];
             }
             else if([currentRound numSmarties] > 0 && chooseEnemyRatio < 0.36f)
             {
-                enemy = [[Smarty alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
+                enemy = [[Smarty alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:smartySpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumSmarties:[currentRound numSmarties]-1];
             }
             else if([currentRound numAirplanes] > 0 && chooseEnemyRatio < 0.45f)
             {
-                enemy = [[Airplane alloc] initWithPosition:[[Point2D alloc]
-                                                            initWithX:spawnNode.nodePosition.x
-                                                            y:spawnNode.nodePosition.y]
+                enemy = [[Airplane alloc] initWithPosition:[spawnNode.nodePosition copy]
                                                spriteSheet:airplaneSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumAirplanes:[currentRound numAirplanes]-1];
             }
             else if([currentRound numBanners] > 0 && chooseEnemyRatio < 0.54f)
             {
-                enemy = [[Banner alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
+                enemy = [[Banner alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:bannerSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumBanners:[currentRound numBanners]-1];
             }
             else if([currentRound numBandies] > 0 && chooseEnemyRatio < 0.63f)
             {
-                enemy = [[Bandie alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
-                                             spriteSheet:bandieSpriteSheet targetNode:[spawnNode next]];
+                enemy = [[Bandie alloc] initWithPosition:[spawnNode.nodePosition copy]                                             spriteSheet:bandieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumBandies:[currentRound numBandies]-1];
             }
             else if([currentRound numCheeries] > 0 && chooseEnemyRatio < 0.72f)
             {
-                enemy = [[Cheerie alloc] initWithPosition:[[Point2D alloc]
-                                                           initWithX:spawnNode.nodePosition.x
-                                                           y:spawnNode.nodePosition.y]
+                enemy = [[Cheerie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                               spriteSheet:cheerieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumCheeries:[currentRound numCheeries]-1];
             }
             else if([currentRound numPunkies] > 0 && chooseEnemyRatio < 0.81f)
             {
-                enemy = [[Punkie alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
+                enemy = [[Punkie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:punkieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumPunkies:[currentRound numPunkies]-1];
             }
             else if([currentRound numMascots] > 0 && chooseEnemyRatio < 0.9f)
             {
-                enemy = [[Mascot alloc] initWithPosition:[[Point2D alloc]
-                                                          initWithX:spawnNode.nodePosition.x
-                                                          y:spawnNode.nodePosition.y]
+                enemy = [[Mascot alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:mascotSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumMascots:[currentRound numMascots]-1];
             }
             else if([currentRound numQueenies] > 0)
             {
-                enemy = [[Queenie alloc] initWithPosition:[[Point2D alloc]
-                                                           initWithX:spawnNode.nodePosition.x
-                                                           y:spawnNode.nodePosition.y]
+                enemy = [[Queenie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                               spriteSheet:queenieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumQueenies:[currentRound numQueenies]-1];
             }
@@ -199,12 +184,16 @@ static SpriteSheet *queenieSpriteSheet;
 {
     [tileMap turnOffHighlight];
 }
+-(Round*)getCurrentRound
+{
+    return currentRound;
+}
 -(Round*)getFirstRound
 {
     currentRound = [rounds lastObject];
     return [rounds lastObject];
 }
--(Round*)getNextRound
+-(Round*)getNextRound:(BOOL)shouldAppend
 {
     // release and remove the last round
     Round *previousRound = [rounds lastObject];
@@ -213,7 +202,10 @@ static SpriteSheet *queenieSpriteSheet;
     if([rounds count] > 0)
     {
         currentRound = [rounds lastObject];
-        [currentRound appendRound:previousRound];
+        if(shouldAppend)
+        {
+            [currentRound appendRound:previousRound];
+        }
     }
     else
     {
@@ -231,8 +223,217 @@ static SpriteSheet *queenieSpriteSheet;
     }
     return nil;
 }
+-(PathNode*)getNodeForValue:(int)value
+{
+    for(PathNode* spawnNode in spawnNodes)
+    {
+        PathNode* pathNode = spawnNode;
+        while(pathNode != nil)
+        {
+            if([pathNode value] == value)
+            {
+                return pathNode;
+            }
+            pathNode = [pathNode next];
+        }
+    }
+    return nil;
+}
+-(void)loadSave:(int)round savedTowers:(NSArray*)towers savedEnemies:(NSArray*)enemies defeatedEnemies:(NSMutableDictionary*)defeated
+{
+    // Iterate towards the given round, updating 'currentRound' and the rounds array
+    [self getFirstRound];
+    for(int i = 1; i < round; ++i)
+    {
+        [self getNextRound:NO];
+    }
+    
+    for(NSDictionary *towerData in towers)
+    {
+        NSString* type = [towerData valueForKey:@"TYPE"];
+        int l = [[towerData valueForKey:@"LEVEL"] intValue];
+        int x = [[towerData valueForKey:@"X"] intValue];
+        int y = [[towerData valueForKey:@"Y"] intValue];
+        int rot = [[towerData valueForKey:@"ROT" ] intValue];
+        
+        Point2D *pos = [[Point2D alloc] initWithX:x y:y];
+        Tower *tower = nil;
+        
+        if([type isEqualToString:@"Vending"])
+        {
+            tower = [[VendingMachine alloc] initLoadedWithPosition:pos level:l spriteSheet:vendingSpriteSheet];
+        }
+        else if([type isEqualToString:@"Matron"])
+        {
+            tower = [[Matron alloc] initLoadedWithPosition:pos level:l spriteSheet:matronSpriteSheet];
+        }
+        else if([type isEqualToString:@"Cookies"])
+        {
+            tower = [[CookieLauncher alloc] initLoadedWithPosition:pos level:l spriteSheet:cookieSpriteSheet];
+        }
+        else if([type isEqualToString:@"Freezer"])
+        {
+            tower = [[Freezer alloc] initLoadedWithPosition:pos level:l spriteSheet:freezerSpriteSheet];
+        }
+        else if([type isEqualToString:@"Popcorn"])
+        {
+            tower = [[PopcornMachine alloc] initLoadedWithPosition:pos level:l spriteSheet:popcornSpriteSheet];
+        }
+        else if([type isEqualToString:@"Pies"])
+        {
+            tower = [[PieLauncher alloc] initLoadedWithPosition:pos level:l spriteSheet:pieSpriteSheet];
+        }
+        else if([type isEqualToString:@"Register"])
+        {
+            tower = [[Register alloc] initLoadedWithPosition:pos level:l spriteSheet:registerSpriteSheet];
+        }
+        [tower setObjectRotationAngle:rot];
+        [tower release];
+    }
+    
+    for(NSDictionary *enemyData in enemies)
+    {
+        NSString* type = [enemyData valueForKey:@"TYPE"];
+        float hp = [[enemyData valueForKey:@"HP"] floatValue];
+        int target = [[enemyData valueForKey:@"TARGET"] intValue];
+        int x = [[enemyData valueForKey:@"X"] intValue];
+        int y = [[enemyData valueForKey:@"Y"] intValue];
+
+        Point2D *pos = [[Point2D alloc] initWithX:x y:y];
+        PathNode* node = [self getNodeForValue:target];
+        Enemy *enemy = nil;
+        
+        if([type isEqualToString:@"Chubby"])
+        {
+            enemy = [[Chubby alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:chubbySpriteSheet targetNode:node];
+            [currentRound setNumChubbies:MAX([currentRound numChubbies]-1, 0)];
+        }
+        else if([type isEqualToString:@"Jeanie"])
+        {
+            enemy = [[Jeanie alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:jeanieSpriteSheet targetNode:node];
+            [currentRound setNumJeanies:MAX([currentRound numJeanies]-1, 0)];
+        }
+        else if([type isEqualToString:@"Lanky"])
+        {
+            enemy = [[Lanky alloc] initWithPosition:pos hitPoints:hp
+                                        spriteSheet:lankySpriteSheet targetNode:node];
+            [currentRound setNumLankies:MAX([currentRound numLankies]-1, 0)];
+        }
+        else if([type isEqualToString:@"Smarty"])
+        {
+            enemy = [[Smarty alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:smartySpriteSheet targetNode:node];
+            [currentRound setNumSmarties:MAX([currentRound numSmarties]-1, 0)];
+        }
+        else if([type isEqualToString:@"Airplane"])
+        {
+            enemy = [[Airplane alloc] initWithPosition:pos hitPoints:hp
+                                           spriteSheet:airplaneSpriteSheet targetNode:node];
+            [currentRound setNumAirplanes:MAX([currentRound numAirplanes]-1, 0)];
+        }
+        else if([type isEqualToString:@"Banner"])
+        {
+            enemy = [[Banner alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:bannerSpriteSheet targetNode:node];
+            [currentRound setNumBanners:MAX([currentRound numBanners]-1, 0)];
+        }
+        else if([type isEqualToString:@"Bandie"])
+        {
+            enemy = [[Bandie alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:bandieSpriteSheet targetNode:node];
+            [currentRound setNumBandies:MAX([currentRound numBandies]-1, 0)];
+        }
+        else if([type isEqualToString:@"Cheerie"])
+        {
+            enemy = [[Cheerie alloc] initWithPosition:pos hitPoints:hp
+                                          spriteSheet:cheerieSpriteSheet targetNode:node];
+            [currentRound setNumCheeries:MAX([currentRound numCheeries]-1, 0)];
+        }
+        else if([type isEqualToString:@"Punkie"])
+        {
+            enemy = [[Punkie alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:punkieSpriteSheet targetNode:node];
+            [currentRound setNumPunkies:MAX([currentRound numPunkies]-1, 0)];
+        }
+        else if([type isEqualToString:@"Mascot"])
+        {
+            enemy = [[Mascot alloc] initWithPosition:pos hitPoints:hp
+                                         spriteSheet:mascotSpriteSheet targetNode:node];
+            [currentRound setNumMascots:MAX([currentRound numMascots]-1, 0)];
+        }
+        else if([type isEqualToString:@"Queenie"])
+        {
+            enemy = [[Queenie alloc] initWithPosition:pos hitPoints:hp
+                                          spriteSheet:queenieSpriteSheet targetNode:node];
+            [currentRound setNumQueenies:MAX([currentRound numQueenies]-1, 0)];
+        }
+        
+        /*if(enemy)
+        {
+            float minDelay = 8.0f / (float)[enemy enemySpeed];
+            float maxDelay = 48.0f / (float)[enemy enemySpeed];
+            lastSpawnTime = [GameObject getCurrentTime];
+            spawnDelay = minDelay + (RANDOM_0_TO_1() * (maxDelay - minDelay));
+        }*/
+        [enemy release];
+    }
+    
+    for (NSString *type in defeated)
+    {
+        NSString* value = [defeated valueForKey:type];
+        
+        if([type isEqualToString:@"Chubby"])
+        {
+            [currentRound setNumChubbies:MAX([currentRound numChubbies]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Jeanie"])
+        {
+            [currentRound setNumJeanies:MAX([currentRound numJeanies]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Lanky"])
+        {
+            [currentRound setNumLankies:MAX([currentRound numLankies]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Smarty"])
+        {
+            [currentRound setNumSmarties:MAX([currentRound numSmarties]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Airplane"])
+        {
+            [currentRound setNumAirplanes:MAX([currentRound numAirplanes]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Banner"])
+        {
+            [currentRound setNumBanners:MAX([currentRound numBanners]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Bandie"])
+        {
+            [currentRound setNumBandies:MAX([currentRound numBandies]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Cheerie"])
+        {
+            [currentRound setNumCheeries:MAX([currentRound numCheeries]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Punkie"])
+        {
+            [currentRound setNumPunkies:MAX([currentRound numPunkies]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Mascot"])
+        {
+            [currentRound setNumMascots:MAX([currentRound numMascots]-[value intValue], 0)];
+        }
+        else if([type isEqualToString:@"Queenie"])
+        {
+            [currentRound setNumQueenies:MAX([currentRound numQueenies]-[value intValue], 0)];
+        }
+    }
+}
 -(void)initRounds
 {
+    currentRound = nil;
+    
     // add all rounds to the game backwards so we can pop them off when completed
     [rounds addObject:[[Round alloc] initWithMessage1:nil //30
                                              message2:nil
@@ -405,6 +606,7 @@ static SpriteSheet *queenieSpriteSheet;
 	[rounds release];
     [spawnNodes removeAllObjects];
     [spawnNodes release];
+    [mapName release];
     [currentRound release];
 	[tileMap dealloc];
     [backgroundMap dealloc];
@@ -420,6 +622,14 @@ static SpriteSheet *queenieSpriteSheet;
     [punkieSpriteSheet release];
     [mascotSpriteSheet release];
     [queenieSpriteSheet release];
+    
+    [vendingSpriteSheet release];
+    [matronSpriteSheet release];
+    [cookieSpriteSheet release];
+    [freezerSpriteSheet release];
+    [popcornSpriteSheet release];
+    [pieSpriteSheet release];
+    [registerSpriteSheet release];
 	[super dealloc];
 }
 @end

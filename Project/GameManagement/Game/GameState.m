@@ -29,6 +29,7 @@ static EnemyQueue *enemyQueue;
 {
 
 }
+-(void)updateStatusBar;
 -(void)setBeginningStats;
 -(void)findEnemies;
 -(void)checkCollisions;
@@ -57,17 +58,29 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	if(self = [super init])
 	{
 		debug = enemiesOnMap = paused = NO;
-		bonusToApply = enemiesDefeatedThisRound = 0;
+		bonusToApply = 0;
 		gameObjects = [[NSMutableArray alloc] init];
 		addQueue = [[NSMutableArray alloc] init];
 		removeQueue = [[NSMutableArray alloc] init];
 		registerPoints = [[NSMutableArray alloc] init];
 		enemyQueue = [[EnemyQueue alloc] init];
+        defeatedEnemiesMap = [[NSMutableDictionary alloc] init];
 		sortCounter = 0;
 		roundBuffer = 0.0f;
         gameSpeed = 1.0f;
 		
 		[self setBeginningStats];
+        
+        // Get path to documents directory
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if([paths count] > 0)
+        {
+            savePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"GameSave.snack"];
+            [savePath retain];
+        }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
 	}
 	return self;
 }
@@ -98,6 +111,18 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	
 	return sharedGameStateInstance;
 }
+-(void)appWillResignActive:(NSNotification*)note
+{
+    [self saveGame];
+    [UIMan onResignActive];
+    [self pause];
+
+}
+-(void)appWillTerminate:(NSNotification*)note
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+}
 -(BOOL)debugMode
 {
 	return debug;
@@ -127,6 +152,10 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 		}
 	}
 	return touchedObject;
+}
+-(BOOL)hasGameStarted
+{
+    return currentRound > 0;
 }
 -(BOOL)pointIsWithinTower:(Point2D*)p
 {
@@ -327,7 +356,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 			if([Math distance:originPoint :t.objectPosition] <= RG_RANGE)
 			{
 				[t setIsInBoostRadius:YES];
-				[t applyBoostDamage];;
+				[t applyBoostDamage];
 			}
 			else
 				[t setIsInBoostRadius:NO];
@@ -397,16 +426,16 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	{			
 		[soundMan playSoundWithKey:@"RoundOver" gain:1.0f pitch:1.0f shouldLoop:NO];
 		numberOfEnemiesThisRound = [currentRoundInfo numTotalEnemies];
-		[UIMan showMessageScreenWithRound:currentRound numEnemiesDefeated:enemiesDefeatedThisRound numEnemiesTotal:numberOfEnemiesThisRound
+		[UIMan showMessageScreenWithRound:currentRound numEnemiesDefeated:[self enemiesDefeatedThisRound]numEnemiesTotal:numberOfEnemiesThisRound
 						   maxBonusAmount:[currentRoundInfo roundBonus] message1:[currentRoundInfo messageLine1] message2:[currentRoundInfo messageLine2] 
 								 message3:[currentRoundInfo messageLine3]];
 		float bonusPercent;
 		if([currentRoundInfo numTotalEnemies] == 0)
 			bonusPercent = 0.0f;
 		else
-			bonusPercent = (float)enemiesDefeatedThisRound/(float)[currentRoundInfo numTotalEnemies];
+			bonusPercent = (float)[self enemiesDefeatedThisRound]/(float)[currentRoundInfo numTotalEnemies];
 		bonusToApply = (uint)(bonusPercent * (float)[currentRoundInfo roundBonus]);
-		currentRoundInfo = [currentMap getNextRound];
+        currentRoundInfo = [currentMap getNextRound:YES];
 		paused = YES;
 	}
 	if(!currentRoundInfo)
@@ -414,12 +443,12 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 		[soundMan playSoundWithKey:@"GameWin" gain:1.0f pitch:1.0f shouldLoop:NO];
 		[UIMan swapRoundWithReset:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMainMenu.png"] filter:GL_LINEAR]];
 		// that was the last round, display win information and reset game
-		[UIMan showMessageScreenWithRound:currentRound numEnemiesDefeated:enemiesDefeatedThisRound numEnemiesTotal:numberOfEnemiesThisRound 
+		[UIMan showMessageScreenWithRound:currentRound numEnemiesDefeated:[self enemiesDefeatedThisRound] numEnemiesTotal:numberOfEnemiesThisRound
 						   maxBonusAmount:0 message1:@"Congratulations! You've" 
 								 message2:[NSString stringWithFormat:@"won, defeating %u enemies",currentScore] 
 								 message3:[NSString stringWithFormat:@"with %u lives remaining!",currentLives]];
 	}
-	enemiesDefeatedThisRound = 0;
+	[defeatedEnemiesMap removeAllObjects];
 }
 -(void)showMenu
 {
@@ -427,7 +456,8 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)showMenuEndGame
 {
-	[[ViewManager getInstance] showMainMenuDeactivateResume];
+    [[ViewManager getInstance] setResumeEnabled:false];
+	[[ViewManager getInstance] showMainMenu];
 }
 -(void)subtractLife
 {
@@ -442,7 +472,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 		[soundMan playSoundWithKey:@"GameLoss" gain:1.0f pitch:1.0f shouldLoop:NO];
 		[UIMan swapRoundWithReset:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMainMenu.png"] filter:GL_LINEAR]];
 		// player lost, display special message screen
-		[UIMan showMessageCustomTitle:[NSString stringWithFormat:@"Failed on Round %u",currentRound] numEnemiesDefeated:enemiesDefeatedThisRound 
+		[UIMan showMessageCustomTitle:[NSString stringWithFormat:@"Failed on Round %u",currentRound] numEnemiesDefeated:[self enemiesDefeatedThisRound]
 					  numEnemiesTotal:[currentRoundInfo numTotalEnemies] maxBonusAmount:0 message1:@"Game Over! You let" message2:@"too many enemies through." 
 							 message3:@"Way to fail!"];
 		paused = YES;
@@ -471,12 +501,31 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	[statusBar setCash:currentCash+=deltaCash];
 	[UIMan cashHasChanged:currentCash];
 }
--(void)enemyDefeated:(uint)enemyValue
+-(void)enemyDefeated:(NSString*)enemyName value:(uint)enemyValue
 {
-	++enemiesDefeatedThisRound;
+    NSNumber *value = [defeatedEnemiesMap objectForKey:enemyName];
+    if(value)
+    {
+        NSNumber *valueInc = [NSNumber numberWithInt:[value intValue] + 1];
+        [defeatedEnemiesMap setObject:valueInc forKey:enemyName];
+    }
+    else
+    {
+        [defeatedEnemiesMap setObject:[NSNumber numberWithInt:1] forKey:enemyName];
+    }
 	++currentScore;
 	[statusBar setScore:currentScore];
 	[self alterCash:enemyValue];
+}
+-(uint)enemiesDefeatedThisRound
+{
+    uint enemiesDefeated = 0;
+    for (NSString *key in defeatedEnemiesMap)
+    {
+        NSString* value = [defeatedEnemiesMap valueForKey:key];
+        enemiesDefeated += [value intValue];
+    }
+    return enemiesDefeated;
 }
 -(void)setBeginningStats
 {
@@ -488,7 +537,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	currentLives = STARTING_LIVES;
 	enemiesOnMap = NO;
 	paused = NO;
-	enemiesDefeatedThisRound = 0;
+    [defeatedEnemiesMap removeAllObjects];
 }
 
 -(void)resetGame
@@ -496,13 +545,164 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	[self setBeginningStats];
 	[currentMap resetRounds];
 	currentRoundInfo = nil;
-	[statusBar setRound:currentRound+1];
-	[statusBar setLives:currentLives];
-	[statusBar setCash:currentCash];
-	[statusBar setScore:currentScore];
+    [self updateStatusBar];
 	[UIMan resetGame];
 	[gameObjects removeAllObjects];
 	[enemyQueue removeAllEnemies];
+}
+-(void)updateStatusBar
+{
+    [statusBar setRound:(currentRound == 0 ? 1 : currentRound)];
+    [statusBar setLives:currentLives];
+    [statusBar setCash:currentCash];
+    [statusBar setScore:currentScore];
+}
+-(void)saveGame
+{
+    if(savePath != nil && currentRound > 0)
+    {
+        NSMutableArray *towers = [[NSMutableArray alloc] init];
+        NSMutableArray *enemies = [[NSMutableArray alloc] init];
+        
+        for(GameObject *object in gameObjects)
+        {
+            if([object isKindOfClass:[Tower class]])
+            {
+                Tower *tower = (Tower*)object;
+                NSDictionary *towerSave = @
+                {   @"TYPE"     : [tower objectName],
+                    @"LEVEL"    : [NSNumber numberWithInt:ceil([tower towerLevel])],
+                    @"X"        : [NSNumber numberWithInt:[tower objectPosition].x],
+                    @"Y"        : [NSNumber numberWithInt:[tower objectPosition].y],
+                    @"ROT"      : [NSNumber numberWithInt:[tower objectRotationAngle]]};
+                [towers addObject:towerSave];
+            }
+            else if([object isKindOfClass:[Enemy class]])
+            {
+                Enemy *enemy = (Enemy*)object;
+                if([enemy enemyHitPoints] > 0)
+                {
+                    NSDictionary *enemySave = @
+                    {   @"TYPE"     : [enemy objectName],
+                        @"HP"       : [NSNumber numberWithInt:ceil([enemy enemyHitPoints])],
+                        @"TARGET"   : [NSNumber numberWithInt:[enemy getTargetNodeValue]],
+                        @"X"        : [NSNumber numberWithInt:[enemy objectPosition].x],
+                        @"Y"        : [NSNumber numberWithInt:[enemy objectPosition].y]};
+                    [enemies addObject:enemySave];
+                }
+            }
+        }
+        
+        NSLog(@"Saving to %@", savePath);
+        int mapIdx = [[ViewManager getInstance] getMapIdx];
+        NSDictionary *saveDictionary = @{@"MAP"     : [NSNumber numberWithInt:mapIdx],
+                                         @"ROUND"   : [NSNumber numberWithInt:currentRound],
+                                         @"CASH"    : [NSNumber numberWithInt:currentCash],
+                                         @"LIVES"   : [NSNumber numberWithInt:currentLives],
+                                         @"SCORE"   : [NSNumber numberWithInt:currentScore],
+                                         @"DEFEATED": defeatedEnemiesMap,
+                                         @"TOWERS"  : towers,
+                                         @"ENEMIES" : enemies};
+        for (NSString *key in saveDictionary)
+        {
+            NSLog(@"%@ : %@", key, [saveDictionary valueForKey:key]);
+        }
+        [saveDictionary writeToFile:savePath atomically:YES];
+        [towers release];
+        [enemies release];
+        NSLog(@"Save complete");
+    }
+}
+
+-(void)loadGame
+{
+    if(savePath != nil)
+    {
+        NSDictionary *loadDictionary = [NSDictionary dictionaryWithContentsOfFile:savePath];
+        if(loadDictionary != nil)
+        {
+            NSLog(@"Loading from %@", savePath);
+            NSArray *towers;
+            NSArray *enemies;
+            for (NSString *key in loadDictionary)
+            {
+                NSString* value = [loadDictionary valueForKey:key];
+                NSLog(@"%@ : %@", key, value);
+                
+                if([key isEqualToString:@"MAP"])
+                {
+                    int mapIdx = [value intValue];
+                    [[ViewManager getInstance] setGameMapIdx:mapIdx];
+                }
+                else if([key isEqualToString:@"ROUND"])
+                {
+                    currentRound = [value intValue];
+                }
+                else if([key isEqualToString:@"CASH"])
+                {
+                    currentCash = [value intValue];
+                }
+                else if([key isEqualToString:@"LIVES"])
+                {
+                    currentLives = [value intValue];
+                }
+                else if([key isEqualToString:@"SCORE"])
+                {
+                    currentScore = [value intValue];
+                }
+                else if([key isEqualToString:@"DEFEATED"])
+                {
+                    NSDictionary* defeatedEnemiesMapLoaded = (NSMutableDictionary*)value;
+                    for (NSString *defeatedKey in defeatedEnemiesMapLoaded)
+                    {
+                        // Create copy of loaded key/value
+                        NSNumber* defeatedValue = [defeatedEnemiesMapLoaded objectForKey:defeatedKey];
+                        if(defeatedValue)
+                        {
+                            [defeatedEnemiesMap setObject:[NSNumber numberWithInt:[defeatedValue intValue]]
+                                                   forKey:defeatedKey];
+                        }
+                    }
+                }
+                else if([key isEqualToString:@"TOWERS"])
+                {
+                    towers = (NSArray*)value;
+                }
+                else if([key isEqualToString:@"ENEMIES"])
+                {
+                    enemies = (NSArray*)value;
+                    enemiesOnMap = (enemies.count > 0);
+                }
+            }
+            
+            [currentMap loadSave:currentRound savedTowers:towers savedEnemies:enemies defeatedEnemies:defeatedEnemiesMap];
+            currentRoundInfo = [currentMap getCurrentRound];
+            [UIMan onLoadGame];
+            [self updateStatusBar];
+            [self update:0.0f];
+            for(GameObject *object in gameObjects)
+            {
+                // Apply register boosts
+                if([object isKindOfClass:[Register class]])
+                {
+                    [self applyBoostForTowersFromPoint:[object objectPosition]];
+                }
+            }
+            [self pause];
+            NSLog(@"Load complete");
+        }
+    }
+}
+
+-(bool)hasSaveGame
+{
+    NSDictionary *loadDictionary = [NSDictionary dictionaryWithContentsOfFile:savePath];
+    if(loadDictionary != nil)
+    {
+        NSString* value = [loadDictionary valueForKey:@"ROUND"];
+        return [value intValue] > 0;
+    }
+    return NO;
 }
 
 -(void)dealloc
@@ -513,8 +713,11 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	[enemyQueue dealloc];
 	[registerPoints removeAllObjects];
 	[registerPoints release];
+    [defeatedEnemiesMap removeAllObjects];
+    [defeatedEnemiesMap release];
 	[addQueue release];
 	[removeQueue release];
+    [savePath release];
 	[super dealloc];
 }
 

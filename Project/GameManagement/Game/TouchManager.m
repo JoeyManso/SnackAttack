@@ -15,7 +15,6 @@
 //private stuff
 @interface TouchManager()
 {
-GameState *game;
 UIManager *UIMan;
 GameObject *currentlySelectedObject; // current object held by user. nil if nothing is selected
 Tower *pendingTower;
@@ -44,7 +43,6 @@ BOOL touchedUI; // flag saying if user started touch on UI
         
         uiOffset = CGPointMake(mapOffset.x, fmaxf(mapOffset.y, 50.0f));
         
-		game = [GameState sharedGameStateInstance];
 		UIMan = [UIManager getInstance];
 		tileCenterPoint = [[Point2D alloc] init];
 		currentlySelectedObject = nil;
@@ -76,7 +74,7 @@ BOOL touchedUI; // flag saying if user started touch on UI
 -(BOOL)selectObjectAtPosition:(CGPoint)touchPosition
 {
 	// this logic is for GameObject touch events
-	currentlySelectedObject = [game findObjectAtPosition:touchPosition];
+	currentlySelectedObject = [[GameState sharedGameStateInstance] findObjectAtPosition:touchPosition];
 
 	// if not nil, select
 	if(currentlySelectedObject && !towerBeingPlaced)
@@ -147,7 +145,7 @@ BOOL touchedUI; // flag saying if user started touch on UI
 		if(initTowerOnMap)
 			initTowerOnMap = NO;
 		// move pending tower over center of tile on release if it's a valid position
-		if([currentMap getCenterOfValidTile:[pendingTower objectPosition] originOut:tileCenterPoint] && ![game pointIsWithinTower:tileCenterPoint])
+		if([currentMap getCenterOfValidTile:[pendingTower objectPosition] originOut:tileCenterPoint] && ![[GameState sharedGameStateInstance] pointIsWithinTower:tileCenterPoint])
 			[[pendingTower objectPosition] setX:tileCenterPoint.x y:tileCenterPoint.y];
 	}
 		
@@ -216,7 +214,8 @@ BOOL touchedUI; // flag saying if user started touch on UI
 }
 -(void)checkTowerPosition
 {	
-	if(![currentMap getCenterOfValidTile:[pendingTower objectPosition] originOut:tileCenterPoint] || [game pointIsWithinTower:tileCenterPoint])
+	if(![currentMap getCenterOfValidTile:[pendingTower objectPosition] originOut:tileCenterPoint] ||
+       [[GameState sharedGameStateInstance] pointIsWithinTower:tileCenterPoint])
 	{
 		[pendingTower overInvalidArea];
 		[currentMap setTileHighlightToRed];

@@ -52,6 +52,8 @@
 -(void)setCash:(uint)c;
 -(void)setGameSpeed:(float)s;
 -(void)resetStartButton;
+-(void)onLoadGame;
+-(void)onResignActive;
 @end
 
 // only one instance of the bottom two bars which have their data swapped depending on the game object

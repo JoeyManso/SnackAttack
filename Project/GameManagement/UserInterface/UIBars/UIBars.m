@@ -381,6 +381,18 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 	[(Button*)[barObjects objectForKey:@"pauseButton"] replaceWithImage:[[Image alloc]
 																		initWithImage:[UIImage imageNamed:@"ButtonStart.png"] filter:GL_LINEAR]];
 }
+-(void)onLoadGame
+{
+    [self resetStartButton];
+    pausedButtonWasPressed = YES;
+    startButtonWasPressed = YES;
+}
+-(void)onResignActive
+{
+    [self resetStartButton];
+    pausedButtonWasPressed = YES;
+    startButtonWasPressed = YES;
+}
 -(BOOL)touchEvent:(CGPoint)touchPosition
 {
 	// check our buttons to see if they were hit

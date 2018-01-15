@@ -383,6 +383,14 @@ static MessageScreen *messageScreen;
 	[towerSelect setState:BAR_DISPLAY];
 	[gameStatus setState:BAR_DISPLAY];
 }
+-(void)onLoadGame
+{
+    [gameStatus onLoadGame];
+}
+-(void)onResignActive
+{
+    [gameStatus onResignActive];
+}
 -(void)dealloc
 {
 	[gameStatus release];

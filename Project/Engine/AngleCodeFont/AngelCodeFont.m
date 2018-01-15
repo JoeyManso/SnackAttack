@@ -47,8 +47,7 @@
 	{
 		if(!fontMan)
 			fontMan = [FontManager getInstance];
-		
-		sharedGameState = [GameState sharedGameStateInstance];
+	
 		fontImageName = [fontImage copy];
 		
 		// add our image to the manager (so we only allocate it once per font type)
@@ -259,6 +258,10 @@
 
 - (void)drawStringAt:(CGPoint)point text:(NSString*)text 
 {
+    if(sharedGameState == nil)
+    {
+        sharedGameState = [GameState sharedGameStateInstance];
+    }
 	// Renders the given text with this font at the point given	
 	
 	// Reset the number of quads which are going to be drawn

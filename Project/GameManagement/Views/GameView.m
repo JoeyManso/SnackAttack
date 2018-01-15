@@ -20,6 +20,8 @@
 
 @implementation GameView
 
+@synthesize currentMapIdx;
+
 -(id)init
 {
 	if(self = [super init])

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Vector2D.h"
 
-@interface Point2D : NSObject 
+@interface Point2D : NSObject <NSCopying>
 {
 	float x;
 	float y;

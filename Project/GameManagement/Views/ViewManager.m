@@ -69,8 +69,6 @@ static BOOL ignoreTouchesEnded;
 												position:[[Point2D alloc]
                                                           initWithX:buttonBaseX y:buttonBaseY]
                                                     type:MENU_BUTTON_RESUME];
-		[resumeButton setActive:NO];
-		
 		[menu addButton:resumeButton];
 		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonNewGame.png"] filter:GL_LINEAR]
 												 position:[[Point2D alloc]
@@ -149,26 +147,46 @@ static BOOL ignoreTouchesEnded;
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
+-(void)postInit
+{
+    if([[GameState sharedGameStateInstance] hasSaveGame])
+    {
+        [self setResumeEnabled:true];
+    }
+    else
+    {
+        [self setResumeEnabled:false];
+    }
+}
+
 -(void)showMainMenu
 {
 	ignoreTouchesEnded = YES;
 	currentView = [appViews objectForKey:@"mainMenu"];
 }
--(void)showMainMenuDeactivateResume
+-(void)setResumeEnabled:(BOOL)enabled
 {
-	[resumeButton setActive:NO];
-	[self showMainMenu];
+    [resumeButton setActive:enabled];
 }
 -(void)showMainMenuNoIgnore
 {
 	currentView = [appViews objectForKey:@"mainMenu"];
 }
--(void)newGame:(int)mapIdx
+-(int)getMapIdx
+{
+    GameView* gameView = (GameView*)[appViews objectForKey:@"game"];
+    return [gameView currentMapIdx];
+}
+-(void)setGameMapIdx:(int)mapIdx
+{
+    GameView* gameView = (GameView*)[appViews objectForKey:@"game"];
+    [gameView setMapIdx:mapIdx];
+}
+-(void)newGame
 {
 	ignoreTouchesEnded = YES;
-	[resumeButton setActive:YES];
+	[self setResumeEnabled:YES];
 	currentView = [appViews objectForKey:@"game"];
-    [((GameView*)currentView) setMapIdx:mapIdx];
 	[[GameState sharedGameStateInstance] resetGame];
 }
 -(void)showSelectMap
@@ -185,7 +203,12 @@ static BOOL ignoreTouchesEnded;
 }
 -(void)resumeGame
 {
-	currentView = [appViews objectForKey:@"game"];
+    GameState* gameState = [GameState sharedGameStateInstance];
+    if([gameState hasGameStarted] == NO)
+    {
+        [gameState loadGame];
+    }
+    currentView = [appViews objectForKey:@"game"];
 }
 -(void)updateCurrentView:(float)deltaTime
 {

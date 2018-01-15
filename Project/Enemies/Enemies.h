@@ -13,6 +13,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -20,6 +21,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -27,6 +29,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -34,6 +37,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -41,6 +45,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -48,6 +53,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -55,6 +61,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -62,6 +69,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -69,6 +77,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -76,6 +85,7 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end
 
@@ -83,5 +93,6 @@
 {
 }
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithPosition:(Point2D*)p hitPoints:(float)hp spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 
 @end

@@ -18,6 +18,7 @@
 @implementation Enemy
 
 @synthesize enemyHitPoints;
+@synthesize enemyMaxHitPoints;
 @synthesize enemySpeed;
 @synthesize deathSoundKey;
 @synthesize enemyType;
@@ -28,9 +29,9 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 
 -(id)init
 {
-	return [self initWithName:nil position:nil hitPoints:0 speed:0.0f spriteSheet:nil targetNode:nil];
+    return [self initWithName:nil position:nil hitPoints:0 hitPointsMax:0 speed:0.0f spriteSheet:nil targetNode:nil];
 }
--(id)initWithName:(NSString*)n position:(Point2D*)p hitPoints:(float)hp speed:(float)s spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
+-(id)initWithName:(NSString*)n position:(Point2D*)p hitPoints:(float)hp hitPointsMax:(float)hpm speed:(float)s spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t;
 {
 	// make sure we initialize the super class
 	if (self = [super initWithName:n position:p spriteSheet:ss])
@@ -39,7 +40,8 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 		UIMan = [UIManager getInstance];
 		enemyStatusBar = [UIMan getEnemyStatBarReference];
 		
-		enemyHitPoints = enemyMaxHitPoints = hp;
+		enemyHitPoints = hp;
+        enemyMaxHitPoints = hpm;
 		enemySpeed = s;
 		enemyType = GROUND; // default type is ground
 		enemyImmunity = NONE; // default immunity is none
@@ -87,7 +89,7 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 		[self playSound];
 		[aniCurrent setRunning:NO];
 		fadeOut = YES;
-		[game enemyDefeated:killValue];
+        [game enemyDefeated:objectName value:killValue];
 		if(selected)
 			[enemyStatusBar setHitPoints:0 total:enemyMaxHitPoints];
 		[healthBar setFillRatio:0.0f];

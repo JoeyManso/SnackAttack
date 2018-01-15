@@ -35,6 +35,8 @@
 -(void)cashHasChanged:(uint)newCashAmount; // cash has beed added or deducted (event)
 -(void)roundHasFinished:(uint)newRound currentCash:(uint)cash; // round has finished (for tower details bar)
 -(void)resetGame;
+-(void)onLoadGame;
+-(void)onResignActive;
 
 -(TowerSelect*)getTowerSelectBarReference; // to give the TowerFactories direct access
 -(TowerDetails*)getTowerDetailsBarReference; // to give the TowerFactories direct access
