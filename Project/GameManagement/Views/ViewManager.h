@@ -11,8 +11,8 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
-@class EAGLView;
 @class BaseView;
+@class EAGLView;
 
 @interface ViewManager : UIView 
 {	
@@ -23,6 +23,7 @@
 	
 	NSMutableDictionary *appViews;
 	BaseView *currentView;
+    EAGLView *rootView;
 }
 
 @property(nonatomic, readonly)CGRect screenBounds;
@@ -30,17 +31,20 @@
 @property(nonatomic, readonly)CGSize screenSize;
 
 +(ViewManager*)getInstance;
--(void)postInit;
+-(void)postInit:(EAGLView*)inRootView;
 -(void)showMainMenu;
 -(void)showMainMenuNoIgnore;
 -(void)setResumeEnabled:(BOOL)enabled;
 -(void)showSelectMap;
+-(void)showGCAuthenticate:(UIViewController*)gcViewController;
+-(void)showLeaderboard;
 -(void)showInstructions;
 -(void)showCredits;
 -(int)getMapIdx;
 -(void)setGameMapIdx:(int)mapIdx;
 -(void)newGame;
 -(void)resumeGame;
+-(UIViewController*)getRootViewController;
 
 -(void)drawCurrentView;
 -(void)updateCurrentView:(float)deltaTime;

@@ -6,6 +6,7 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+#import "GameKit/GameKit.h"
 #import "ViewManager.h"
 #import "GameState.h"
 #import "GameView.h"
@@ -39,15 +40,15 @@ static BOOL ignoreTouchesEnded;
         screenSize = CGSizeMake(screenBounds.size.width * screenScale,
                                 screenBounds.size.height * screenScale);
         
-        float buttonYLower = 130;
+        float buttonYLower = 120;
         float buttonBaseX = screenBounds.size.width / 2;
         float buttonBaseY = screenBounds.size.height - buttonYLower;
         
         float buttonHeight = 64;
         // Space on the main menu used for buttons
         float buttonSpace = buttonBaseY - buttonYLower;
-        // Padding between buttons, based on there being 4 buttons displayed
-        float buttonTween = buttonHeight + ((buttonSpace - (3 * buttonHeight)) / 3);
+        // Padding between buttons, based on there being 5 buttons displayed
+        float buttonTween = buttonHeight + ((buttonSpace - (4 * buttonHeight)) / 4);
         
 		// Initialize OpenGL
 		[self initOpenGL];
@@ -74,13 +75,17 @@ static BOOL ignoreTouchesEnded;
 												 position:[[Point2D alloc]
                                                            initWithX:buttonBaseX y:buttonBaseY - buttonTween]
                                                      type:MENU_BUTTON_NEWGAME]];
+        [menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonLeaderboard.png"] filter:GL_LINEAR]
+                                                 position:[[Point2D alloc]
+                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 2)]
+                                                     type:MENU_BUTTON_LEADERBOARD]];
 		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonInstructions.png"] filter:GL_LINEAR]
 												 position:[[Point2D alloc]
-                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 2)]
+                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 3)]
                                                      type:MENU_BUTTON_INSTRUCTIONS]];
 		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonCredits.png"] filter:GL_LINEAR]
 												 position:[[Point2D alloc]
-                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 3)]
+                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 4)]
                                                      type:MENU_BUTTON_CREDITS]];
 		
 		// Initialize the game views and add them to our dictionary
@@ -147,8 +152,9 @@ static BOOL ignoreTouchesEnded;
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
--(void)postInit
+-(void)postInit:(EAGLView*)inRootView
 {
+    rootView = inRootView;
     if([[GameState sharedGameStateInstance] hasSaveGame])
     {
         [self setResumeEnabled:true];
@@ -193,6 +199,36 @@ static BOOL ignoreTouchesEnded;
 {
     currentView = [appViews objectForKey:@"selectMap"];
 }
+-(void)showGCAuthenticate:(UIViewController*)gcViewController
+{
+    // Grab rootVC
+    UIViewController* rootVC = [self getRootViewController];
+    if(rootVC)
+    {
+        [rootVC presentViewController:gcViewController animated:YES completion:nil];
+    }
+}
+-(void)showLeaderboard
+{
+    if([[GameState sharedGameStateInstance] gameCenterEnabled])
+    {
+        // Grab rootVC
+        UIViewController* rootVC = [self getRootViewController];
+        if(rootVC)
+        {
+            // Present default leaderboard
+            GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
+            if(gameCenterController)
+            {
+                gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
+                gameCenterController.leaderboardTimeScope = GKLeaderboardTimeScopeAllTime;
+                gameCenterController.leaderboardIdentifier = @"Leaderboard_01";
+                [rootVC presentViewController:gameCenterController animated:YES completion:nil];
+            }
+        }
+    }
+}
+
 -(void)showInstructions
 {
 	currentView = [appViews objectForKey:@"instructions"];
@@ -209,6 +245,19 @@ static BOOL ignoreTouchesEnded;
         [gameState loadGame];
     }
     currentView = [appViews objectForKey:@"game"];
+}
+-(UIViewController*)getRootViewController
+{
+    if(rootView)
+    {
+        id object = [rootView nextResponder];
+        while(![object isKindOfClass:[UIViewController class]] && object != nil)
+        {
+            object = [object nextResponder];
+        }
+        return object;
+    }
+    return nil;
 }
 -(void)updateCurrentView:(float)deltaTime
 {

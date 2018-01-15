@@ -53,6 +53,8 @@
 	BOOL debug; 
 	
 	BOOL paused;
+    
+    BOOL gameCenterEnabled;
 	
 	Map *currentMap;
 }
@@ -64,6 +66,7 @@
 @property(nonatomic, readonly)float gameSpeed;
 @property(nonatomic, readonly)float time;
 @property(nonatomic, readonly)BOOL paused;
+@property(nonatomic, readonly)BOOL gameCenterEnabled;
 
 // return this singleton
 +(GameState*)sharedGameStateInstance;
@@ -93,6 +96,8 @@
 -(void)saveGame;
 -(void)loadGame;
 -(BOOL)hasSaveGame;
+-(void)reportScore;
+-(void)authenticateLocalPlayer;
 
 // for stats
 -(void)subtractLife;

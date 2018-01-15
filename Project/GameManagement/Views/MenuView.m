@@ -67,6 +67,9 @@
 				case MENU_BUTTON_NEWGAME:
 					[[ViewManager getInstance] showSelectMap];
 					break;
+                case MENU_BUTTON_LEADERBOARD:
+                    [[ViewManager getInstance] showLeaderboard];
+                    break;
 				case MENU_BUTTON_INSTRUCTIONS:
 					[[ViewManager getInstance] showInstructions];
 					break;

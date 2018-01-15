@@ -30,6 +30,8 @@
 		15FD09271FE96ABD0083A439 /* PathNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD09261FE96ABD0083A439 /* PathNode.m */; };
 		15FD092A1FE98FC00083A439 /* ButtonSpeedDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FD09281FE98FC00083A439 /* ButtonSpeedDown.png */; };
 		15FD092B1FE98FC00083A439 /* ButtonSpeedUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FD09291FE98FC00083A439 /* ButtonSpeedUp.png */; };
+		15FD092D200D48A60083A439 /* ButtonLeaderboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FD092C200D48A60083A439 /* ButtonLeaderboard.png */; };
+		15FD092F200D4DA90083A439 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FD092E200D4DA90083A439 /* GameKit.framework */; };
 		1D3623260D0F684500981E51 /* towerDefenseAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -228,6 +230,8 @@
 		15FD09261FE96ABD0083A439 /* PathNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathNode.m; sourceTree = "<group>"; };
 		15FD09281FE98FC00083A439 /* ButtonSpeedDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonSpeedDown.png; sourceTree = "<group>"; };
 		15FD09291FE98FC00083A439 /* ButtonSpeedUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonSpeedUp.png; sourceTree = "<group>"; };
+		15FD092C200D48A60083A439 /* ButtonLeaderboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLeaderboard.png; sourceTree = "<group>"; };
+		15FD092E200D4DA90083A439 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* towerDefenseAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = towerDefenseAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* towerDefenseAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = towerDefenseAppDelegate.m; sourceTree = "<group>"; };
@@ -459,6 +463,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15FD092F200D4DA90083A439 /* GameKit.framework in Frameworks */,
 				15A9DE031F8BE27E00B1064D /* libz.tbd in Frameworks */,
 				15A9DE011F8BE27600B1064D /* libc++.tbd in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -544,6 +549,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15FD092E200D4DA90083A439 /* GameKit.framework */,
 				15A9DE021F8BE27E00B1064D /* libz.tbd */,
 				15A9DE001F8BE27600B1064D /* libc++.tbd */,
 				F6EBC44B1029483E00D256E5 /* OpenAL.framework */,
@@ -869,6 +875,7 @@
 				F60E76461070026700AFDDD8 /* ButtonConfirm.png */,
 				F60E76471070026700AFDDD8 /* ButtonCredits.png */,
 				F60E76481070026700AFDDD8 /* ButtonInstructions.png */,
+				15FD092C200D48A60083A439 /* ButtonLeaderboard.png */,
 				F671D7641096A18500BD82B5 /* ButtonMainMenu.png */,
 				F60E76491070026700AFDDD8 /* ButtonMenu.png */,
 				F60E764A1070026700AFDDD8 /* ButtonNewGame.png */,
@@ -1113,6 +1120,7 @@
 				F60F3FCD1013B841003FB9FA /* Map1TileMap.tmx in Resources */,
 				F6A0C5CA1024C6F3003665AD /* texture.png in Resources */,
 				F6A0C5E41024CEC2003665AD /* chubbyWalkCycle.png in Resources */,
+				15FD092D200D48A60083A439 /* ButtonLeaderboard.png in Resources */,
 				F6A0D0FB10291D17003665AD /* jeanieWalkCycle.png in Resources */,
 				F6F91560103A271A0061E261 /* PopCan.png in Resources */,
 				F67CD0A21040EFB3004D95E1 /* GameStatFont.fnt in Resources */,

@@ -6,6 +6,7 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+#import "GameKit/GameKit.h"
 #import "GameState.h"
 #import "SoundManager.h"
 #import "ViewManager.h"
@@ -47,6 +48,7 @@ static EnemyQueue *enemyQueue;
 @synthesize gameSpeed;
 @synthesize time;
 @synthesize paused;
+@synthesize gameCenterEnabled;
 
 const int STARTING_CASH = 200;
 const int STARTING_LIVES = 25;
@@ -81,6 +83,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+        [self authenticateLocalPlayer];
 	}
 	return self;
 }
@@ -447,6 +450,8 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 						   maxBonusAmount:0 message1:@"Congratulations! You've" 
 								 message2:[NSString stringWithFormat:@"won, defeating %u enemies",currentScore] 
 								 message3:[NSString stringWithFormat:@"with %u lives remaining!",currentLives]];
+        
+        [self reportScore];
 	}
 	[defeatedEnemiesMap removeAllObjects];
 }
@@ -476,6 +481,8 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 					  numEnemiesTotal:[currentRoundInfo numTotalEnemies] maxBonusAmount:0 message1:@"Game Over! You let" message2:@"too many enemies through." 
 							 message3:@"Way to fail!"];
 		paused = YES;
+        
+        [self reportScore];
 	}
 }
 -(void)pause
@@ -703,6 +710,42 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
         return [value intValue] > 0;
     }
     return NO;
+}
+-(void)reportScore
+{
+    if(gameCenterEnabled)
+    {
+        // Calculate score
+        // (Round * 1000) + (Cash * 10) + (Score * 100) + (Lives * 1000)
+        int scoreValue = (currentRound * 1000) +
+        (currentCash * 10) +
+        (currentScore * 100) +
+        (currentLives * 1000);
+        GKScore* newScore = [[GKScore alloc] initWithLeaderboardIdentifier:@"Leaderboard_01"];
+        newScore.value = scoreValue;
+        newScore.context = 0;
+        
+        NSArray* scores = @[newScore];
+        [GKScore reportScores:scores withCompletionHandler:^(NSError* error)
+         {
+             
+         }];
+    }
+}
+-(void)authenticateLocalPlayer
+{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
+    {
+        if(viewController != nil)
+        {
+            [[ViewManager getInstance] showGCAuthenticate:viewController];
+        }
+        else if(localPlayer.isAuthenticated)
+        {
+            gameCenterEnabled = localPlayer.isAuthenticated;
+        }
+    };
 }
 
 -(void)dealloc

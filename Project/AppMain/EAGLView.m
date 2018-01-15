@@ -58,7 +58,7 @@
         }
 		
 		viewMan = [ViewManager getInstance];
-        [viewMan postInit];
+        [viewMan postInit:self];
     }
     return self;
 }
