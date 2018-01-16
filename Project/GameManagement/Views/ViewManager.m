@@ -19,6 +19,7 @@ static Image *baseBackgroundImage;
 static Image *baseBackgroundMaskLowerImage;
 static Image *baseBackgroundMaskUpperImage;
 static MenuButton *resumeButton;
+static MenuButton *leaderboardButton;
 static BOOL ignoreTouchesEnded;
 
 @interface ViewManager()
@@ -75,10 +76,12 @@ static BOOL ignoreTouchesEnded;
 												 position:[[Point2D alloc]
                                                            initWithX:buttonBaseX y:buttonBaseY - buttonTween]
                                                      type:MENU_BUTTON_NEWGAME]];
-        [menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonLeaderboard.png"] filter:GL_LINEAR]
+        leaderboardButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonLeaderboard.png"] filter:GL_LINEAR]
                                                  position:[[Point2D alloc]
                                                            initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 2)]
-                                                     type:MENU_BUTTON_LEADERBOARD]];
+                                                     type:MENU_BUTTON_LEADERBOARD];
+        [self setLeaderboardEnabled:false];
+        [menu addButton:leaderboardButton];
 		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonInstructions.png"] filter:GL_LINEAR]
 												 position:[[Point2D alloc]
                                                            initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 3)]
@@ -173,6 +176,10 @@ static BOOL ignoreTouchesEnded;
 -(void)setResumeEnabled:(BOOL)enabled
 {
     [resumeButton setActive:enabled];
+}
+-(void)setLeaderboardEnabled:(BOOL)enabled
+{
+    [leaderboardButton setActive:enabled];
 }
 -(void)showMainMenuNoIgnore
 {

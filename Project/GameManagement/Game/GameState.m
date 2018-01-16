@@ -51,7 +51,7 @@ static EnemyQueue *enemyQueue;
 @synthesize gameCenterEnabled;
 
 const int STARTING_CASH = 200;
-const int STARTING_LIVES = 25;
+const int STARTING_LIVES = 1;
 const int MAX_SORT_COUNT = 15; // sort every time this count is reached
 const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all enemies are removed from map
 
@@ -116,9 +116,12 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)appWillResignActive:(NSNotification*)note
 {
-    [self saveGame];
-    [UIMan onResignActive];
-    [self pause];
+    if([self hasGameStarted])
+    {
+        [self saveGame];
+        [UIMan onResignActive];
+        [self pause];
+    }
 
 }
 -(void)appWillTerminate:(NSNotification*)note
@@ -451,7 +454,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 								 message2:[NSString stringWithFormat:@"won, defeating %u enemies",currentScore] 
 								 message3:[NSString stringWithFormat:@"with %u lives remaining!",currentLives]];
         
-        [self reportScore];
+        [self onGameEnd];
 	}
 	[defeatedEnemiesMap removeAllObjects];
 }
@@ -482,7 +485,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 							 message3:@"Way to fail!"];
 		paused = YES;
         
-        [self reportScore];
+        [self onGameEnd];
 	}
 }
 -(void)pause
@@ -711,7 +714,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     }
     return NO;
 }
--(void)reportScore
+-(void)onGameEnd
 {
     if(gameCenterEnabled)
     {
@@ -725,11 +728,20 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
         newScore.value = scoreValue;
         newScore.context = 0;
         
+        // Report score to GameCenter
         NSArray* scores = @[newScore];
         [GKScore reportScores:scores withCompletionHandler:^(NSError* error)
          {
-             
          }];
+    }
+    
+    // Delete save file
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:savePath error:&error];
+    if (!success)
+    {
+        NSLog(@"Could not save delete file -:%@ ",[error localizedDescription]);
     }
 }
 -(void)authenticateLocalPlayer
@@ -739,11 +751,17 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     {
         if(viewController != nil)
         {
+            if([self hasGameStarted])
+            {
+                [UIMan onResignActive];
+                [self pause];
+            }
             [[ViewManager getInstance] showGCAuthenticate:viewController];
         }
         else if(localPlayer.isAuthenticated)
         {
             gameCenterEnabled = localPlayer.isAuthenticated;
+            [[ViewManager getInstance] setLeaderboardEnabled:gameCenterEnabled];
         }
     };
 }

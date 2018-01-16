@@ -96,7 +96,7 @@
 -(void)saveGame;
 -(void)loadGame;
 -(BOOL)hasSaveGame;
--(void)reportScore;
+-(void)onGameEnd;
 -(void)authenticateLocalPlayer;
 
 // for stats

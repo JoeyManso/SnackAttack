@@ -35,6 +35,7 @@
 -(void)showMainMenu;
 -(void)showMainMenuNoIgnore;
 -(void)setResumeEnabled:(BOOL)enabled;
+-(void)setLeaderboardEnabled:(BOOL)enabled;
 -(void)showSelectMap;
 -(void)showGCAuthenticate:(UIViewController*)gcViewController;
 -(void)showLeaderboard;
