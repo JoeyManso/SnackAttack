@@ -1330,7 +1330,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = NCPV572KK2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1348,8 +1348,8 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmanso.towerdefense;
 				PRODUCT_NAME = "Snack Attack";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c3eff938-296f-4236-8046-89f2ee62e862";
+				PROVISIONING_PROFILE_SPECIFIER = TowerDefense_Dev;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1359,7 +1359,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = NCPV572KK2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1375,8 +1375,8 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmanso.towerdefense;
 				PRODUCT_NAME = "Snack Attack";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "673bdeb8-993f-46d5-a803-5ea42b51f4c3";
+				PROVISIONING_PROFILE_SPECIFIER = TowerDefense_Dev;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1489,8 +1489,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = NCPV572KK2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1506,9 +1506,9 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jmanso.towerdefense;
 				PRODUCT_NAME = "Snack Attack";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7984a2d5-3f60-4e70-876f-0c32cbd5dbf2";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9F2993A7-0995-4D0F-BACA-F23E1D7FA705";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = TowerDefense_Dist;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Distribution;
