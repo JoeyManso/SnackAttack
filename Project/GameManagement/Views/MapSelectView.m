@@ -17,8 +17,9 @@
 {
 	if(self = [super init])
 	{
-        float baseXPos = (320.0f - screenBounds.size.width) / 2.0f;
-        float baseYPos = (568.0f - screenBounds.size.height) / 2.0f;
+        float baseXPos = 0;//(320.0f - screenBounds.size.width) / 2.0f;
+        float baseYPos = 0;//(568.0f - screenBounds.size.height) / 2.0f;
+        float yScale = (screenBounds.size.height / 568.0f);
         
 		menuTitle = titleImage;
 		menuBackground	= backgroundImage;
@@ -40,7 +41,7 @@
         startButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonStartBig.png"]  filter:GL_LINEAR]
                                               position:[[Point2D alloc]
                                                         initWithX:baseXPos + (screenBounds.size.width / 2)
-                                                        y:baseYPos + 108.0f]
+                                                        y:baseYPos + 92.0f]
                                                   type:99];
         
         arrowLeftButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonArrowLeft"]  filter:GL_LINEAR]
@@ -56,9 +57,9 @@
                                                   type:99];
         
         mapImages = [[NSMutableArray alloc] initWithObjects:
-                     [[Image alloc] initWithImage:[UIImage imageNamed:@"map1.png"] scale:0.55f],
-                     [[Image alloc] initWithImage:[UIImage imageNamed:@"map2.png"] scale:0.55f],
-                     [[Image alloc] initWithImage:[UIImage imageNamed:@"map3.png"] scale:0.55f], nil];
+                     [[Image alloc] initWithImage:[UIImage imageNamed:@"map1.png"] scale:0.5f * yScale],
+                     [[Image alloc] initWithImage:[UIImage imageNamed:@"map2.png"] scale:0.5f * yScale],
+                     [[Image alloc] initWithImage:[UIImage imageNamed:@"map3.png"] scale:0.5f * yScale], nil];
         
         targetMapIdx = 0;
         scrollPadding = screenBounds.size.width * 1.15f;

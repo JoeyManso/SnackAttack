@@ -18,8 +18,8 @@ const float DECEL_RATE = 0.9f;
 {
 	if(self = [super init])
 	{
-        float baseXPos = (320.0f - screenBounds.size.width) / 2.0f;
-        float baseYPos = (568.0f - screenBounds.size.height) / 2.0f;
+        float baseXPos = 0;//(320.0f - screenBounds.size.width) / 2.0f;
+        float baseYPos = 0;//(568.0f - screenBounds.size.height) / 2.0f;
         float maskBounds = 70.0f;
         float textImagesHeight = 0.0f;
 		textImages = imagesArray;
@@ -38,7 +38,7 @@ const float DECEL_RATE = 0.9f;
         {
             // minimum y position based off total height of images
             textMinYPos = (screenBounds.size.height - maskBounds) - textImagesHeight;
-            textMaxYPos = 20.0f;
+            textMaxYPos = fmaxf(maskBounds, textMinYPos);
         }
         
         textMinYPos += baseYPos;
