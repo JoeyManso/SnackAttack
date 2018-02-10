@@ -11,7 +11,6 @@
 		1542548D1FA3A5090050CCA9 /* map3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1542548B1FA3A5090050CCA9 /* map3.png */; };
 		154254901FA3A5FC0050CCA9 /* Map2TileMap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1542548E1FA3A5FC0050CCA9 /* Map2TileMap.tmx */; };
 		154254911FA3A5FC0050CCA9 /* Map3TileMap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 1542548F1FA3A5FC0050CCA9 /* Map3TileMap.tmx */; };
-		157FF1D5202F97F30093FE9E /* Slop.png in Resources */ = {isa = PBXBuildFile; fileRef = 157FF1D4202F97F30093FE9E /* Slop.png */; };
 		15A9DDFC1F8BDE5100B1064D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDF81F8BDE5100B1064D /* Security.framework */; };
 		15A9DDFD1F8BDE5100B1064D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */; };
 		15A9DDFE1F8BDE5100B1064D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A9DDFA1F8BDE5100B1064D /* Fabric.framework */; };
@@ -207,7 +206,6 @@
 		1542548B1FA3A5090050CCA9 /* map3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map3.png; sourceTree = "<group>"; };
 		1542548E1FA3A5FC0050CCA9 /* Map2TileMap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map2TileMap.tmx; sourceTree = "<group>"; };
 		1542548F1FA3A5FC0050CCA9 /* Map3TileMap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map3TileMap.tmx; sourceTree = "<group>"; };
-		157FF1D4202F97F30093FE9E /* Slop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Slop.png; sourceTree = "<group>"; };
 		15A9DDF81F8BDE5100B1064D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		15A9DDF91F8BDE5100B1064D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		15A9DDFA1F8BDE5100B1064D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -930,7 +928,6 @@
 		F6A0B597101A44F2003665AD /* Projectiles */ = {
 			isa = PBXGroup;
 			children = (
-				157FF1D4202F97F30093FE9E /* Slop.png */,
 				F69D33BD107AF790009006EB /* Kernel.png */,
 				F680D5AB1048D0A600A95FE2 /* Cookie.png */,
 				F680D5AD1048D0A600A95FE2 /* Pie.png */,
@@ -1209,7 +1206,6 @@
 				F676DB1B108BD0000055BEA8 /* BannerDeath.caf in Resources */,
 				15AC983B1FC9F68400AE9A18 /* ButtonStartBig.png in Resources */,
 				F676DB1C108BD0000055BEA8 /* CheerleaderDeath.caf in Resources */,
-				157FF1D5202F97F30093FE9E /* Slop.png in Resources */,
 				15FD092A1FE98FC00083A439 /* ButtonSpeedDown.png in Resources */,
 				F676DB1D108BD0000055BEA8 /* MascotDeath.caf in Resources */,
 				154254911FA3A5FC0050CCA9 /* Map3TileMap.tmx in Resources */,
