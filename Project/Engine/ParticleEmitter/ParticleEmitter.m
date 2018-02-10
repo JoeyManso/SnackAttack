@@ -174,17 +174,17 @@
 	Vector2f vector = Vector2fNormalize(Vector2fMake(-sinf(newAngle), -cosf(newAngle)));
 	
 	// Calculate the vectorSpeed using the speed and speedVariance which has been passed in
-	float vectorSpeed = speed + speedVariance * RANDOM_MINUS_1_TO_1();
+	float vectorSpeed = fmaxf(speed + speedVariance * RANDOM_MINUS_1_TO_1(), 0.1f);
 	
 	// The particles direction vector is calculated by taking the vector calculated above and
 	// multiplying that by the speed
 	particle->direction = Vector2fMultiply(vector, vectorSpeed);
 	
 	// Calculate the particle size using the particleSize and variance passed in
-	particle->particleSize = particleSize + particleSizeVariance * RANDOM_MINUS_1_TO_1();
+	particle->particleSize = fmaxf(particleSize + particleSizeVariance * RANDOM_MINUS_1_TO_1(), 1.0f);
 	
 	// Calculate the particles life span using the life span and variance passed in
-	particle->timeToLive = particleLifespan + particleLifespanVariance * RANDOM_MINUS_1_TO_1();
+    particle->timeToLive = fmaxf(particleLifespan + particleLifespanVariance * RANDOM_MINUS_1_TO_1(), 0.0f);
 	
 	// Calculate the color the particle should have when it starts its life.  All the elements
 	// of the start color passed in along with the variance as used to calculate the star color
