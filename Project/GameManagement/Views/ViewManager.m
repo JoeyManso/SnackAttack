@@ -6,7 +6,6 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "GameKit/GameKit.h"
 #import "ViewManager.h"
 #import "GameState.h"
 #import "GameView.h"
@@ -41,7 +40,7 @@ static BOOL ignoreTouchesEnded;
         screenSize = CGSizeMake(screenBounds.size.width * screenScale,
                                 screenBounds.size.height * screenScale);
         
-        float buttonYLower = 120;
+        float buttonYLower = (screenBounds.size.height > 480 ? 120 : 110);
         float buttonBaseX = screenBounds.size.width / 2;
         float buttonBaseY = screenBounds.size.height - buttonYLower;
         
@@ -76,16 +75,16 @@ static BOOL ignoreTouchesEnded;
 												 position:[[Point2D alloc]
                                                            initWithX:buttonBaseX y:buttonBaseY - buttonTween]
                                                      type:MENU_BUTTON_NEWGAME]];
-        leaderboardButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonLeaderboard.png"] filter:GL_LINEAR]
-                                                 position:[[Point2D alloc]
-                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 2)]
-                                                     type:MENU_BUTTON_LEADERBOARD];
-        [self setLeaderboardEnabled:false];
-        [menu addButton:leaderboardButton];
 		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonInstructions.png"] filter:GL_LINEAR]
 												 position:[[Point2D alloc]
-                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 3)]
+                                                           initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 2)]
                                                      type:MENU_BUTTON_INSTRUCTIONS]];
+        leaderboardButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonLeaderboard.png"] filter:GL_LINEAR]
+                                                     position:[[Point2D alloc]
+                                                               initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 3)]
+                                                         type:MENU_BUTTON_LEADERBOARD];
+        [self setLeaderboardEnabled:false];
+        [menu addButton:leaderboardButton];
 		[menu addButton:[[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonCredits.png"] filter:GL_LINEAR]
 												 position:[[Point2D alloc]
                                                            initWithX:buttonBaseX y:buttonBaseY - (buttonTween * 4)]
@@ -220,18 +219,10 @@ static BOOL ignoreTouchesEnded;
     if([[GameState sharedGameStateInstance] gameCenterEnabled])
     {
         // Grab rootVC
-        UIViewController* rootVC = [self getRootViewController];
+        EAGLViewController* rootVC = (EAGLViewController*)[self getRootViewController];
         if(rootVC)
         {
-            // Present default leaderboard
-            GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
-            if(gameCenterController)
-            {
-                gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
-                gameCenterController.leaderboardTimeScope = GKLeaderboardTimeScopeAllTime;
-                gameCenterController.leaderboardIdentifier = @"Leaderboard_01";
-                [rootVC presentViewController:gameCenterController animated:YES completion:nil];
-            }
+            [rootVC showLeaderboard];
         }
     }
 }

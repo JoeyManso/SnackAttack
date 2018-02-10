@@ -749,7 +749,12 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
     {
-        if(viewController != nil)
+        if(error != nil && error.code == 2)
+        {
+            // User has cancelled
+            return;
+        }
+        else if(viewController != nil)
         {
             if([self hasGameStarted])
             {

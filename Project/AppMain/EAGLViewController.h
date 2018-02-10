@@ -7,14 +7,16 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
 
-@interface EAGLViewController : UIViewController
-
+@interface EAGLViewController : UIViewController <GKGameCenterControllerDelegate>
 
 - (void)startAnimation;
 - (void)stopAnimation;
 - (void)screenDidConnect:(UIViewController *)userInterface;
 - (void)screenDidDisconnect:(UIViewController *)userInterface;
 - (void)setTargetScreen:(UIScreen *)targetScreen;
+- (void)showLeaderboard;
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController*)viewController;
 
 @end

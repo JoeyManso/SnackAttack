@@ -90,4 +90,22 @@
     return YES;
 }
 
+- (void)showLeaderboard
+{
+    // Present default leaderboard
+    GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
+    if(gameCenterController)
+    {
+        gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        gameCenterController.leaderboardTimeScope = GKLeaderboardTimeScopeAllTime;
+        gameCenterController.leaderboardIdentifier = @"Leaderboard_01";
+        gameCenterController.gameCenterDelegate = self;
+        [self presentViewController:gameCenterController animated:YES completion:nil];
+    }
+}
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController*)gameCenterViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+};
+
 @end
