@@ -569,7 +569,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)saveGame
 {
-    if(savePath != nil && currentRound > 0)
+    if(savePath != nil && currentRound > 0 && currentLives > 0)
     {
         NSMutableArray *towers = [[NSMutableArray alloc] init];
         NSMutableArray *enemies = [[NSMutableArray alloc] init];

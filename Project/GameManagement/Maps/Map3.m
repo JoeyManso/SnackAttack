@@ -52,7 +52,7 @@
     
     [spawnNodes addObject:[[PathNode alloc] initWithPosition:[[Point2D alloc]
                                                               initWithX:-20.0f
-                                                              y:-mapOffset.y + 124.0f]
+                                                              y:mapOffset.y + 124.0f]
                                                         next:node02_l value:2]];
     
     
@@ -88,7 +88,7 @@
     
     [spawnNodes addObject:[[PathNode alloc] initWithPosition:[[Point2D alloc]
                                                               initWithX:mapOffset.x + 340.0f
-                                                              y:-mapOffset.y + 124.0f]
+                                                              y:mapOffset.y + 124.0f]
                                                         next:node02_r value:1]];
 }
 @end

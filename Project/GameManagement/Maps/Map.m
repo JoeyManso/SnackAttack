@@ -18,7 +18,6 @@
 	if(self = [super init])
 	{
         spawnDelay = 0.75f;
-        lastSpawnTime = 0.0f;
         
         chubbySpriteSheet = [[SpriteSheet alloc] initWithImageName:@"chubbyWalkCycle.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
         jeanieSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"jeanieWalkCycle.png" spriteWidth:24 spriteHeight:24 spacing:0 imageScale:1.0f];
@@ -50,7 +49,6 @@
 		tileMap = nil;
 		rounds = [[NSMutableArray alloc] init];
         spawnNodes = [[NSMutableArray alloc] init];
-		[self initRounds];
 	}
 	return self;
 }
@@ -68,6 +66,7 @@
     CGPoint tiledOffset = CGPointMake(mapOffset.x, mapOffset.y + ([backgroundMap imageHeight] - 480)/2);
     tileMap = [[TiledMap alloc] initWithTiledFile:fileName fileExtension:@"tmx" offset:tiledOffset];
     tileMapPoint = CGPointMake(0,[backgroundMap imageHeight] - 76);
+    [self initRounds];
 }
 
 -(void)update:(float)deltaTime
@@ -588,6 +587,7 @@
 }
 -(void)resetRounds
 {
+    lastSpawnTime = 0.0f;
     for(Round *r in rounds)
         [r release];
     for(PathNode *spawnNode in spawnNodes)
