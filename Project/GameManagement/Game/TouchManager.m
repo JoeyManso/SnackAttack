@@ -89,11 +89,16 @@ BOOL touchedUI; // flag saying if user started touch on UI
 	else if(towerBeingPlaced)
 	{
 		if(initTowerOnMap)
+        {
 			return NO;
+        }
 		if(touchPosition.y < uiOffset.y + 16.0f
            || touchPosition.y > (screenBounds.size.height - uiOffset.y) - 16.0f)
+        {
 			touchedUI = YES;
-		else if([Math CGdistance:[pendingTower objectPosition] :touchPosition] > [pendingTower towerRange]*1.3)
+        }
+		else if([Math CGdistance:[pendingTower objectPosition]:touchPosition] >
+                [pendingTower towerMaxUpgradeRange] + 16.0f)
 		{
 			[[pendingTower objectPosition] setX:touchPosition.x y:touchPosition.y];
 			[self checkTowerPosition];

@@ -12,6 +12,7 @@
 @implementation Upgrade
 
 @synthesize upgradeCost;
+@synthesize upgradeRange;
 
 -(id)initWithCost:(uint)c damage:(float)d rateOfFire:(float)rof range:(float)r
 {

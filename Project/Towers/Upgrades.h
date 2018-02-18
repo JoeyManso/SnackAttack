@@ -19,6 +19,7 @@
 	float upgradeRange;
 }
 @property(nonatomic,readonly)uint upgradeCost;
+@property(nonatomic,readonly)float upgradeRange;
 -(id)initWithCost:(uint)c damage:(float)d rateOfFire:(float)rof range:(float)r;
 -(void)upgradeTower:(Tower*)t;
 @end

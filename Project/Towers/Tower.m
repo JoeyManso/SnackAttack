@@ -11,7 +11,9 @@
 // private stuff
 @interface Tower()
 
+-(float)getBaseDisplayRange;
 -(void)displayRange;
+-(void)displayRangeUpgrades;
 -(void)displayBoost;
 -(void)updateStatsBar;
 @end
@@ -68,16 +70,20 @@ float const SELL_PERCENT = 0.5f;
 		isInBoostRadius = NO;
 		
 		// for range pulsing effect
-		currentRadius = towerRange;
-		deltaRadius = currentRadius * 0.15f; // 15% of radius
-		
-		baseBoostRadius = boostRadius = [spriteSheet spriteWidth] * 0.6f;
-		boostDeltaRadius = boostRadius * 0.45f;
+        radiusPulseAddition = 0.0f;
+        pulseDir = 1.0f;
+        
+		boostRadius = [spriteSheet spriteWidth] * 0.7f;
 		
 		radiusRGBA[0] = 0.1f;
 		radiusRGBA[1] = 0.1f;
 		radiusRGBA[2] = 0.55f;
-		radiusRGBA[3] = 0.15f;
+		radiusRGBA[3] = 0.25f;
+        
+        radiusUpgradesRGBA[0] = 0.1f;
+        radiusUpgradesRGBA[1] = 0.1f;
+        radiusUpgradesRGBA[2] = 0.1f;
+        radiusUpgradesRGBA[3] = 0.2f;
 		
 		boostRGBA[0] = 1.0f;
 		boostRGBA[1] = 0.8f;
@@ -111,9 +117,9 @@ float const SELL_PERCENT = 0.5f;
 	// for range pulsing effect
 	towerBaseRange = towerRange = r;
 	if(isInBoostRadius)
+    {
 		towerRange+=towerRange*boostRangePercent;
-	currentRadius = towerRange;
-	deltaRadius = currentRadius * 0.15; // 15% of radius
+    }
 }
 -(void)setTowerRateOfFire:(float)rof
 {
@@ -156,6 +162,19 @@ float const SELL_PERCENT = 0.5f;
 -(BOOL)canShoot
 {
 	return !canBeMoved && [GameObject getCurrentTime] - lastShotTime > towerRateOfFire;
+}
+-(float)towerMaxUpgradeRange
+{
+    float maxUpgradeRange = towerRange;
+    for(int i = 0; i < MAX_TOWER_LEVEL; ++i)
+    {
+        Upgrade* upgrade = upgrades[i];
+        if(upgrade != nil)
+        {
+            maxUpgradeRange = fmaxf(maxUpgradeRange, [upgrade upgradeRange]);
+        }
+    }
+    return maxUpgradeRange;
 }
 -(void)lock
 {
@@ -247,6 +266,10 @@ float const SELL_PERCENT = 0.5f;
 {
 	radiusRGBA[0] = 1.0f;
 	radiusRGBA[2] = 0.0f;
+    if(towerType != NONE && [game isBoostTowerInRange:objectPosition])
+        isInBoostRadius = YES;
+    else
+        isInBoostRadius = NO;
 }
 -(void)overValidArea
 {
@@ -289,15 +312,27 @@ float const SELL_PERCENT = 0.5f;
 	}
 	
 }
+-(float)getBaseDisplayRange
+{
+    float baseDisplayRange = towerRange;
+    if([self isInBoostRadius])
+    {
+        baseDisplayRange += baseDisplayRange * RG_RANGE_BOOST;
+    }
+    baseDisplayRange += radiusPulseAddition;
+    return baseDisplayRange;
+}
 -(void)displayRange
-{	
-	for(int i = 0; i < 720; i+=2) 
+{
+    const float baseDisplayRange = [self getBaseDisplayRange];
+	for(int i = 0; i < 720; i+=2)
 	{
-		radiusVertices[i] = cos([Math convertToRadians:i]) * currentRadius;
-		radiusVertices[i+1] = sin([Math convertToRadians:i]) * currentRadius;
+        const float angle = [Math convertToRadians:i];
+		radiusVertices[i] = cosf(angle) * baseDisplayRange;
+		radiusVertices[i+1] = sinf(angle) * baseDisplayRange;
 	}
 	
-	//and we will use GL_TRIANGLE_FAN to draw the ellipse.
+	// Use GL_TRIANGLE_FAN to draw the ellipse.
 	glPushMatrix();
 	glEnable(GL_BLEND);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -309,15 +344,67 @@ float const SELL_PERCENT = 0.5f;
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glPopMatrix();
 }
+-(void)displayRangeUpgrades
+{
+    float baseDisplayRange = [self getBaseDisplayRange];
+    for(int i = towerLevel-1; i < MAX_TOWER_LEVEL-1; ++i)
+    {
+        Upgrade* upgrade = upgrades[i];
+        if(upgrade != nil)
+        {
+            float upgradeRadius = [upgrade upgradeRange];
+            if([self isInBoostRadius])
+            {
+                upgradeRadius += upgradeRadius * RG_RANGE_BOOST;
+            }
+            
+            for(int j = 0; j < 720; j+=4)
+            {
+                const float angle = [Math convertToRadians:j];
+                const float cosAngle = cosf(angle);
+                const float sinAngle = sinf(angle);
+                
+                // Vertex of inner radius
+                radiusUpgradesVertices[i][j] = cosAngle * baseDisplayRange;
+                radiusUpgradesVertices[i][j+1] = sinAngle * baseDisplayRange;
+                
+                // Vertex of outer radius
+                radiusUpgradesVertices[i][j+2] = cosAngle * upgradeRadius;
+                radiusUpgradesVertices[i][j+3] = sinAngle * upgradeRadius;
+            }
+            
+            // Add vertices to close strip
+            radiusUpgradesVertices[i][720] = radiusUpgradesVertices[i][0];
+            radiusUpgradesVertices[i][721] = radiusUpgradesVertices[i][1];
+            radiusUpgradesVertices[i][722] = radiusUpgradesVertices[i][2];
+            radiusUpgradesVertices[i][723] = radiusUpgradesVertices[i][3];
+            
+            // Use GL_TRIANGLE_STRIP to draw torus style filled ring.
+            glPushMatrix();
+            glEnable(GL_BLEND);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glColor4f(radiusUpgradesRGBA[0],radiusUpgradesRGBA[1],
+                      radiusUpgradesRGBA[2],radiusUpgradesRGBA[3]);
+            glTranslatef(objectPosition.x, objectPosition.y, 0.0f);
+            glVertexPointer(2, GL_FLOAT, 0, radiusUpgradesVertices[i]);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 362); // the torus has 360 + 2 vertices
+            glDisable(GL_BLEND);
+            glDisableClientState(GL_VERTEX_ARRAY);
+            glPopMatrix();
+        }
+    }
+}
 -(void)displayBoost
-{	
+{
+    const float boostDisplayRadius = boostRadius + boostPulseAddition;
 	for(int i = 0; i < 720; i+=2) 
 	{
-		boostVertices[i] = cos([Math convertToRadians:i]) * boostRadius;
-		boostVertices[i+1] = sin([Math convertToRadians:i]) * boostRadius;
+        const float angle = [Math convertToRadians:i];
+		boostVertices[i] = cos(angle) * boostDisplayRadius;
+		boostVertices[i+1] = sin(angle) * boostDisplayRadius;
 	}
 	
-	//and we will use GL_TRIANGLE_FAN to draw the ellipse.
+	// Use GL_TRIANGLE_FAN to draw the ellipse.
 	glPushMatrix();
 	glEnable(GL_BLEND);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -331,24 +418,17 @@ float const SELL_PERCENT = 0.5f;
 }
 -(int)update:(float)deltaT
 {
-	currentRadius += deltaRadius * deltaT;
-	boostRadius += boostDeltaRadius * deltaT;
+    const float radiusPulseAddMax = towerRange * 0.025f;
+    const float boostPulseAddMax = boostRadius * 0.075f;
+	radiusPulseAddition += pulseDir * deltaT * radiusPulseAddMax * 2.0f;
+	boostPulseAddition += pulseDir * deltaT * boostPulseAddMax * 2.0f;
+    radiusPulseAddition = fmaxf(0.0f, fminf(radiusPulseAddition, radiusPulseAddMax));
+    boostPulseAddition = fmaxf(0.0f, fminf(boostPulseAddition, boostPulseAddMax));
 	
-	if(currentRadius < towerRange)
-		deltaRadius = fabs(deltaRadius);
-	else if(currentRadius > towerRange*1.05f)
-		deltaRadius = -fabs(deltaRadius);
-	
-	if(boostRadius < baseBoostRadius)
-		boostDeltaRadius = fabs(boostDeltaRadius);
-	else if(boostRadius > baseBoostRadius*1.15f)
-		boostDeltaRadius = -fabs(boostDeltaRadius);
-	
-	if(currentRadius > towerRange*1.1f || currentRadius < towerRange*0.9f)
-		currentRadius = towerRange;
-	
-	if(boostRadius > baseBoostRadius*1.2f || boostRadius < baseBoostRadius*0.9f)
-		boostRadius = boostRadius = baseBoostRadius;
+	if(radiusPulseAddition <= 0.0f)
+		pulseDir = 1.0f;
+	else if(radiusPulseAddition >= radiusPulseAddMax)
+		pulseDir = -1.0f;
 	
 	if(towerState == TOWER_STATE_SHOOT && [GameObject getCurrentTime] - lastShotTime > 2.0f*towerRateOfFire)
 	{
@@ -372,10 +452,18 @@ float const SELL_PERCENT = 0.5f;
 }
 -(int)draw
 {
+    if(canBeMoved)
+    {
+        [self displayRangeUpgrades];
+    }
 	if(selected || canBeMoved)
+    {
 		[self displayRange];
+    }
 	if(isInBoostRadius)
+    {
 		[self displayBoost];
+    }
 	return [super draw];
 }
 

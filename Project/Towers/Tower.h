@@ -59,14 +59,15 @@ enum
 	
 @private
 	BOOL isInBoostRadius; // flag for display purposes if a tower is within the Register's area of effect
-	
-	float currentRadius;
-	float baseBoostRadius;
 	float boostRadius;
-	float deltaRadius;
-	float boostDeltaRadius;
+	float radiusPulseAddition;
+    float pulseDir;
+	float boostPulseAddition;
 	GLfloat radiusRGBA[4];
 	GLfloat radiusVertices[720];
+    
+    GLfloat radiusUpgradesRGBA[4];
+    GLfloat radiusUpgradesVertices[MAX_TOWER_LEVEL-1][724];
 	
 	GLfloat boostRGBA[4];
 	GLfloat boostVertices[720];
@@ -111,6 +112,7 @@ enum
 -(BOOL)targetGameObject:(Enemy*)gameObject;
 -(void)targetGameObjectNoRetain:(Enemy*)gameObject;
 -(BOOL)canShoot;
+-(float)towerMaxUpgradeRange;
 -(void)lock;
 -(void)overInvalidArea;
 -(void)overValidArea;
