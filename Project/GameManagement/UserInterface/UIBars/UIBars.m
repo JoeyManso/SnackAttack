@@ -688,16 +688,20 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 		[title setUIObjectScale:1.35f];
 		
 		[barObjects setObject:title forKey:@"MessageTitle"];
-		[barObjects setObject:[[Text alloc] initWithString:@"10/10 Enemies Defeated" position:[[Point2D alloc] initWithX:15.0f y:275.0f] fontName:@"MessageFont"]
+		[barObjects setObject:[[Text alloc] initWithString:@"##/## Enemies Defeated" position:[[Point2D alloc] initWithX:15.0f y:285.0f] fontName:@"MessageFont"]
 					   forKey:@"MessageDefeated"];
-		[barObjects setObject:[[Text alloc] initWithString:@"100% x 50 = $50 Bonus" position:[[Point2D alloc] initWithX:15.0f y:225.0f] 
+		[barObjects setObject:[[Text alloc] initWithString:@"###% x ## = $## Bonus" position:[[Point2D alloc] initWithX:15.0f y:260.0f]
 												  fontName:@"MessageFont"] forKey:@"MessageBonus"];
-		[barObjects setObject:[[Text alloc] initWithString:@"MessageText1" position:[[Point2D alloc] initWithX:15.0f y:165.0f] fontName:@"MessageFont"]
+		[barObjects setObject:[[Text alloc] initWithString:@"MessageText1" position:[[Point2D alloc] initWithX:15.0f y:210.0f] fontName:@"MessageFont"]
 					   forKey:@"MessageText1"];
-		[barObjects setObject:[[Text alloc] initWithString:@"MessageText2" position:[[Point2D alloc] initWithX:15.0f y:140.0f] fontName:@"MessageFont"]
+		[barObjects setObject:[[Text alloc] initWithString:@"MessageText2" position:[[Point2D alloc] initWithX:15.0f y:185.0f] fontName:@"MessageFont"]
 					   forKey:@"MessageText2"];
-		[barObjects setObject:[[Text alloc] initWithString:@"MessageText3" position:[[Point2D alloc] initWithX:15.0f y:115.0f] fontName:@"MessageFont"]
-					   forKey:@"MessageText3"];
+        [barObjects setObject:[[Text alloc] initWithString:@"MessageText3" position:[[Point2D alloc] initWithX:15.0f y:160.0f] fontName:@"MessageFont"]
+                       forKey:@"MessageText3"];
+        [barObjects setObject:[[Text alloc] initWithString:@"" position:[[Point2D alloc] initWithX:15.0f y:135.0f] fontName:@"MessageFont"]
+                       forKey:@"MessageText4"];
+        [barObjects setObject:[[Text alloc] initWithString:@"" position:[[Point2D alloc] initWithX:15.0f y:110.0f] fontName:@"MessageFont"]
+                       forKey:@"MessageText5"];
 		[barObjects setObject:[[Button alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonStartRound.png"] filter:GL_LINEAR]
 												   position:[[Point2D alloc] initWithX:140.0f y:38.0f]] forKey:@"MessageStartRoundButton"];
 	}
@@ -720,9 +724,12 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 	[(Text*)[barObjects objectForKey:@"MessageText3"] setText:msg3];
 }
 -(void)setWithCutomTitle:(NSString*)title enemiesDefeated:(uint)defeated enemiesTotal:(uint)total maxBonusCash:(uint)maxBonus 
-				message1:(NSString*)msg1 message2:(NSString*)msg2 message3:(NSString*)msg3;
+				message1:(NSString*)msg1 message2:(NSString*)msg2 message3:(NSString*)msg3
+                message4:(NSString*)msg4 message5:(NSString*)msg5;
 {
 	[self setRound:0 enemiesDefeated:defeated enemiesTotal:total maxBonusCash:maxBonus message1:msg1 message2:msg2 message3:msg3];
+    [(Text*)[barObjects objectForKey:@"MessageText4"] setText:msg4];
+    [(Text*)[barObjects objectForKey:@"MessageText5"] setText:msg5];
 	[(Text*)[barObjects objectForKey:@"MessageTitle"] setText:title];
 }
 -(void)setState:(uint)s

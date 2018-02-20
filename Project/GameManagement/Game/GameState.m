@@ -20,6 +20,10 @@
 
 static const float GAME_SPEED_MIN = 0.5f;
 static const float GAME_SPEED_MAX = 4.0f;
+static const uint SCORE_MULT_ROUND = 3500;
+static const uint SCORE_MULT_CASH = 50;
+static const uint SCORE_MULT_LIVES = 5000;
+static const uint SCORE_MULT_KILLS = 150;
 static UIManager *UIMan;
 static SoundManager *soundMan;
 static GameStatus *statusBar;
@@ -51,7 +55,7 @@ static EnemyQueue *enemyQueue;
 @synthesize gameCenterEnabled;
 
 const int STARTING_CASH = 200;
-const int STARTING_LIVES = 1;
+const int STARTING_LIVES = 25;
 const int MAX_SORT_COUNT = 15; // sort every time this count is reached
 const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all enemies are removed from map
 
@@ -446,14 +450,6 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	}
 	if(!currentRoundInfo)
 	{
-		[soundMan playSoundWithKey:@"GameWin" gain:1.0f pitch:1.0f shouldLoop:NO];
-		[UIMan swapRoundWithReset:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMainMenu.png"] filter:GL_LINEAR]];
-		// that was the last round, display win information and reset game
-		[UIMan showMessageScreenWithRound:currentRound numEnemiesDefeated:[self enemiesDefeatedThisRound] numEnemiesTotal:numberOfEnemiesThisRound
-						   maxBonusAmount:0 message1:@"Congratulations! You've" 
-								 message2:[NSString stringWithFormat:@"won, defeating %u enemies",currentScore] 
-								 message3:[NSString stringWithFormat:@"with %u lives remaining!",currentLives]];
-        
         [self onGameEnd];
 	}
 	[defeatedEnemiesMap removeAllObjects];
@@ -477,14 +473,6 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	// check if we've lost all lives, if so, we lose!
 	if(currentLives == 0)
 	{
-		[soundMan playSoundWithKey:@"GameLoss" gain:1.0f pitch:1.0f shouldLoop:NO];
-		[UIMan swapRoundWithReset:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMainMenu.png"] filter:GL_LINEAR]];
-		// player lost, display special message screen
-		[UIMan showMessageCustomTitle:[NSString stringWithFormat:@"Failed on Round %u",currentRound] numEnemiesDefeated:[self enemiesDefeatedThisRound]
-					  numEnemiesTotal:[currentRoundInfo numTotalEnemies] maxBonusAmount:0 message1:@"Game Over! You let" message2:@"too many enemies through." 
-							 message3:@"Way to fail!"];
-		paused = YES;
-        
         [self onGameEnd];
 	}
 }
@@ -716,19 +704,53 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)onGameEnd
 {
+    const bool bDidWin = (currentLives > 0);
+    NSString* gameEndMessage;
+    uint completedRound = 0;
+    if(bDidWin)
+    {
+        [soundMan playSoundWithKey:@"GameWin" gain:1.0f pitch:1.0f shouldLoop:NO];
+        gameEndMessage = [NSString stringWithFormat:@"Completed Round %u",currentRound];
+        completedRound = currentRound;
+    }
+    else
+    {
+        [soundMan playSoundWithKey:@"GameLoss" gain:1.0f pitch:1.0f shouldLoop:NO];
+        gameEndMessage = [NSString stringWithFormat:@"Failed on Round %u",currentRound];
+        completedRound = currentRound - 1;
+    }
+    
+    
+    // Calculate score
+    const uint scoreRound = completedRound * SCORE_MULT_ROUND;
+    const uint scoreCash = currentCash * SCORE_MULT_CASH;
+    const uint scoreKills = currentScore * SCORE_MULT_KILLS;
+    const uint scoreLives = currentLives * SCORE_MULT_LIVES;
+    const uint scoreTotal = scoreRound + scoreCash + scoreKills + scoreLives;
+    
+    // Display special message screen
+    paused = YES;
+    [UIMan swapRoundWithReset:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonMainMenu.png"] filter:GL_LINEAR]];
+    [UIMan showMessageCustomTitle:gameEndMessage
+               numEnemiesDefeated:[self enemiesDefeatedThisRound]
+                  numEnemiesTotal:[currentRoundInfo numTotalEnemies] maxBonusAmount:0
+                         message1:[NSString stringWithFormat:@"%u x %u = %u",
+                                   completedRound, SCORE_MULT_ROUND, scoreRound]
+                         message2:[NSString stringWithFormat:@"%u x %u = %u",
+                                   currentCash, SCORE_MULT_CASH, scoreCash]
+                         message3:[NSString stringWithFormat:@"%u x %u = %u",
+                                   currentScore, SCORE_MULT_KILLS, scoreKills]
+                         message4:[NSString stringWithFormat:@"%u x %u = %u",
+                                   currentLives, SCORE_MULT_LIVES, scoreLives]
+                         message5:[NSString stringWithFormat:@"Your Score: %u", scoreTotal]];
+    
+    // Report score to GameCenter
     if(gameCenterEnabled)
     {
-        // Calculate score
-        // (Round * 1000) + (Cash * 10) + (Score * 100) + (Lives * 1000)
-        int scoreValue = (currentRound * 1000) +
-        (currentCash * 10) +
-        (currentScore * 100) +
-        (currentLives * 1000);
         GKScore* newScore = [[GKScore alloc] initWithLeaderboardIdentifier:@"Leaderboard_01"];
-        newScore.value = scoreValue;
+        newScore.value = scoreTotal;
         newScore.context = 0;
         
-        // Report score to GameCenter
         NSArray* scores = @[newScore];
         [GKScore reportScores:scores withCompletionHandler:^(NSError* error)
          {

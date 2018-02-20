@@ -26,7 +26,7 @@
 -(void)showMessageScreenWithRound:(uint)round numEnemiesDefeated:(uint)numDefeated numEnemiesTotal:(uint)numTotal maxBonusAmount:(uint)max 
 						 message1:(NSString*)m1 message2:(NSString*)m2 message3:(NSString*)m3;
 -(void)showMessageCustomTitle:(NSString*)title numEnemiesDefeated:(uint)numDefeated numEnemiesTotal:(uint)numTotal maxBonusAmount:(uint)max 
-					 message1:(NSString*)m1 message2:(NSString*)m2 message3:(NSString*)m3;
+					 message1:(NSString*)m1 message2:(NSString*)m2 message3:(NSString*)m3 message4:(NSString*)m4 message5:(NSString*)m5;
 -(void)swapRoundWithReset:(Image*)resetImage;
 -(BOOL)clearBottomStatsBar;
 

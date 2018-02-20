@@ -82,7 +82,7 @@
 -(void)setRound:(uint)round enemiesDefeated:(uint)defeated enemiesTotal:(uint)total maxBonusCash:(uint)maxBonus 
 	   message1:(NSString*)msg1 message2:(NSString*)msg2 message3:(NSString*)msg3;
 -(void)setWithCutomTitle:(NSString*)title enemiesDefeated:(uint)defeated enemiesTotal:(uint)total maxBonusCash:(uint)maxBonus 
-				message1:(NSString*)msg1 message2:(NSString*)msg2 message3:(NSString*)msg3;
+				message1:(NSString*)msg1 message2:(NSString*)msg2 message3:(NSString*)msg3 message4:(NSString*)msg4 message5:(NSString*)msg5;
 -(void)swapRoundWithReset:(Image*)resetImage;
 -(void)swapResetWithRound:(Image*)roundImage;
 @end

@@ -351,11 +351,11 @@ static MessageScreen *messageScreen;
 	[messageScreen setRound:round enemiesDefeated:numDefeated enemiesTotal:numTotal maxBonusCash:max message1:m1 message2:m2 message3:m3];
 }
 -(void)showMessageCustomTitle:(NSString*)title numEnemiesDefeated:(uint)numDefeated numEnemiesTotal:(uint)numTotal maxBonusAmount:(uint)max 
-					 message1:(NSString*)m1 message2:(NSString*)m2 message3:(NSString*)m3;
+					 message1:(NSString*)m1 message2:(NSString*)m2 message3:(NSString*)m3 message4:(NSString*)m4 message5:(NSString*)m5;
 {
 	[messageScreen setState:BAR_DISPLAY];
 	showingMessageScreen = YES;
-	[messageScreen setWithCutomTitle:title enemiesDefeated:numDefeated enemiesTotal:numTotal maxBonusCash:max message1:m1 message2:m2 message3:m3];
+    [messageScreen setWithCutomTitle:title enemiesDefeated:numDefeated enemiesTotal:numTotal maxBonusCash:max message1:m1 message2:m2 message3:m3 message4:m4 message5:m5];
 }
 -(void)swapRoundWithReset:(Image*)resetImage
 {
