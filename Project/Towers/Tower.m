@@ -310,7 +310,6 @@ float const SELL_PERCENT = 0.5f;
 		[self setTowerRange:towerBaseRange];
 		[self setTowerRateOfFire:towerBaseRateOfFire];
 	}
-	
 }
 -(float)getBaseDisplayRange
 {
@@ -452,12 +451,9 @@ float const SELL_PERCENT = 0.5f;
 }
 -(int)draw
 {
-    if(canBeMoved)
-    {
-        [self displayRangeUpgrades];
-    }
 	if(selected || canBeMoved)
     {
+        [self displayRangeUpgrades];
 		[self displayRange];
     }
 	if(isInBoostRadius)

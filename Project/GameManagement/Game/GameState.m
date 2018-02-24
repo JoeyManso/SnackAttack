@@ -18,8 +18,6 @@
 #import "EnemyQueue.h"
 #import "Map.h"
 
-static const float GAME_SPEED_MIN = 0.5f;
-static const float GAME_SPEED_MAX = 4.0f;
 static const uint SCORE_MULT_ROUND = 3500;
 static const uint SCORE_MULT_CASH = 50;
 static const uint SCORE_MULT_LIVES = 5000;

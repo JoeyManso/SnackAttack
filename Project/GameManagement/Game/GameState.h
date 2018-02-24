@@ -15,6 +15,8 @@
 
 @class Map;
 
+static const float GAME_SPEED_MIN = 0.25f;
+static const float GAME_SPEED_MAX = 4.0f;
 static const int STARTING_CASH[] = {200, 175, 250};
 static const int STARTING_LIVES[] = {25, 20, 30};
 

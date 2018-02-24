@@ -439,7 +439,6 @@ const float TRANSITION_SPEED_BASE = 225.0f;
     }
 	return NO;
 }
-
 -(void)drawBar
 {
 	[super drawBar];
@@ -466,7 +465,24 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 }
 -(void)setGameSpeed:(float)s
 {
-    [(Text*)[barObjects objectForKey:@"gameSpeed"] setText:[NSString stringWithFormat:@"%0.1fX",s]];
+    NSString* format;
+    float xPos = 0.0f;
+    if(s < 0.5f)
+    {
+        format = @"%0.2fX";
+        xPos = 0.425f * backgroundWidth;
+    }
+    else
+    {
+        format = @"%0.1fX";
+        xPos = 0.44f * backgroundWidth;
+    }
+    NSString* gameSpeedText = [NSString stringWithFormat:format,s];
+    UIObject* gameSpeedObject = [barObjects objectForKey:@"gameSpeed"];
+    [[gameSpeedObject UIObjectPosition] setX:xPos];
+    [(Text*)gameSpeedObject setText:gameSpeedText];
+    [[barObjects objectForKey:@"speedDownButton"] setActive:(s > GAME_SPEED_MIN)];
+    [[barObjects objectForKey:@"speedUpButton"] setActive:(s < GAME_SPEED_MAX)];
 }
 @end
 
