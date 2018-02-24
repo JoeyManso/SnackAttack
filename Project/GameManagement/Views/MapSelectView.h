@@ -15,6 +15,10 @@
 	Image *menuBackground;
     Image *menuBackgroundMaskLower;
     Image *menuBackgroundMaskUpper;
+    Text *textLivesTitle;
+    Text *textLivesAmount;
+    Text *textCashTitle;
+    Text *textCashAmount;
     MenuButton *backButton;
     MenuButton *startButton;
     MenuButton *arrowLeftButton;

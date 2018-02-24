@@ -8,8 +8,15 @@
 
 #import "ViewManager.h"
 #import "MapSelectView.h"
+#import "GameState.h"
 #import "Image.h"
 #import "UITools.h"
+
+@interface MapSelectView()
+{
+}
+-(void)updateLivesCash;
+@end
 
 @implementation MapSelectView
 
@@ -31,6 +38,26 @@
         backgroundDisplayPointUpper = CGPointMake(0.0f,
                                                   screenBounds.size.height - [maskImageUpper imageHeight]);
 		titleDisplayPoint = CGPointMake(screenBounds.size.width / 2, screenBounds.size.height - 50.0f);
+        
+        textLivesTitle = [[Text alloc] initWithString:@"Lives"
+                                             position:[[Point2D alloc]
+                                                       initWithX:(titleDisplayPoint.x - ([menuTitle imageWidth] * 0.46f)) - 10
+                                                       y:titleDisplayPoint.y - 32] fontName:@"EnemyStatFont"];
+        
+        textLivesAmount = [[Text alloc] initWithString:@"00"
+                                             position:[[Point2D alloc]
+                                                       initWithX:titleDisplayPoint.x - ([menuTitle imageWidth] * 0.46f)
+                                                       y:titleDisplayPoint.y - 52] fontName:@"EnemyStatFont"];
+        
+        textCashTitle = [[Text alloc] initWithString:@"Cash"
+                                             position:[[Point2D alloc]
+                                                       initWithX:(titleDisplayPoint.x + ([menuTitle imageWidth] * 0.35f)) - 4
+                                                       y:titleDisplayPoint.y - 32] fontName:@"EnemyStatFont"];
+        
+        textCashAmount = [[Text alloc] initWithString:@"000"
+                                             position:[[Point2D alloc]
+                                                       initWithX:titleDisplayPoint.x + ([menuTitle imageWidth] * 0.35f)
+                                                       y:titleDisplayPoint.y - 52] fontName:@"EnemyStatFont"];
         
         backButton = [[MenuButton alloc] initWithImage:[[Image alloc] initWithImage:[UIImage imageNamed:@"ButtonBack.png"]  filter:GL_LINEAR]
                                               position:[[Point2D alloc]
@@ -62,6 +89,7 @@
                      [[Image alloc] initWithImage:[UIImage imageNamed:@"map3.png"] scale:0.5f * yScale], nil];
         
         targetMapIdx = 0;
+        [self updateLivesCash];
         scrollPadding = screenBounds.size.width * 1.15f;
         scrollPaddingTotal = scrollPadding * (mapImages.count-1);
         scrollSpeed = 1000.0f;
@@ -71,7 +99,7 @@
         {
             float x = [self getLoopedX:(screenBounds.size.width / 2) + (scrollPadding * i)];
             CGPoint p = CGPointMake(x,
-                                    screenBounds.size.height / 2 + 32.0f);
+                                    screenBounds.size.height / 2);
             mapDisplayPoints[i] = p;
             
             
@@ -98,6 +126,7 @@
     if(!isScrolling)
     {
         targetMapIdx = (targetMapIdx == (mapImages.count-1) ? 0 : targetMapIdx+1);
+        [self updateLivesCash];
     }
 }
 -(void)decTargetMapIdx
@@ -105,7 +134,14 @@
     if(!isScrolling)
     {
         targetMapIdx = (targetMapIdx == 0 ? (int)mapImages.count - 1 : targetMapIdx-1);
+        [self updateLivesCash];
     }
+}
+
+-(void)updateLivesCash
+{
+    [textLivesAmount setText:[[NSString alloc] initWithFormat:@"%u", STARTING_LIVES[targetMapIdx]]];
+    [textCashAmount setText:[[NSString alloc] initWithFormat:@"%u", STARTING_CASH[targetMapIdx]]];
 }
 
 -(void)updateView:(float)deltaTime
@@ -192,6 +228,10 @@
     [menuBackgroundMaskLower renderAtPoint:backgroundDisplayPointLower centerOfImage:NO];
     [menuBackgroundMaskUpper renderAtPoint:backgroundDisplayPointUpper centerOfImage:NO];
     [menuTitle renderAtPoint:titleDisplayPoint centerOfImage:YES];
+    [textLivesTitle drawUIObject];
+    [textLivesAmount drawUIObject];
+    [textCashTitle drawUIObject];
+    [textCashAmount drawUIObject];
     [backButton drawUIObject];
     [startButton drawUIObject];
     [arrowLeftButton drawUIObject];
@@ -201,7 +241,13 @@
 -(void)dealloc
 {
     for(Image *i in mapImages)
+    {
         [i release];
+    }
+    [textLivesTitle dealloc];
+    [textLivesAmount dealloc];
+    [textCashTitle dealloc];
+    [textCashAmount dealloc];
     [mapImages release];
     [backButton dealloc];
     [startButton dealloc];

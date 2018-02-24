@@ -54,8 +54,6 @@ static EnemyQueue *enemyQueue;
 @synthesize paused;
 @synthesize gameCenterEnabled;
 
-const int STARTING_CASH = 200;
-const int STARTING_LIVES = 25;
 const int MAX_SORT_COUNT = 15; // sort every time this count is reached
 const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all enemies are removed from map
 
@@ -527,12 +525,13 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)setBeginningStats
 {
+    int mapIdx = [[ViewManager getInstance] getMapIdx];
 	time = 0.0f;
 	roundBuffer = 0.0f;
-	currentCash = STARTING_CASH;
+	currentCash = STARTING_CASH[mapIdx];
 	currentScore = 0;
 	currentRound = 0;
-	currentLives = STARTING_LIVES;
+	currentLives = STARTING_LIVES[mapIdx];
 	enemiesOnMap = NO;
 	paused = NO;
     [defeatedEnemiesMap removeAllObjects];

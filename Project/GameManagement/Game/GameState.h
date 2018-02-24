@@ -15,7 +15,10 @@
 
 @class Map;
 
-@interface GameState : NSObject 
+static const int STARTING_CASH[] = {200, 175, 250};
+static const int STARTING_LIVES[] = {25, 20, 30};
+
+@interface GameState : NSObject
 {
 @private
     NSMutableArray *gameObjects;
