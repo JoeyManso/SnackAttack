@@ -38,8 +38,9 @@
 @end
 @interface ConfirmBar : UIBar 
 {
+    BOOL towerPlaceable;
 }
--(void)setConfirmButton:(BOOL)activeFlag;
+-(void)setTowerPlaceable:(BOOL)isPlaceable;
 @end
 @interface GameStatus : UIBar 
 {

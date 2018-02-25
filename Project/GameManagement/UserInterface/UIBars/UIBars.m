@@ -93,6 +93,10 @@
 }
 @end
 
+@interface TowerDetails()
+-(void)updatePurchaseButton;
+@end
+
 @implementation TowerDetails
 
 const float TRANSITION_SPEED_BASE = 225.0f;
@@ -152,17 +156,13 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 	
 	if([[GameState sharedGameStateInstance] currentRound] < rReq)
 	{
-		[(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:NO];
 		[(Text*)[barObjects objectForKey:@"buttonBuyBlock"] setText:[NSString stringWithFormat:@"Round %u",rReq]];
 	}
 	else
 	{
-		if(towerCost > [[GameState sharedGameStateInstance] currentCash])
-			[(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:NO];
-		else
-			[(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:YES];
 		[(Text*)[barObjects objectForKey:@"buttonBuyBlock"] setText:@""];
 	}
+    [self updatePurchaseButton];
 }
 -(void)setState:(uint)s
 {
@@ -244,22 +244,33 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 }
 -(void)cashHasChanged:(uint)newCashAmount
 {
-	if(visible)
-	{
-		if(towerCost > newCashAmount || [[GameState sharedGameStateInstance] currentRound] < requiredRound)
-			[(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:NO];
-		else
-			[(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:YES];
-	}
+	[self updatePurchaseButton];
 }
--(void)roundHasFinished:(uint)newRound currentCash:(uint)cash;
+-(void)onPauseChange:(bool)isPaused
+{
+    [self updatePurchaseButton];
+}
+-(void)updatePurchaseButton
+{
+    GameState* gameState = [GameState sharedGameStateInstance];
+    if(towerCost > [gameState currentCash]
+        || [gameState currentRound] < requiredRound
+        || [gameState paused])
+    {
+        [(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:NO];
+    }
+    else
+    {
+        [(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:YES];
+    }
+}
+-(void)roundHasFinished:(uint)newRound currentCash:(uint)cash
 {
 	if(newRound >= requiredRound)
 	{
 		[(Text*)[barObjects objectForKey:@"buttonBuyBlock"] setText:@""];
-		if(towerCost <= cash)
-			[(Button*)[barObjects objectForKey:@"buttonBuy"] setActive:YES];
 	}
+    [self updatePurchaseButton];
 }
 -(void)scaleTransitionSpeed:(float)scaleAmount
 {
@@ -273,6 +284,9 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 }
 @end
 
+@interface ConfirmBar()
+-(void)updateConfirmCancel;
+@end
 
 @implementation ConfirmBar
 
@@ -314,9 +328,20 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 	}
 	return NO;
 }
--(void)setConfirmButton:(BOOL)activeFlag
+-(void)setTowerPlaceable:(BOOL)isPlaceable
 {
-	[[barObjects objectForKey:@"CONFIRM"] setActive:activeFlag];
+    towerPlaceable = isPlaceable;
+    [self updateConfirmCancel];
+}
+-(void)onPauseChange:(bool)isPaused
+{
+    [self updateConfirmCancel];
+}
+-(void)updateConfirmCancel
+{
+    BOOL isPaused = [[GameState sharedGameStateInstance] paused];
+    [[barObjects objectForKey:@"CONFIRM"] setActive:(!isPaused && towerPlaceable)];
+    [[barObjects objectForKey:@"CANCEL"] setActive:!isPaused];
 }
 @end
 
@@ -488,7 +513,7 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 
 @interface TowerStatus()
 
--(void)setUpgradeButtonActive:(BOOL)active;
+-(void)updateBuySellButtons;
 
 @end
 
@@ -579,36 +604,45 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 	[(Text*)[barObjects objectForKey:@"towerDamage"] append_uint:damage];
 	[(Text*)[barObjects objectForKey:@"towerROF"] append_float:rof];
 	[(Text*)[barObjects objectForKey:@"sellAmount"] append_uint:sell];
-	if(upgrade==0 || upgradeCost > [[GameState sharedGameStateInstance] currentCash])
-	{
-		[self setUpgradeButtonActive:NO];
-		if(upgrade==0)
-			[(Text*)[barObjects objectForKey:@"upgradeCost"] setText:@"N/A"];
-		else
-		{
-			[(Text*)[barObjects objectForKey:@"upgradeCost"] setText:@"-"];
-			[(Text*)[barObjects objectForKey:@"upgradeCost"] append_uint:upgrade];
-		}
-	}
-	else
-	{
-		[self setUpgradeButtonActive:YES];
-		[(Text*)[barObjects objectForKey:@"upgradeCost"] setText:@"-"];
-		[(Text*)[barObjects objectForKey:@"upgradeCost"] append_uint:upgrade];
-		[(Text*)[barObjects objectForKey:@"upgradeCost"] setAlpha:1.0f];
-	}
 	[(Text*)[barObjects objectForKey:@"towerSpecial1"] setText:line1];
 	[(Text*)[barObjects objectForKey:@"towerSpecial2"] setText:line2];
 	[(Text*)[barObjects objectForKey:@"towerSpecial3"] setText:line3];
+    if(upgradeCost == 0)
+    {
+        [(Text*)[barObjects objectForKey:@"upgradeCost"] setText:@"N/A"];
+    }
+    else
+    {
+        [(Text*)[barObjects objectForKey:@"upgradeCost"] setText:@"-"];
+        [(Text*)[barObjects objectForKey:@"upgradeCost"] append_uint:upgradeCost];
+    }
+    [self updateBuySellButtons];
 }
--(void)setUpgradeButtonActive:(BOOL)active
+-(void)updateBuySellButtons
 {
-	[(Button*)[barObjects objectForKey:@"upgradeButton"] setActive:active];
-	
-	if(active)
-		[(Text*)[barObjects objectForKey:@"upgradeCost"] setAlpha:1.0f];
-	else
-		[(Text*)[barObjects objectForKey:@"upgradeCost"] setAlpha:0.25f];
+    GameState* gameState = [GameState sharedGameStateInstance];
+
+    if([gameState paused])
+    {
+        [[barObjects objectForKey:@"sellButton"] setActive:NO];
+        [(Text*)[barObjects objectForKey:@"sellAmount"] setAlpha:0.25f];
+    }
+    else
+    {
+        [[barObjects objectForKey:@"sellButton"] setActive:YES];
+        [(Text*)[barObjects objectForKey:@"sellAmount"] setAlpha:1.0f];
+    }
+
+    if(upgradeCost > [gameState currentCash] || [gameState paused])
+    {
+        [[barObjects objectForKey:@"upgradeButton"] setActive:NO];
+        [(Text*)[barObjects objectForKey:@"upgradeCost"] setAlpha:0.25f];
+    }
+    else
+    {
+        [[barObjects objectForKey:@"upgradeButton"] setActive:YES];
+        [(Text*)[barObjects objectForKey:@"upgradeCost"] setAlpha:1.0f];
+    }
 }
 
 -(void)drawBar
@@ -623,13 +657,11 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 }
 -(void)cashHasChanged:(uint)newCashAmount
 {
-	if(visible)
-	{
-		if(upgradeCost > newCashAmount || upgradeCost == 0)
-			[self setUpgradeButtonActive:NO];
-		else
-			[self setUpgradeButtonActive:YES];
-	}
+	[self updateBuySellButtons];
+}
+-(void)onPauseChange:(bool)isPaused
+{
+    [self updateBuySellButtons];
 }
 -(void)updateReloadBar:(float)ratio
 {

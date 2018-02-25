@@ -146,7 +146,7 @@ static MessageScreen *messageScreen;
 			}
 			returnVal = YES;
 		}
-		else if(![[GameState sharedGameStateInstance] paused])
+		else
 		{
 			if(towerSelect == bottomUIBar && [towerSelect state] == BAR_LOCK)
 			{
@@ -272,6 +272,12 @@ static MessageScreen *messageScreen;
 	[towerDetails cashHasChanged:newCashAmount];
 	[towerStatus cashHasChanged:newCashAmount];
 }
+-(void)onPauseChange:(bool)isPaused
+{
+    [towerDetails onPauseChange:isPaused];
+    [towerStatus onPauseChange:isPaused];
+    [confirmBar onPauseChange:isPaused];
+}
 -(void)roundHasFinished:(uint)newRound currentCash:(uint)cash;
 {
 	[towerDetails roundHasFinished:newRound currentCash:cash];
@@ -319,9 +325,9 @@ static MessageScreen *messageScreen;
 	}
 	return NO;
 }
--(void)setConfirmButton:(BOOL)activeFlag
+-(void)setTowerPlaceable:(BOOL)isPlaceable
 {
-	[confirmBar setConfirmButton:activeFlag];
+	[confirmBar setTowerPlaceable:isPlaceable];
 }
 -(TowerSelect*)getTowerSelectBarReference
 {

@@ -65,7 +65,7 @@ float const SELL_PERCENT = 0.5f;
 		for(uint i=0; i<MAX_TOWER_LEVEL; ++i)
 			upgrades[i]=nil;
 		
-		lastShotTime = 0.0f;		
+		lastShotTime = -towerRateOfFire;
 		canBeMoved = YES;
 		isInBoostRadius = NO;
 		

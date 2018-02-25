@@ -157,6 +157,10 @@ float const DEFAULT_TRANSITION_SPEED = 90.0f;
 {
 	// do nothing!
 }
+-(void)onPauseChange:(bool)isPaused
+{
+    // do nothing!
+}
 -(void)hideBar
 {
 	visible = NO;

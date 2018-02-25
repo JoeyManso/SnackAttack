@@ -31,8 +31,9 @@
 -(BOOL)clearBottomStatsBar;
 
 -(void)detailsBarHasLocked;
--(void)setConfirmButton:(BOOL)activeFlag;
+-(void)setTowerPlaceable:(BOOL)isPlaceable;
 -(void)cashHasChanged:(uint)newCashAmount; // cash has beed added or deducted (event)
+-(void)onPauseChange:(bool)isPaused;
 -(void)roundHasFinished:(uint)newRound currentCash:(uint)cash; // round has finished (for tower details bar)
 -(void)resetGame;
 -(void)onLoadGame;

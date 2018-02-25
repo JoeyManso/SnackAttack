@@ -146,15 +146,12 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 {	
 	// while our selected object does not become nil
 	GameObject *touchedObject = nil;
-	if(!paused)
+	for(GameObject *o in gameObjects)
 	{
-		for(GameObject *o in gameObjects)
+		// exit the loop as soon as we find an object
+		if([o isTouchedAtPoint:p])
 		{
-			// exit the loop as soon as we find an object
-			if([o isTouchedAtPoint:p])
-			{
-				touchedObject = o;
-			}
+			touchedObject = o;
 		}
 	}
 	return touchedObject;
@@ -475,10 +472,12 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 -(void)pause
 {
 	paused = YES;
+    [UIMan onPauseChange:paused];
 }
 -(void)unpause
 {
     paused = NO;
+    [UIMan onPauseChange:paused];
 }
 -(void)speedDown
 {

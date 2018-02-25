@@ -69,6 +69,7 @@ enum
 -(void)drawBar;
 -(void)hideBar;
 -(void)cashHasChanged:(uint)newCashAmount;
+-(void)onPauseChange:(bool)isPaused;
 
 -(void)transitionUIObjects; // moves UIObjects when the bar moves
 

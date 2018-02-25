@@ -208,7 +208,7 @@ BOOL touchedUI; // flag saying if user started touch on UI
 	{
 		[self removePendingTower];
 		towerBeingPlaced = NO;
-		[UIMan setConfirmButton:YES];
+		[UIMan setTowerPlaceable:YES];
 		[currentMap turnOffHighlight];
 	}
 }
@@ -224,13 +224,13 @@ BOOL touchedUI; // flag saying if user started touch on UI
 	{
 		[pendingTower overInvalidArea];
 		[currentMap setTileHighlightToRed];
-		[UIMan setConfirmButton:NO];
+		[UIMan setTowerPlaceable:NO];
 	}
 	else
 	{
 		[pendingTower overValidArea];
 		[currentMap setTileHighlightToGreen];
-		[UIMan setConfirmButton:YES];
+		[UIMan setTowerPlaceable:YES];
 	}
 }
 -(void)dealloc
