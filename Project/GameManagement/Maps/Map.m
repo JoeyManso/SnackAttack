@@ -548,11 +548,11 @@
                                              message2:@"use is just as important as"
                                              message3:@"choosing where to place it."
                                                 bonus:30 chubbies:0 jeanies:6 lankies:0 smarties:7 airplanes:0
-                                              banners:0 bandies:0 cheeries:0 punkies:0 mascots:0 queenies:0]];
+                                              banners:0 bandies:0 cheeries:0 punkies:2 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Check out the instructions" 
                                              message2:@"page for details on enemy" 
                                              message3:@"types and immunities."
-                                                bonus:28 chubbies:5 jeanies:0 lankies:2 smarties:0 airplanes:0
+                                                bonus:28 chubbies:5 jeanies:0 lankies:2 smarties:2 airplanes:0
                                               banners:0 bandies:0 cheeries:0 punkies:0 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Selling many towers for one" 
                                              message2:@"one premium tower is never" 
@@ -562,22 +562,22 @@
     [rounds addObject:[[Round alloc] initWithMessage1:@"Airplanes are on their" //5
                                              message2:@"way in a few rounds..." 
                                              message3:@"The Matron is your friend."
-                                                bonus:26 chubbies:0 jeanies:3 lankies:0 smarties:3 airplanes:0
-                                              banners:0 bandies:0 cheeries:0 punkies:0 mascots:0 queenies:0]];
+                                                bonus:26 chubbies:0 jeanies:3 lankies:0 smarties:5 airplanes:0
+                                              banners:0 bandies:0 cheeries:0 punkies:2 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Upgrading towers can go" 
                                              message2:@"a long way. Be sure to" 
                                              message3:@"use it in your strategy."
-                                                bonus:25 chubbies:3 jeanies:0 lankies:0 smarties:0 airplanes:0
-                                              banners:0 bandies:0 cheeries:0 punkies:0 mascots:0 queenies:0]];
+                                                bonus:25 chubbies:0 jeanies:2 lankies:0 smarties:3 airplanes:0
+                                              banners:0 bandies:0 cheeries:0 punkies:1 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Have you checked out" 
                                              message2:@"enemy types and immunities" 
                                              message3:@"on the instructions page?" 
-                                                bonus:24 chubbies:0 jeanies:0 lankies:0 smarties:0 airplanes:0
-                                              banners:0 bandies:0 cheeries:0 punkies:3 mascots:0 queenies:0]];
+                                                bonus:24 chubbies:4 jeanies:0 lankies:0 smarties:0 airplanes:0
+                                              banners:0 bandies:0 cheeries:0 punkies:0 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Some towers are only" 
                                              message2:@"available once you've" 
                                              message3:@"passed certain rounds." 
-                                                bonus:22 chubbies:0 jeanies:0 lankies:0 smarties:4 airplanes:0
+                                                bonus:22 chubbies:0 jeanies:0 lankies:0 smarties:5 airplanes:0
                                               banners:0 bandies:0 cheeries:0 punkies:0 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Be sure to pay attention" //1
                                              message2:@"to enemy immunities and" 

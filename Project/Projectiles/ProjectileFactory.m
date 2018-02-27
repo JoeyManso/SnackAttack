@@ -136,7 +136,7 @@ uint const CK_BASE_NUM_DIRECTIONS = 5;
 
 -(id)init
 {
-	if(self = [super initWithBaseDamage:15 baseSpeed:150.0f])
+	if(self = [super initWithBaseDamage:12 baseSpeed:150.0f])
 	{
 		if(!projectileImage)
 			projectileImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"Cookie.png"] filter:GL_LINEAR];

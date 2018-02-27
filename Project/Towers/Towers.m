@@ -88,7 +88,7 @@ float const VM_RANGE = 70.0f;
 
 // private consts
 float const FR_ROF = 4.0f;
-float const FR_RANGE = 45.0f;
+float const FR_RANGE = 40.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss
 {
@@ -101,7 +101,7 @@ float const FR_RANGE = 45.0f;
 		projectileType = FREEZE;
 		
 		// initialize upgrades
-		upgrades[0] = [[FreezerUpgrade alloc] initWithCost:100 damage:0.0f rateOfFire:3.8f range:50.0f freezeDuration:1.4f];
+		upgrades[0] = [[FreezerUpgrade alloc] initWithCost:100 damage:0.0f rateOfFire:3.8f range:50.0f freezeDuration:1.2f];
 		upgrades[1] = [[FreezerUpgrade alloc] initWithCost:255 damage:0.0f rateOfFire:3.5f range:60.0f freezeDuration:2.2f];
 		
 		freezeDuration = 0.8f;
@@ -293,7 +293,7 @@ float const MT_RANGE = 70.0f;
 @implementation CookieLauncher
 
 // private consts
-float const CL_ROF = 1.3f;
+float const CL_ROF = 0.8f;
 float const CL_RANGE = 40.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss
@@ -306,8 +306,8 @@ float const CL_RANGE = 40.0f;
 		projectileType = COOKIE;
 		
 		// initialize upgrades
-		upgrades[0] = [[CookieUpgrade alloc] initWithCost:100 damage:25.0f rateOfFire:1.2f range:50.0f numDirections:6];
-		upgrades[1] = [[CookieUpgrade alloc] initWithCost:225 damage:45.0f rateOfFire:1.0f range:55.0f numDirections:9];
+		upgrades[0] = [[CookieUpgrade alloc] initWithCost:100 damage:24.0f rateOfFire:0.8f range:50.0f numDirections:6];
+		upgrades[1] = [[CookieUpgrade alloc] initWithCost:225 damage:40.0f rateOfFire:0.7f range:70.0f numDirections:9];
 		
 		[(CookieFactory*)projectileFactory setTowerRange:CL_RANGE];
 		// set default animation for Cookie Launcher

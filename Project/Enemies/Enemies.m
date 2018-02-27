@@ -10,8 +10,8 @@
 
 @implementation Chubby
 
-float const C_HIT_POINTS = 260.0;
-float const C_SPEED = 25.0f;
+float const C_HIT_POINTS = 285.0;
+float const C_SPEED = 30.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -41,8 +41,8 @@ float const C_SPEED = 25.0f;
 
 @implementation Jeanie
 
-float const J_HIT_POINTS = 100.0;
-float const J_SPEED = 30.0f;
+float const J_HIT_POINTS = 140.0;
+float const J_SPEED = 35.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -63,7 +63,7 @@ float const J_SPEED = 30.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 4;
+        killValue = 3;
     }
     return self;
 }
@@ -72,8 +72,8 @@ float const J_SPEED = 30.0f;
 
 @implementation Lanky
 
-float const L_HIT_POINTS = 150.0f;
-float const L_SPEED = 40.0f;
+float const L_HIT_POINTS = 160.0f;
+float const L_SPEED = 45.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -94,7 +94,7 @@ float const L_SPEED = 40.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 5;
+        killValue = 4;
     }
     return self;
 }
@@ -103,8 +103,8 @@ float const L_SPEED = 40.0f;
 
 @implementation Smarty
 
-float const S_HIT_POINTS = 120.0f;
-float const S_SPEED = 35.0f;
+float const S_HIT_POINTS = 130.0f;
+float const S_SPEED = 40.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -125,7 +125,7 @@ float const S_SPEED = 35.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 4;
+        killValue = 3;
     }
     return self;
 }
@@ -157,7 +157,7 @@ float const A_SPEED = 45.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 6;
+        killValue = 5;
     }
     return self;
 }
@@ -166,8 +166,8 @@ float const A_SPEED = 45.0f;
 
 @implementation Banner
 
-float const BN_HIT_POINTS = 115.0f;
-float const BN_SPEED = 50.0f;
+float const BN_HIT_POINTS = 130.0f;
+float const BN_SPEED = 60.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -189,7 +189,7 @@ float const BN_SPEED = 50.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 7;
+        killValue = 6;
     }
     return self;
 }
@@ -198,8 +198,8 @@ float const BN_SPEED = 50.0f;
 
 @implementation Bandie
 
-float const BD_HIT_POINTS = 225.0f;
-float const BD_SPEED = 40.0f;
+float const BD_HIT_POINTS = 275.0f;
+float const BD_SPEED = 45.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -224,7 +224,7 @@ float const BD_SPEED = 40.0f;
         objectSound.key = deathSoundKey;
         objectSound.gain = 2.0f;
         
-        killValue = 6;
+        killValue = 5;
     }
     return self;
 }
@@ -233,8 +233,8 @@ float const BD_SPEED = 40.0f;
 
 @implementation Cheerie
 
-float const CH_HIT_POINTS = 45;
-float const CH_SPEED = 105.0f;
+float const CH_HIT_POINTS = 60;
+float const CH_SPEED = 180.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -259,7 +259,7 @@ float const CH_SPEED = 105.0f;
         objectSound.key = deathSoundKey;
         objectSound.gain = 2.0f;
         
-        killValue = 3;
+        killValue = 2;
     }
     return self;
 }
@@ -268,8 +268,8 @@ float const CH_SPEED = 105.0f;
 
 @implementation Punkie
 
-float const P_HIT_POINTS = 95;
-float const P_SPEED = 55.0f;
+float const P_HIT_POINTS = 215;
+float const P_SPEED = 80.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -302,8 +302,8 @@ float const P_SPEED = 55.0f;
 
 @implementation Mascot
 
-float const M_HIT_POINTS = 325;
-float const M_SPEED = 35.0f;
+float const M_HIT_POINTS = 350;
+float const M_SPEED = 40.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -327,7 +327,7 @@ float const M_SPEED = 35.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 6;
+        killValue = 5;
     }
     return self;
 }
@@ -336,8 +336,8 @@ float const M_SPEED = 35.0f;
 
 @implementation Queenie
 
-float const Q_HIT_POINTS = 950;
-float const Q_SPEED = 40.0f;
+float const Q_HIT_POINTS = 975;
+float const Q_SPEED = 45.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -362,7 +362,7 @@ float const Q_SPEED = 40.0f;
         objectSound.key = deathSoundKey;
         objectSound.gain = 1.5f;
         
-        killValue = 12;
+        killValue = 13;
     }
     return self;
 }
