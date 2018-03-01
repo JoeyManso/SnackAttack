@@ -50,7 +50,7 @@ float const VM_RANGE = 70.0f;
 	}
 	return nil;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -60,6 +60,7 @@ float const VM_RANGE = 70.0f;
             ++towerLevel;
         }
         canBeMoved = NO;
+        shotCooldownRemain = c;
         return self;
     }
     return nil;
@@ -128,7 +129,7 @@ float const FR_RANGE = 40.0f;
 	}
 	return nil;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -138,6 +139,7 @@ float const FR_RANGE = 40.0f;
             ++towerLevel;
         }
         canBeMoved = NO;
+        shotCooldownRemain = c;
         return self;
     }
     return nil;
@@ -167,6 +169,7 @@ float const FR_RANGE = 40.0f;
 	[p release];
 	[game freezeEnemiesInRadius:towerRange origin:objectPosition duration:freezeDuration];
 	lastShotTime = [GameObject getCurrentTime];
+    shotCooldownRemain = towerRateOfFire;
 	[self playSound];
 }
 -(BOOL)targetGameObject:(Enemy*)gameObject
@@ -233,7 +236,7 @@ float const MT_RANGE = 70.0f;
 	}
 	return nil;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -243,6 +246,7 @@ float const MT_RANGE = 70.0f;
             ++towerLevel;
         }
         canBeMoved = NO;
+        shotCooldownRemain = c;
         return self;
     }
     return nil;
@@ -264,6 +268,7 @@ float const MT_RANGE = 70.0f;
 	[aniCurrent setCurrentFrame:0];
 	[aniCurrent setRunning:YES];
 	lastShotTime = [GameObject getCurrentTime];
+    shotCooldownRemain = towerRateOfFire;
 	matronHasShot = NO;
 }
 -(int)update:(float)deltaT
@@ -333,7 +338,7 @@ float const CL_RANGE = 40.0f;
 	}
 	return nil;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -343,6 +348,7 @@ float const CL_RANGE = 40.0f;
             ++towerLevel;
         }
         canBeMoved = NO;
+        shotCooldownRemain = c;
         return self;
     }
     return nil;
@@ -412,7 +418,7 @@ float const PL_RANGE = 90.0f;
 	}
 	return self;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -422,6 +428,7 @@ float const PL_RANGE = 90.0f;
             ++towerLevel;
         }
         canBeMoved = NO;
+        shotCooldownRemain = c;
         return self;
     }
     return nil;
@@ -494,7 +501,7 @@ uint const PF_KERNEL_MAX_COUNT = 3;
 	}
 	return self;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -503,6 +510,7 @@ uint const PF_KERNEL_MAX_COUNT = 3;
             [upgrades[towerLevel-1] upgradeTower:self];
             ++towerLevel;
         }
+        shotCooldownRemain = c;
         canBeMoved = NO;
         return self;
     }
@@ -519,6 +527,7 @@ uint const PF_KERNEL_MAX_COUNT = 3;
 		kernelCounter = 0;
 	}
 	lastShotTime = [GameObject getCurrentTime];
+    shotCooldownRemain = towerRateOfFire;
 }
 -(int)update:(float)deltaT
 {
@@ -600,7 +609,7 @@ const float RADIAL_MAX_ALPHA = 0.35f;
 	}
 	return self;
 }
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss
 {
     if(self = [self initWithPosition:p spriteSheet:ss])
     {
@@ -610,6 +619,7 @@ const float RADIAL_MAX_ALPHA = 0.35f;
             ++towerLevel;
         }
         canBeMoved = NO;
+        shotCooldownRemain = c;
         return self;
     }
     return nil;

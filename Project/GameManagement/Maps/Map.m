@@ -12,12 +12,13 @@
 @implementation Map
 
 @synthesize mapName;
+@synthesize spawnCooldown;
 
 -(id)init
 {
 	if(self = [super init])
 	{
-        spawnDelay = 0.75f;
+        spawnCooldown = 0.75f;
         
         chubbySpriteSheet = [[SpriteSheet alloc] initWithImageName:@"chubbyWalkCycle.png" spriteWidth:32 spriteHeight:32 spacing:0 imageScale:1.0f];
         jeanieSpriteSheet = [[SpriteSheet alloc] initWithImageName:@"jeanieWalkCycle.png" spriteWidth:24 spriteHeight:24 spacing:0 imageScale:1.0f];
@@ -75,9 +76,9 @@
     {
         game = [GameState sharedGameStateInstance];
     }
-    if(currentRound)
+    if(currentRound && ![game paused])
     {
-        if([GameObject getCurrentTime] - spawnDelay > lastSpawnTime)
+        if(spawnCooldown <= 0.0f)
         {
             Enemy *enemy = nil;
             PathNode* spawnNode = [self getRandSpawnNode];
@@ -151,12 +152,16 @@
             
             if(enemy)
             {
-                float minDelay = 8.0f / (float)[enemy enemySpeed];
-                float maxDelay = 48.0f / (float)[enemy enemySpeed];
-                lastSpawnTime = [GameObject getCurrentTime];
-                spawnDelay = minDelay + (RANDOM_0_TO_1() * (maxDelay - minDelay));
+                const float minDelay = 16.0f / (float)[enemy enemySpeed];
+                const float maxDelay = 64.0f / (float)[enemy enemySpeed];
+                const float rand = RANDOM_0_TO_1();
+                spawnCooldown = minDelay + (rand * (maxDelay - minDelay));
             }
             [enemy release];
+        }
+        else
+        {
+            spawnCooldown = fmaxf(0.0f, spawnCooldown - deltaTime);
         }
     }
 	[game update:deltaTime];
@@ -238,7 +243,10 @@
     }
     return nil;
 }
--(void)loadSave:(int)round savedTowers:(NSArray*)towers savedEnemies:(NSArray*)enemies defeatedEnemies:(NSMutableDictionary*)defeated
+-(void)loadSave:(int)round spawnCooldown:(float)spawnC
+    savedTowers:(NSArray*)towers
+   savedEnemies:(NSArray*)enemies
+defeatedEnemies:(NSMutableDictionary*)defeated
 {
     // Iterate towards the given round, updating 'currentRound' and the rounds array
     [self getFirstRound];
@@ -246,6 +254,7 @@
     {
         [self getNextRound:NO];
     }
+    spawnCooldown = spawnC;
     
     for(NSDictionary *towerData in towers)
     {
@@ -254,37 +263,38 @@
         int x = [[towerData valueForKey:@"X"] intValue];
         int y = [[towerData valueForKey:@"Y"] intValue];
         int rot = [[towerData valueForKey:@"ROT" ] intValue];
+        float c = [[towerData valueForKey:@"COOL"] floatValue];
         
         Point2D *pos = [[Point2D alloc] initWithX:x y:y];
         Tower *tower = nil;
         
         if([type isEqualToString:@"Vending"])
         {
-            tower = [[VendingMachine alloc] initLoadedWithPosition:pos level:l spriteSheet:vendingSpriteSheet];
+            tower = [[VendingMachine alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:vendingSpriteSheet];
         }
         else if([type isEqualToString:@"Matron"])
         {
-            tower = [[Matron alloc] initLoadedWithPosition:pos level:l spriteSheet:matronSpriteSheet];
+            tower = [[Matron alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:matronSpriteSheet];
         }
         else if([type isEqualToString:@"Cookies"])
         {
-            tower = [[CookieLauncher alloc] initLoadedWithPosition:pos level:l spriteSheet:cookieSpriteSheet];
+            tower = [[CookieLauncher alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:cookieSpriteSheet];
         }
         else if([type isEqualToString:@"Freezer"])
         {
-            tower = [[Freezer alloc] initLoadedWithPosition:pos level:l spriteSheet:freezerSpriteSheet];
+            tower = [[Freezer alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:freezerSpriteSheet];
         }
         else if([type isEqualToString:@"Popcorn"])
         {
-            tower = [[PopcornMachine alloc] initLoadedWithPosition:pos level:l spriteSheet:popcornSpriteSheet];
+            tower = [[PopcornMachine alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:popcornSpriteSheet];
         }
         else if([type isEqualToString:@"Pies"])
         {
-            tower = [[PieLauncher alloc] initLoadedWithPosition:pos level:l spriteSheet:pieSpriteSheet];
+            tower = [[PieLauncher alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:pieSpriteSheet];
         }
         else if([type isEqualToString:@"Register"])
         {
-            tower = [[Register alloc] initLoadedWithPosition:pos level:l spriteSheet:registerSpriteSheet];
+            tower = [[Register alloc] initLoadedWithPosition:pos level:l cooldown:c spriteSheet:registerSpriteSheet];
         }
         [tower setObjectRotationAngle:rot];
         [tower release];
@@ -587,7 +597,7 @@
 }
 -(void)resetRounds
 {
-    lastSpawnTime = 0.0f;
+    spawnCooldown = 0.75f;
     for(Round *r in rounds)
         [r release];
     for(PathNode *spawnNode in spawnNodes)

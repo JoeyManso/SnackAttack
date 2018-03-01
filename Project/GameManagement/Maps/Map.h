@@ -24,10 +24,8 @@
 	NSMutableArray *rounds;
     Image *backgroundMap;
     CGPoint mapOffset;
-    float spawnDelay;
-    float lastSpawnTime;
+    float spawnCooldown;
     Round *currentRound;
-    
     
     SpriteSheet *chubbySpriteSheet; // sprite sheet shared by all chubbies
     SpriteSheet *jeanieSpriteSheet; // sprite sheet shared by all jeanies
@@ -50,6 +48,7 @@
     SpriteSheet *registerSpriteSheet;
 }
 @property(nonatomic, readonly)NSString *mapName;
+@property(nonatomic, readonly)float spawnCooldown;
 
 -(void)initMap:(NSString*)inMapName tiledFile:(NSString*)fileName;
 -(void)update:(float)deltaTime;
@@ -63,7 +62,10 @@
 -(Round*)getNextRound:(BOOL)shouldAppend;
 -(PathNode*)getRandSpawnNode;
 -(PathNode*)getNodeForValue:(int)value;
--(void)loadSave:(int)round savedTowers:(NSArray*)towers savedEnemies:(NSArray*)enemies defeatedEnemies:(NSMutableDictionary*)defeated;
+-(void)loadSave:(int)round spawnCooldown:(float)spawnC
+    savedTowers:(NSArray*)towers
+   savedEnemies:(NSArray*)enemies
+defeatedEnemies:(NSMutableDictionary*)defeated;
 
 -(void)initRounds;
 -(void)resetRounds;

@@ -51,6 +51,7 @@ enum
 	NSString *towerSpecialText3;
 	
 	float lastShotTime; // time the tower last shot something
+    float shotCooldownRemain;
 	
 	ProjectileFactory *projectileFactory; // spawns all projectiles
 	float const valuePercent; // percent of total cost that a tower is worth for selling
@@ -100,6 +101,7 @@ enum
 @property(nonatomic, readonly)NSString *towerDescriptionText2;
 @property(nonatomic, readonly)NSString *towerDescriptionText3;
 @property(nonatomic, readonly)float lastShotTime;
+@property(nonatomic, readonly)float shotCooldownRemain;
 @property(nonatomic, readonly)uint towerType;
 @property(nonatomic, readonly)uint projectileType;
 @property(nonatomic)BOOL isInBoostRadius;

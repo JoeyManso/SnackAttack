@@ -403,6 +403,7 @@ const float TRANSITION_SPEED_BASE = 225.0f;
 -(void)resetStartButton
 {
 	startButtonWasPressed = NO;
+    pausedButtonWasPressed = NO;
 	[(Button*)[barObjects objectForKey:@"pauseButton"] replaceWithImage:[[Image alloc]
 																		initWithImage:[UIImage imageNamed:@"ButtonStart.png"] filter:GL_LINEAR]];
 }

@@ -97,7 +97,8 @@ BOOL touchedUI; // flag saying if user started touch on UI
         {
 			touchedUI = YES;
         }
-		else if([Math CGdistance:[pendingTower objectPosition]:touchPosition] >
+		else if(![[GameState sharedGameStateInstance] paused]
+                 && [Math CGdistance:[pendingTower objectPosition]:touchPosition] >
                 [pendingTower towerMaxUpgradeRange] + 16.0f)
 		{
 			[[pendingTower objectPosition] setX:touchPosition.x y:touchPosition.y];
@@ -111,7 +112,7 @@ BOOL touchedUI; // flag saying if user started touch on UI
 -(BOOL)moveObjectToPosition:(CGPoint)position
 {
 	// if we are holding an object, move it to the new point
-	if(!touchedUI)
+	if(!touchedUI && ![[GameState sharedGameStateInstance] paused])
 	{
 		if(towerBeingPlaced)
 		{

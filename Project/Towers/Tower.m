@@ -28,6 +28,7 @@
 @synthesize towerDescriptionText2;
 @synthesize towerDescriptionText3;
 @synthesize lastShotTime;
+@synthesize shotCooldownRemain;
 @synthesize towerType;
 @synthesize projectileType;
 @synthesize isInBoostRadius;
@@ -65,7 +66,8 @@ float const SELL_PERCENT = 0.5f;
 		for(uint i=0; i<MAX_TOWER_LEVEL; ++i)
 			upgrades[i]=nil;
 		
-		lastShotTime = -towerRateOfFire;
+		lastShotTime = 0.0f;
+        shotCooldownRemain = 0.0f;
 		canBeMoved = YES;
 		isInBoostRadius = NO;
 		
@@ -161,7 +163,7 @@ float const SELL_PERCENT = 0.5f;
 
 -(BOOL)canShoot
 {
-	return !canBeMoved && [GameObject getCurrentTime] - lastShotTime > towerRateOfFire;
+	return !canBeMoved && shotCooldownRemain <= 0.0f;
 }
 -(float)towerMaxUpgradeRange
 {
@@ -202,6 +204,7 @@ float const SELL_PERCENT = 0.5f;
 	[projectileFactory createProjectile:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y] 
 						  rotationAngle:[self objectRotationAngle] direction:[self objectDirection]];
 	lastShotTime = [GameObject getCurrentTime];
+    shotCooldownRemain = towerRateOfFire;
 	[self playSound];
 }
 
@@ -250,9 +253,13 @@ float const SELL_PERCENT = 0.5f;
 				specialLine1:towerSpecialText1 specialLine2:towerSpecialText2 specialLine3:towerSpecialText3];
 	
 	if(![self canShoot])
-		[towerStatusBar updateReloadBar:([GameObject getCurrentTime] - lastShotTime)/towerRateOfFire];
+    {
+		[towerStatusBar updateReloadBar:((towerRateOfFire - shotCooldownRemain)/towerRateOfFire)];
+    }
 	else
+    {
 		[towerStatusBar updateReloadBar:1.0f];
+    }
 }
 -(void)select
 {
@@ -423,13 +430,19 @@ float const SELL_PERCENT = 0.5f;
 	boostPulseAddition += pulseDir * deltaT * boostPulseAddMax * 2.0f;
     radiusPulseAddition = fmaxf(0.0f, fminf(radiusPulseAddition, radiusPulseAddMax));
     boostPulseAddition = fmaxf(0.0f, fminf(boostPulseAddition, boostPulseAddMax));
+    shotCooldownRemain = fmaxf(0.0f, shotCooldownRemain - deltaT);
 	
 	if(radiusPulseAddition <= 0.0f)
+    {
 		pulseDir = 1.0f;
+    }
 	else if(radiusPulseAddition >= radiusPulseAddMax)
+    {
 		pulseDir = -1.0f;
-	
-	if(towerState == TOWER_STATE_SHOOT && [GameObject getCurrentTime] - lastShotTime > 2.0f*towerRateOfFire)
+    }
+
+	if(towerState == TOWER_STATE_SHOOT
+       && [GameObject getCurrentTime] - lastShotTime > 2.0f*towerRateOfFire)
 	{
 		aniCurrent = aniIdle;
 		towerState = TOWER_STATE_IDLE;
@@ -437,13 +450,13 @@ float const SELL_PERCENT = 0.5f;
 	
 	if(selected)
     {
-		if(![self canShoot])
+        if(![self canShoot])
         {
-			[towerStatusBar updateReloadBar:([GameObject getCurrentTime] - lastShotTime)/towerRateOfFire];
+            [towerStatusBar updateReloadBar:((towerRateOfFire - shotCooldownRemain)/towerRateOfFire)];
         }
-		else
+        else
         {
-			[towerStatusBar updateReloadBar:1.0f];
+            [towerStatusBar updateReloadBar:1.0f];
         }
     }
 				

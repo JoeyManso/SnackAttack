@@ -22,7 +22,7 @@
 }
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 -(void)setExpRatio:(float)ratio expDamage:(float)damage;
 
 @end
@@ -34,7 +34,7 @@
 @property(nonatomic)float freezeDuration;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 
 @end
 
@@ -45,7 +45,7 @@
 }
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 -(void)setTimeDamage:(uint)dmg timeDuration:(float)dur;
 
 @end
@@ -55,7 +55,7 @@
 }
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 -(void)setNumDirections:(uint)dirs;
 
 @end
@@ -65,7 +65,7 @@
 }
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 -(void)setSplashDamage:(float)damage splashRadius:(float)radius;
 
 @end
@@ -77,7 +77,7 @@
 }
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 -(void)setDelayDamage:(float)damage delayTime:(float)time;
 
 @end
@@ -98,6 +98,6 @@ static TouchManager *touchMan;
 }
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss;
--(id)initLoadedWithPosition:(Point2D*)p level:(int)l spriteSheet:(SpriteSheet*)ss;
+-(id)initLoadedWithPosition:(Point2D*)p level:(int)l cooldown:(float)c spriteSheet:(SpriteSheet*)ss;
 
 @end

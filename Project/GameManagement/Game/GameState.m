@@ -568,7 +568,8 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
                     @"LEVEL"    : [NSNumber numberWithInt:ceil([tower towerLevel])],
                     @"X"        : [NSNumber numberWithInt:[tower objectPosition].x],
                     @"Y"        : [NSNumber numberWithInt:[tower objectPosition].y],
-                    @"ROT"      : [NSNumber numberWithInt:[tower objectRotationAngle]]};
+                    @"ROT"      : [NSNumber numberWithInt:[tower objectRotationAngle]],
+                    @"COOL"     : [NSNumber numberWithFloat:[tower shotCooldownRemain]]};
                 [towers addObject:towerSave];
             }
             else if([object isKindOfClass:[Enemy class]])
@@ -591,6 +592,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
         int mapIdx = [[ViewManager getInstance] getMapIdx];
         NSDictionary *saveDictionary = @{@"MAP"     : [NSNumber numberWithInt:mapIdx],
                                          @"ROUND"   : [NSNumber numberWithInt:currentRound],
+                                         @"COOL"    : [NSNumber numberWithFloat:[currentMap spawnCooldown]],
                                          @"CASH"    : [NSNumber numberWithInt:currentCash],
                                          @"LIVES"   : [NSNumber numberWithInt:currentLives],
                                          @"SCORE"   : [NSNumber numberWithInt:currentScore],
@@ -618,6 +620,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
             NSLog(@"Loading from %@", savePath);
             NSArray *towers;
             NSArray *enemies;
+            float spawnCooldown = 0.0f;
             for (NSString *key in loadDictionary)
             {
                 NSString* value = [loadDictionary valueForKey:key];
@@ -631,6 +634,10 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
                 else if([key isEqualToString:@"ROUND"])
                 {
                     currentRound = [value intValue];
+                }
+                else if([key isEqualToString:@"COOL"])
+                {
+                    spawnCooldown = [value floatValue];
                 }
                 else if([key isEqualToString:@"CASH"])
                 {
@@ -669,7 +676,10 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
                 }
             }
             
-            [currentMap loadSave:currentRound savedTowers:towers savedEnemies:enemies defeatedEnemies:defeatedEnemiesMap];
+            [currentMap loadSave:currentRound spawnCooldown:spawnCooldown
+                     savedTowers:towers
+                    savedEnemies:enemies
+                 defeatedEnemies:defeatedEnemiesMap];
             currentRoundInfo = [currentMap getCurrentRound];
             [UIMan onLoadGame];
             [self updateStatusBar];

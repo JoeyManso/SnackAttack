@@ -111,20 +111,20 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 		projectileTail = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"Slop.png"
 																		   position:[[Point2D alloc] initWithX:0.0f y:0.0f]
 															 sourcePositionVariance:[[Point2D alloc] initWithX:0.0f y:0.0f]
-																			  speed:1.0f
-																	  speedVariance:0.5f
-																   particleLifeSpan:0.1f	
-														   particleLifespanVariance:0.0f
+																			  speed:0.7f
+																	  speedVariance:0.2f
+																   particleLifeSpan:0.6f
+														   particleLifespanVariance:0.1f
 																			  angle:0.0f
-																	  angleVariance:35.0f
+																	  angleVariance:55.0f
 																			gravity:nil
 																		 startColor:Color4fMake(0.54f, 0.27f, 0.07f, 1.0f)
 																 startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
-																		finishColor:Color4fMake(0.1f, 0.1f, 0.1f, 0.5f)  
+																		finishColor:Color4fMake(0.41f, 0.123, 0.11f, 0.5f)
 																finishColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
 																	   maxParticles:35
-																	   particleSize:2
-															   particleSizeVariance:7
+																	   particleSize:6
+															   particleSizeVariance:2
 																		   duration:-1
 																	  blendAdditive:NO];
 	}

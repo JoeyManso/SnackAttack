@@ -12,11 +12,13 @@
 #pragma mark -
 #pragma mark Macros
 
-// Macro which returns a random value between -1 and 1
-#define RANDOM_MINUS_1_TO_1() ((random() / (GLfloat)0x3fffffff )-1.0f)
+#define ARC4RANDOM_MAX 0x100000000
 
-// MAcro which returns a random number between 0 and 1
-#define RANDOM_0_TO_1() ((random() / (GLfloat)0x7fffffff ))
+// Macro which returns a random number between 0 and 1
+#define RANDOM_0_TO_1() ((float)arc4random() / ARC4RANDOM_MAX)
+
+// Macro which returns a random value between -1 and 1
+#define RANDOM_MINUS_1_TO_1() ((RANDOM_0_TO_1() * 2.0) - 1.0)
 
 #pragma mark -
 #pragma mark Types
