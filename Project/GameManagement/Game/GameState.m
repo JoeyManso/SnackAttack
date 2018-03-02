@@ -698,7 +698,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     }
 }
 
--(bool)hasSaveGame
+-(BOOL)hasSaveGame
 {
     NSDictionary *loadDictionary = [NSDictionary dictionaryWithContentsOfFile:savePath];
     if(loadDictionary != nil)
