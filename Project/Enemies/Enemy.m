@@ -262,8 +262,8 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 					ParticleEmitter *p = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 																					 position:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y]
 																	   sourcePositionVariance:[[Point2D alloc] initWithX:5.0f y:5.0f]
-																						speed:0.7f
-																				speedVariance:0.2f
+																						speed:42.0f
+																				speedVariance:12.0f
 																			 particleLifeSpan:0.1f	
 																	 particleLifespanVariance:0.3f
 																						angle:0.0f

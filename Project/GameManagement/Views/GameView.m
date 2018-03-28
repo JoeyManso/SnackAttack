@@ -53,8 +53,9 @@
 
 -(void)updateView:(float)deltaTime
 {
+    float gameSpeed = [[GameState sharedGameStateInstance] gameSpeed];
     Map* map = maps[currentMapIdx];
-	[map update:deltaTime];
+	[map update:deltaTime * gameSpeed];
 	
 	// update any UI
 	[UIMan updateActiveUI:deltaTime];

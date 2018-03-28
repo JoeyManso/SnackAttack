@@ -42,6 +42,7 @@
 	if (self = [super init])
 	{
 		touchManager = [TouchManager getInstance];
+        soundMan = [SoundManager getInstance];
 		
 		objectName = n;
 		objectRotationAngle = 0.0f;

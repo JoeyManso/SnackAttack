@@ -34,8 +34,8 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 		projectileTail = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 																		   position:[[Point2D alloc] initWithX:0.0f y:0.0f]
 															 sourcePositionVariance:[[Point2D alloc] initWithX:0.0f y:0.0f]
-																			  speed:1.0f
-																	  speedVariance:0.5f
+																			  speed:60.0f
+																	  speedVariance:30.0f
 																   particleLifeSpan:0.2f	
 														   particleLifespanVariance:0.4f
 																			  angle:0.0f
@@ -64,7 +64,7 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 		ParticleEmitter *p = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 														  position:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y]
 										    sourcePositionVariance:[[Point2D alloc] initWithX:5.0f y:5.0f]
-											 				 speed:2.5f
+											 				 speed:180.0f
 											 		 speedVariance:0.0f
 											 	  particleLifeSpan:0.25f	
 										  particleLifespanVariance:0.0f
@@ -111,12 +111,12 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 		projectileTail = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"Slop.png"
 																		   position:[[Point2D alloc] initWithX:0.0f y:0.0f]
 															 sourcePositionVariance:[[Point2D alloc] initWithX:0.0f y:0.0f]
-																			  speed:0.7f
-																	  speedVariance:0.2f
-																   particleLifeSpan:0.6f
+																			  speed:35.0f
+																	  speedVariance:10.0f
+																   particleLifeSpan:0.4f
 														   particleLifespanVariance:0.1f
 																			  angle:0.0f
-																	  angleVariance:55.0f
+																	  angleVariance:35.0f
 																			gravity:nil
 																		 startColor:Color4fMake(0.54f, 0.27f, 0.07f, 1.0f)
 																 startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
@@ -211,7 +211,7 @@ float const piExplosionTime = 0.2f; // time the animation displays
 	ParticleEmitter *p = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 													  position:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y]
 										sourcePositionVariance:[[Point2D alloc] initWithX:5.0f y:5.0f]
-														 speed:0.9f
+														 speed:54.0f
 												 speedVariance:0.0f
 											  particleLifeSpan:0.008f * piExplosionRange	
 									  particleLifespanVariance:0.0f
@@ -323,8 +323,8 @@ float const piExplosionTime = 0.2f; // time the animation displays
 	ParticleEmitter *p = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"Popcorn.png"
 													  position:[[Point2D alloc] initWithX:[targetEnemy objectPosition].x y:[targetEnemy objectPosition].y]
 										sourcePositionVariance:[[Point2D alloc] initWithX:0.0f y:0.0f]
-														 speed:0.1f
-												 speedVariance:1.1f
+														 speed:6.0f
+												 speedVariance:66.0f
 											  particleLifeSpan:0.4f	
 									  particleLifespanVariance:0.0f
 														 angle:0.0f

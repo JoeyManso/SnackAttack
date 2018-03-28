@@ -175,7 +175,6 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 
 -(void)update:(float)deltaTime
 {
-    deltaTime *= gameSpeed;
 	if(!paused)
 	{		
 		[self updateAllObjects:deltaTime];
@@ -525,6 +524,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     int mapIdx = [[ViewManager getInstance] getMapIdx];
 	time = 0.0f;
 	roundBuffer = 0.0f;
+    gameSpeed = 1.0f;
 	currentCash = STARTING_CASH[mapIdx];
 	currentScore = 0;
 	currentRound = 0;
@@ -550,6 +550,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     [statusBar setLives:currentLives];
     [statusBar setCash:currentCash];
     [statusBar setScore:currentScore];
+    [statusBar setGameSpeed:gameSpeed];
 }
 -(void)saveGame
 {

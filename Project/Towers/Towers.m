@@ -150,8 +150,8 @@ float const FR_RANGE = 40.0f;
 	ParticleEmitter *p = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 													  position:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y]
 										sourcePositionVariance:[[Point2D alloc] initWithX:5.0f y:5.0f]
-														 speed:1.5f
-												 speedVariance:0.5f
+														 speed:90.0f
+												 speedVariance:30.0f
 											  particleLifeSpan:0.75f	
 									  particleLifespanVariance:0.15f
 														 angle:0.0f

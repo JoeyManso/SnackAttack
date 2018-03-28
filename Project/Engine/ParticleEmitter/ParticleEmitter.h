@@ -41,6 +41,7 @@ typedef struct _Particle
 	Vector2f direction;
 	Color4f color;
 	Color4f deltaColor;
+    GLfloat speed;
 	GLfloat particleSize;
 	GLfloat timeToLive;
 } Particle;

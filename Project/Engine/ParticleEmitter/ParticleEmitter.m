@@ -170,15 +170,11 @@
 	// angle variance.
 	float newAngle = (GLfloat)[Math convertToRadians:angle + angleVariance * RANDOM_MINUS_1_TO_1()];
 	
-	// Create a new Vector2f using the newAngle
-	Vector2f vector = Vector2fNormalize(Vector2fMake(-sinf(newAngle), -cosf(newAngle)));
-	
+    // Create a new Vector2f using the newAngle
+    particle->direction = Vector2fNormalize(Vector2fMake(-sinf(newAngle), -cosf(newAngle)));
+    
 	// Calculate the vectorSpeed using the speed and speedVariance which has been passed in
-	float vectorSpeed = fmaxf(speed + speedVariance * RANDOM_MINUS_1_TO_1(), 0.1f);
-	
-	// The particles direction vector is calculated by taking the vector calculated above and
-	// multiplying that by the speed
-	particle->direction = Vector2fMultiply(vector, vectorSpeed);
+	particle->speed = fmaxf(speed + speedVariance * RANDOM_MINUS_1_TO_1(), 0.1f);
 	
 	// Calculate the particle size using the particleSize and variance passed in
 	particle->particleSize = fmaxf(particleSize + particleSizeVariance * RANDOM_MINUS_1_TO_1(), 1.0f);
@@ -220,7 +216,7 @@
 	{
 		float rate = 1.0f/emissionRate;
 		emitCounter += deltaT;
-		while(particleCount < maxParticles && emitCounter > rate) 
+		while(particleCount < maxParticles && (emitCounter > rate || particleCount == 0))
 		{
 			[self addParticle];
 			emitCounter -= rate;
@@ -249,8 +245,9 @@
 				// our vectors are normalized, so multiply by 0.08 to get approximate accuracy
 				currentParticle->direction.x += gravity.x * 0.08;
 				currentParticle->direction.y += gravity.y * 0.08;
-			}				
-			currentParticle->position = Vector2fAdd(currentParticle->position, currentParticle->direction);
+			}
+            Vector2f velocity = Vector2fMultiply(currentParticle->direction, currentParticle->speed * deltaT);
+			currentParticle->position = Vector2fAdd(currentParticle->position, velocity);
 			
 			// Reduce the life span of the particle
 			currentParticle->timeToLive -= deltaT;
@@ -296,7 +293,9 @@
 	
 	// if the particle count goes to 0, all particles are gone. Get rid of this emitter.
 	if(particleCount <= 0)
+    {
 		[self remove];
+    }
 	
 	return [super update:deltaT];
 }
