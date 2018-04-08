@@ -19,7 +19,7 @@
 @synthesize projectileType;
 @synthesize towerType;
 
-static const int MAX_FRAME_COUNT=5;
+static const float MAX_HOMING_DELAY=0.1f;
 
 -(id)init
 {
@@ -37,7 +37,7 @@ static const int MAX_FRAME_COUNT=5;
 		projectileTail = nil;
 		hitSoundKey = nil;
 		targetEnemy = nil;
-		frameCount = 0;
+		homingDelay = 0.0f;
 		projectileType = NONE;
 		towerType = GROUND;
 		
@@ -72,7 +72,7 @@ static const int MAX_FRAME_COUNT=5;
 		return 1;
 	}
 	// check if the enemy is still alive, if so continue honing in on it
-	if(targetEnemy && frameCount > MAX_FRAME_COUNT && [targetEnemy enemyHitPoints] >= 1)
+	if(targetEnemy && homingDelay > MAX_HOMING_DELAY && [targetEnemy enemyHitPoints] >= 1)
 	{
 		// update the projectile's trajectory every time we hit the MAX_FRAME_COUNT
 		Vector2D* newDir = [Point2D subtract:targetEnemy.objectPosition :objectPosition];
@@ -90,9 +90,9 @@ static const int MAX_FRAME_COUNT=5;
 		// deallocate the new direction we created
 		[newDir dealloc];
 		
-		frameCount = 0;
+		homingDelay -= MAX_HOMING_DELAY;
 	}
-	++frameCount;
+	homingDelay += deltaT;
 	
 	[objectPosition updateWithVector2D:objectDirection speed:projectileSpeed deltaT:deltaT];
 	

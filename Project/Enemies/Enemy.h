@@ -34,7 +34,7 @@
 	
 	uint kernelCount; // count of kernels this enemy has
 	
-	@private
+@private
 	PathNode *target; // node the enemy is currently headed towards
 	Vector2D *dirToTarget; // direction to target, used to compare against actual direction
 	uint enemyMaxHitPoints;
@@ -73,7 +73,8 @@
 -(void)addDamageOverTime:(float)duration damage:(float)damage;
 -(void)freeze:(float)duration;
 -(uint)getTargetNodeValue;
--(void)multiplyMaxHitPoints:(uint)factor;
+-(void)updateDirToTarget;
+-(void)multiplyMaxHitPoints:(uint)factor adjustCurrent:(bool)adjustCurrent;
 
 -(int)update:(float)deltaT;
 -(int)draw;

@@ -26,6 +26,7 @@
 
 -(id)initWithBaseDamage:(uint)baseD baseSpeed:(float)baseS;
 -(BOOL)setTargettedEnemy:(Enemy*)enemy;
+-(void)assignTargettedEnemy:(Projectile*)p;
 -(void)createProjectile:(Point2D*)p rotationAngle:(float)rot direction:(Vector2D*)dir;
 
 @end
@@ -75,7 +76,7 @@
 	float kDelayDamage;
 	float kDelayTime;
 }
--(void)createProjectile:(Point2D*)p rotationAngle:(float)rot direction:(Vector2D*)dir shouldExplode:(BOOL)explode;
+-(void)createProjectile:(Point2D*)p rotationAngle:(float)rot direction:(Vector2D*)dir shouldExplode:(BOOL)explode shouldRelease:(BOOL)release;
 @property(nonatomic)float kDelayDamage;
 @property(nonatomic)float kDelayTime;
 

@@ -99,7 +99,7 @@
 
 @implementation TowerDetails
 
-const float TRANSITION_SPEED_BASE = 225.0f;
+const float TRANSITION_SPEED_BASE = 325.0f;
 
 -(id)initWithBackground:(Image*)i
 {
@@ -634,7 +634,7 @@ const float TRANSITION_SPEED_BASE = 225.0f;
         [(Text*)[barObjects objectForKey:@"sellAmount"] setAlpha:1.0f];
     }
 
-    if(upgradeCost > [gameState currentCash] || [gameState paused])
+    if(upgradeCost > [gameState currentCash] || [gameState paused] || upgradeCost == 0)
     {
         [[barObjects objectForKey:@"upgradeButton"] setActive:NO];
         [(Text*)[barObjects objectForKey:@"upgradeCost"] setAlpha:0.25f];

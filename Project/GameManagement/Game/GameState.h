@@ -100,6 +100,7 @@ static const int STARTING_LIVES[] = {25, 20, 30};
 -(void)resetGame;
 -(void)saveGame;
 -(void)loadGame;
+-(void)deleteSave;
 -(BOOL)hasSaveGame;
 -(void)onGameEnd;
 -(void)authenticateLocalPlayer;

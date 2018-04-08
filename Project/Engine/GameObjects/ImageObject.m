@@ -23,6 +23,7 @@
 	{
 	    objectImage = i;
 		objectAlpha = 1.0f;
+        hitBoxScale = 1.0f;
 		[objectImage retain];
 	}
 	return self;
@@ -41,10 +42,10 @@
 }
 -(CGRect)getObjectHitBox
 {
-	return CGRectMake(objectPosition.x - (([objectImage imageWidth] * objectScale) * 0.5f), 
-					  objectPosition.y - (([objectImage imageHeight] * objectScale) * 0.5f), 
-					  [objectImage imageWidth] * objectScale, 
-					  [objectImage imageHeight] * objectScale);
+	return CGRectMake(objectPosition.x - (([objectImage imageWidth] * objectScale * hitBoxScale) * 0.5f),
+					  objectPosition.y - (([objectImage imageHeight] * objectScale * hitBoxScale) * 0.5f),
+					  [objectImage imageWidth] * objectScale * hitBoxScale,
+					  [objectImage imageHeight] * objectScale * hitBoxScale);
 }
 -(int)update:(float)deltaT
 {

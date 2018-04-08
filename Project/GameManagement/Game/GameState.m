@@ -192,10 +192,6 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 				if([e isKindOfClass:[Enemy class]])
 				{
 					[enemyQueue addEnemy:e];
-					if(currentRound > 20 && currentRound <= 25)
-						[e multiplyMaxHitPoints:2];
-					else if(currentRound > 25)
-						[e multiplyMaxHitPoints:3];
 				}
 			}
 			[gameObjects addObjectsFromArray:addQueue];
@@ -278,7 +274,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 				if([enemy isKindOfClass:[Enemy class]] && [projectile towerType] >= [enemy enemyType] && [enemy enemyImmunity] != [projectile projectileType])
 				{
 					if([enemy enemyHitPoints] >= 1 && 
-					   CGRectContainsPoint([enemy getObjectHitBox], CGPointMake([projectile objectPosition].x, [projectile objectPosition].y)))
+					   CGRectIntersectsRect([enemy getObjectHitBox], [projectile getObjectHitBox]))
 					{
 						// give the projectile a reference to the enemy to appy damage and any potential effects
 						[projectile hasCollided:enemy];
@@ -316,14 +312,19 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 
 -(void)damageEnemiesInRadius:(float)radius origin:(Point2D*)originPoint damage:(float)damage damageType:(uint)type
 {
+    int hitCount = 0;
 	for(Enemy *enemy in gameObjects)
 	{
 		if([enemy isKindOfClass:[Enemy class]] && [enemy enemyType] != AIR && [enemy enemyImmunity] != type)
 		{
 			if([Math distance:originPoint :enemy.objectPosition] <= radius)
+            {
+                hitCount++;
 				[enemy takeDamage:damage];
+            }
 		}
 	}
+    NSLog(@"hitCount: %i", hitCount);
 }
 -(void)freezeEnemiesInRadius:(float)radius origin:(Point2D*)originPoint duration:(float)duration
 {
@@ -543,6 +544,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	[UIMan resetGame];
 	[gameObjects removeAllObjects];
 	[enemyQueue removeAllEnemies];
+    [self deleteSave];
 }
 -(void)updateStatusBar
 {
@@ -765,13 +767,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     }
     
     // Delete save file
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    BOOL success = [fileManager removeItemAtPath:savePath error:&error];
-    if (!success)
-    {
-        NSLog(@"Could not save delete file -:%@ ",[error localizedDescription]);
-    }
+    [self deleteSave];
 }
 -(void)authenticateLocalPlayer
 {
@@ -798,6 +794,17 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
             [[ViewManager getInstance] setLeaderboardEnabled:gameCenterEnabled];
         }
     };
+}
+
+-(void)deleteSave
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:savePath error:&error];
+    if (!success)
+    {
+        NSLog(@"Could not save delete file -:%@ ",[error localizedDescription]);
+    }
 }
 
 -(void)dealloc

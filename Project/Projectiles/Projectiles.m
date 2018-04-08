@@ -27,7 +27,7 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 		
 		hitSoundKey = @"PopCanHit";
 		explodeKey = @"PopCanExplode";
-		projectileSpinAmount = 10.0f;
+		projectileSpinAmount = 14.0f;
 		
 		// set default sound key to hit
 		objectSound.key = hitSoundKey;
@@ -111,20 +111,20 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 		projectileTail = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"Slop.png"
 																		   position:[[Point2D alloc] initWithX:0.0f y:0.0f]
 															 sourcePositionVariance:[[Point2D alloc] initWithX:0.0f y:0.0f]
-																			  speed:35.0f
-																	  speedVariance:10.0f
-																   particleLifeSpan:0.4f
-														   particleLifespanVariance:0.1f
+																			  speed:25.0f
+																	  speedVariance:5.0f
+																   particleLifeSpan:0.2f
+														   particleLifespanVariance:0.15f
 																			  angle:0.0f
-																	  angleVariance:35.0f
+																	  angleVariance:60.0f
 																			gravity:nil
-																		 startColor:Color4fMake(0.54f, 0.27f, 0.07f, 1.0f)
-																 startColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
-																		finishColor:Color4fMake(0.41f, 0.123, 0.11f, 0.5f)
-																finishColorVariance:Color4fMake(0.1f, 0.1f, 0.1f, 0.0f)
-																	   maxParticles:35
-																	   particleSize:6
-															   particleSizeVariance:2
+																		 startColor:Color4fMake(1.0f, 0.0f, 0.0f, 1.0f)
+																 startColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
+																		finishColor:Color4fMake(0.6f, 0.05, 0.0f, 0.5f)
+																finishColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
+																	   maxParticles:65
+																	   particleSize:5.5
+															   particleSizeVariance:1
 																		   duration:-1
 																	  blendAdditive:NO];
 	}
@@ -153,12 +153,13 @@ static float const PC_EXP_ANI_TIME = 0.25f; // time the animation displays
 	{
 		projectileType = COOKIE;
 		towerType = GROUND;
+        hitBoxScale = 2.0f;
 		
 		hitSoundKey = @"CookieHit";
-		projectileSpinAmount = 10.0f;
+		projectileSpinAmount = 6.0f;
 		// calculate how long the cookie lives based upon the current range of the tower
-		projectileLifeDuration = 1.25f*(r/projectileSpeed);
-		fadeTime = 0.4f * projectileLifeDuration; // duration of fade out
+		projectileLifeDuration = (r/projectileSpeed);
+		fadeTime = 0.35f * projectileLifeDuration; // duration of fade out
 		
 		// set default sound key to hit
 		objectSound.key = hitSoundKey;
@@ -211,9 +212,9 @@ float const piExplosionTime = 0.2f; // time the animation displays
 	ParticleEmitter *p = [[ParticleEmitter alloc] initParticleEmitterWithImageNamed:@"texture.png"
 													  position:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y]
 										sourcePositionVariance:[[Point2D alloc] initWithX:5.0f y:5.0f]
-														 speed:54.0f
+														 speed:(piExplosionRange / 0.3f)
 												 speedVariance:0.0f
-											  particleLifeSpan:0.008f * piExplosionRange	
+											  particleLifeSpan:0.3f
 									  particleLifespanVariance:0.0f
 														 angle:0.0f
 												 angleVariance:360.0f
@@ -222,7 +223,7 @@ float const piExplosionTime = 0.2f; // time the animation displays
 											startColorVariance:Color4fMake(0.0f, 0.0f, 0.0f, 0.0f)
 												   finishColor:Color4fMake(0.58f, 0.0f, 0.82f, 1.0f) 
 										   finishColorVariance:Color4fMake(0.2f, 0.0f, 0.1f, 0.0f)
-												  maxParticles:300
+												  maxParticles:300 * (piExplosionRange / 60.0f)
 												  particleSize:12
 										  particleSizeVariance:5
 													  duration:piExplosionTime
@@ -276,7 +277,7 @@ float const piExplosionTime = 0.2f; // time the animation displays
 		projectileType = KERNEL;
 		towerType = AIR;
 		
-		projectileSpinAmount = 10.0f;
+		projectileSpinAmount = 7.0f;
 		delayDamage = delayDmg;
 		delayTime = delayT;
 		isAttachedToEnemy = NO;

@@ -32,6 +32,11 @@
 }
 -(BOOL)setTargettedEnemy:(Enemy*)enemy
 {
+    if(enemyReference != nil)
+    {
+        [enemyReference release];
+        enemyReference = nil;
+    }
 	if(![enemy markedForRemoval] && [enemy enemyHitPoints] > 0.5f)
 	{
 		enemyReference = enemy;
@@ -39,6 +44,16 @@
 		return YES;
 	}
 	return NO;
+}
+-(void)assignTargettedEnemy:(Projectile*)p;
+{
+    if(enemyReference != nil)
+    {
+        // add a reference to the target enemy and release the reference
+        [p setTarget:enemyReference];
+        [enemyReference release];
+        enemyReference = nil;
+    }
 }
 -(void)setProjDamage:(uint)d
 {
@@ -63,7 +78,7 @@ uint const PC_BASE_EXP_DAMAGE = 20;
 
 -(id)init
 {
-	if(self = [super initWithBaseDamage:15 baseSpeed:150.0f])
+	if(self = [super initWithBaseDamage:15 baseSpeed:160.0f])
 	{
 		if(!projectileImage)
 			projectileImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"PopCan.png"] filter:GL_LINEAR];
@@ -78,10 +93,8 @@ uint const PC_BASE_EXP_DAMAGE = 20;
 	// set the direction (by value to avoid resetting the rotation angle)
 	[pop setObjectDirectionX:dir.x y:dir.y];
 	
-	// add a reference to the target enemy and release the reference
-	[pop setTarget:enemyReference];
-	[enemyReference release];
-	
+    [self assignTargettedEnemy:pop];
+    
 	// release our reference to this object
 	[pop release];
 }
@@ -98,7 +111,7 @@ const float SP_BASE_DAMAGE_DURATION = 3.0; // how much time the damage occurs fo
 
 -(id)init
 {
-	if(self = [super initWithBaseDamage:25 baseSpeed:135.0f])
+	if(self = [super initWithBaseDamage:25 baseSpeed:170.0f])
 	{
 		spDamageOverTime = SP_BASE_TIME_DAMAGE;
 		spDamageDuration = SP_BASE_DAMAGE_DURATION;
@@ -116,9 +129,7 @@ const float SP_BASE_DAMAGE_DURATION = 3.0; // how much time the damage occurs fo
 	// set the direction (by value to avoid resetting the rotation angle)
 	[s setObjectDirectionX:dir.x y:dir.y];
 	
-	// add a reference to the target enemy and then release the reference
-	[s setTarget:enemyReference];
-	[enemyReference release];
+	[self assignTargettedEnemy:s];
 	
 	// release our reference to this object
 	[s release];
@@ -128,7 +139,6 @@ const float SP_BASE_DAMAGE_DURATION = 3.0; // how much time the damage occurs fo
 
 @implementation CookieFactory
 
-float const CK_BASE_SPEED = 150.0f;
 uint const CK_BASE_NUM_DIRECTIONS = 5;
 
 @synthesize towerRange;
@@ -136,7 +146,7 @@ uint const CK_BASE_NUM_DIRECTIONS = 5;
 
 -(id)init
 {
-	if(self = [super initWithBaseDamage:12 baseSpeed:150.0f])
+	if(self = [super initWithBaseDamage:12 baseSpeed:130.0f])
 	{
 		if(!projectileImage)
 			projectileImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"Cookie.png"] filter:GL_LINEAR];
@@ -175,7 +185,7 @@ float const PI_BASE_SPLASH_DAMAGE = 20.0f;
 
 -(id)init
 {
-	if(self = [super initWithBaseDamage:35 baseSpeed:130.0f])
+	if(self = [super initWithBaseDamage:35 baseSpeed:140.0f])
 	{
 		if(!projectileImage)
 			projectileImage = [[Image alloc] initWithImage:[UIImage imageNamed:@"Pie.png"] filter:GL_LINEAR];
@@ -192,9 +202,8 @@ float const PI_BASE_SPLASH_DAMAGE = 20.0f;
 	// set the direction (by value to avoid resetting the rotation angle)
 	[pie setObjectDirectionX:dir.x y:dir.y];
 	
-	// add a reference to the target enemy and release the reference
-	[pie setTarget:enemyReference];
-	[enemyReference release];
+	[self assignTargettedEnemy:pie];
+    
 	// release our reference to this object
 	[pie release];
 }
@@ -220,21 +229,24 @@ float const K_BASE_DELAY_TIME = 2.4f;
 	}
 	return self;
 }
--(void)createProjectile:(Point2D*)p rotationAngle:(float)rot direction:(Vector2D*)dir shouldExplode:(BOOL)explode
+-(void)createProjectile:(Point2D*)p rotationAngle:(float)rot direction:(Vector2D*)dir shouldExplode:(BOOL)explode shouldRelease:(BOOL)release
 {
 	Kernel *k;
 	if(explode)
 	{
 		k = [[Kernel alloc] initWithPosition:p image:projectileImage damage:(float)projDamage speed:projSpeed delayDamage:kDelayDamage delayTime:kDelayTime];
 		[k setTarget:enemyReference];
-		// release the reference to the enemy and set to each kernel (below)
-		[enemyReference release];
 	}
 	else
 	{
 		k = [[Kernel alloc] initWithPosition:p image:projectileImage damage:(float)projDamage speed:projSpeed delayDamage:0.0f delayTime:0.0f];
 		[k setTarget:enemyReference];
 	}
+    if(release)
+    {
+        [enemyReference release];
+        enemyReference = nil;
+    }
 	// set the direction (by value to avoid resetting the rotation angle)
 	[k setObjectDirectionX:dir.x y:dir.y];
 	

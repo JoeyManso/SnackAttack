@@ -90,60 +90,60 @@
                                              spriteSheet:chubbySpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumChubbies:[currentRound numChubbies]-1];
             }
-            else if([currentRound numJeanies] > 0 && chooseEnemyRatio < 0.18f)
+            else if([currentRound numJeanies] > 0 && chooseEnemyRatio >= 0.09f && chooseEnemyRatio < 0.18f)
             {
                 enemy = [[Jeanie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:jeanieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumJeanies:[currentRound numJeanies]-1];
             }
-            else if([currentRound numLankies] > 0 && chooseEnemyRatio < 0.27f)
+            else if([currentRound numLankies] > 0 && chooseEnemyRatio >= 0.18f && chooseEnemyRatio < 0.27f)
             {
                 enemy = [[Lanky alloc] initWithPosition:[spawnNode.nodePosition copy]
                                             spriteSheet:lankySpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumLankies:[currentRound numLankies]-1];
             }
-            else if([currentRound numSmarties] > 0 && chooseEnemyRatio < 0.36f)
+            else if([currentRound numSmarties] > 0 && chooseEnemyRatio >= 0.27f && chooseEnemyRatio < 0.36f)
             {
                 enemy = [[Smarty alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:smartySpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumSmarties:[currentRound numSmarties]-1];
             }
-            else if([currentRound numAirplanes] > 0 && chooseEnemyRatio < 0.45f)
+            else if([currentRound numAirplanes] > 0 && chooseEnemyRatio >= 0.36f && chooseEnemyRatio < 0.45f)
             {
                 enemy = [[Airplane alloc] initWithPosition:[spawnNode.nodePosition copy]
                                                spriteSheet:airplaneSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumAirplanes:[currentRound numAirplanes]-1];
             }
-            else if([currentRound numBanners] > 0 && chooseEnemyRatio < 0.54f)
+            else if([currentRound numBanners] > 0 && chooseEnemyRatio >= 0.45f && chooseEnemyRatio < 0.54f)
             {
                 enemy = [[Banner alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:bannerSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumBanners:[currentRound numBanners]-1];
             }
-            else if([currentRound numBandies] > 0 && chooseEnemyRatio < 0.63f)
+            else if([currentRound numBandies] > 0 && chooseEnemyRatio >= 0.54f && chooseEnemyRatio < 0.63f)
             {
                 enemy = [[Bandie alloc] initWithPosition:[spawnNode.nodePosition copy]                                             spriteSheet:bandieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumBandies:[currentRound numBandies]-1];
             }
-            else if([currentRound numCheeries] > 0 && chooseEnemyRatio < 0.72f)
+            else if([currentRound numCheeries] > 0 && chooseEnemyRatio >= 0.63f && chooseEnemyRatio < 0.72f)
             {
                 enemy = [[Cheerie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                               spriteSheet:cheerieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumCheeries:[currentRound numCheeries]-1];
             }
-            else if([currentRound numPunkies] > 0 && chooseEnemyRatio < 0.81f)
+            else if([currentRound numPunkies] > 0 && chooseEnemyRatio >= 0.72f && chooseEnemyRatio < 0.81f)
             {
                 enemy = [[Punkie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:punkieSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumPunkies:[currentRound numPunkies]-1];
             }
-            else if([currentRound numMascots] > 0 && chooseEnemyRatio < 0.9f)
+            else if([currentRound numMascots] > 0 && chooseEnemyRatio >= 0.81f && chooseEnemyRatio < 0.9f)
             {
                 enemy = [[Mascot alloc] initWithPosition:[spawnNode.nodePosition copy]
                                              spriteSheet:mascotSpriteSheet targetNode:[spawnNode next]];
                 [currentRound setNumMascots:[currentRound numMascots]-1];
             }
-            else if([currentRound numQueenies] > 0)
+            else if([currentRound numQueenies] > 0 && chooseEnemyRatio >= 0.9f)
             {
                 enemy = [[Queenie alloc] initWithPosition:[spawnNode.nodePosition copy]
                                               spriteSheet:queenieSpriteSheet targetNode:[spawnNode next]];
@@ -152,9 +152,24 @@
             
             if(enemy)
             {
-                const float minDelay = 16.0f / (float)[enemy enemySpeed];
-                const float maxDelay = 64.0f / (float)[enemy enemySpeed];
+                float minDelay = 32.0f / (float)[enemy enemySpeed];
+                float maxDelay = 64.0f / (float)[enemy enemySpeed];
                 const float rand = RANDOM_0_TO_1();
+
+                int roundNum = [[GameState sharedGameStateInstance] currentRound];
+                if(roundNum > 20 && roundNum <= 25)
+                {
+                    minDelay *= 0.75f;
+                    maxDelay *= 0.75f;
+                    [enemy multiplyMaxHitPoints:2 adjustCurrent:YES];
+                }
+                else if(roundNum > 25)
+                {
+                    minDelay *= 0.55f;
+                    maxDelay *= 0.55f;
+                    [enemy multiplyMaxHitPoints:3 adjustCurrent:YES];
+                }
+                
                 spawnCooldown = minDelay + (rand * (maxDelay - minDelay));
             }
             [enemy release];
@@ -379,13 +394,18 @@ defeatedEnemies:(NSMutableDictionary*)defeated
             [currentRound setNumQueenies:MAX([currentRound numQueenies]-1, 0)];
         }
         
-        /*if(enemy)
+        if(enemy)
         {
-            float minDelay = 8.0f / (float)[enemy enemySpeed];
-            float maxDelay = 48.0f / (float)[enemy enemySpeed];
-            lastSpawnTime = [GameObject getCurrentTime];
-            spawnDelay = minDelay + (RANDOM_0_TO_1() * (maxDelay - minDelay));
-        }*/
+            int roundNum = [[GameState sharedGameStateInstance] currentRound];
+            if(roundNum > 20 && roundNum <= 25)
+            {
+                [enemy multiplyMaxHitPoints:2 adjustCurrent:NO];
+            }
+            else if(roundNum > 25)
+            {
+                [enemy multiplyMaxHitPoints:3 adjustCurrent:NO];
+            }
+        }
         [enemy release];
     }
     
@@ -523,12 +543,12 @@ defeatedEnemies:(NSMutableDictionary*)defeated
                                              message2:@"the elements of a sporting"
                                              message3:@"event. Except a sport."
                                                 bonus:48 chubbies:0 jeanies:0 lankies:0 smarties:0 airplanes:0
-                                              banners:0 bandies:0 cheeries:0 punkies:0 mascots:10 queenies:0]];
+                                              banners:0 bandies:0 cheeries:0 punkies:0 mascots:14 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Ever wonder if mascots"
                                              message2:@"smile beneath the mask?"
                                              message3:@"Yeah, me neither."
                                                 bonus:46 chubbies:0 jeanies:0 lankies:0 smarties:0 airplanes:0
-                                              banners:0 bandies:0 cheeries:0 punkies:20 mascots:0 queenies:0]];
+                                              banners:0 bandies:0 cheeries:0 punkies:15 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"Rebellious punkies on the"
                                              message2:@"way, specially imported"
                                              message3:@"from a bad 80s movie."
@@ -538,7 +558,7 @@ defeatedEnemies:(NSMutableDictionary*)defeated
                                              message2:@"one might even say,"
                                              message3:@"'unflappable'. No? Sorry."
                                                 bonus:40 chubbies:0 jeanies:0 lankies:0 smarties:0 airplanes:0
-                                              banners:0 bandies:0 cheeries:22 punkies:0 mascots:0 queenies:0]];
+                                              banners:0 bandies:0 cheeries:13 punkies:0 mascots:0 queenies:0]];
     [rounds addObject:[[Round alloc] initWithMessage1:@"A whole bunch of"
                                              message2:@"cheeries are cheering"
                                              message3:@"your way."

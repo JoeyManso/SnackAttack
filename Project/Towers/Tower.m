@@ -321,8 +321,10 @@ float const SELL_PERCENT = 0.5f;
 -(float)getBaseDisplayRange
 {
     float baseDisplayRange = towerRange;
-    if([self isInBoostRadius])
+    if([self isInBoostRadius] && [self canBeMoved])
     {
+        // Only alter base radius with boosted value if the tower is being placed
+        // Placed towers already have boost bonus baked into 'towerRange'
         baseDisplayRange += baseDisplayRange * RG_RANGE_BOOST;
     }
     baseDisplayRange += radiusPulseAddition;

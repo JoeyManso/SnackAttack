@@ -27,7 +27,7 @@
 	float projectileSpinAmount; // allows the projectile to spin while moving
 	
 	@private
-	uint frameCount; // counter for frames (so we don't alter trajectory each frame)
+	float homingDelay; // delay before updating trajectory (so we don't alter trajectory each frame)
 }
 
 @property(nonatomic, readonly)float projectileDamage;

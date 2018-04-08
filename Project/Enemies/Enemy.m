@@ -49,6 +49,7 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 		target = t;
         dirToTarget = [Point2D subtract:[target nodePosition] :objectPosition];
         [self setObjectDirection:dirToTarget];
+        [self updateDirToTarget];
         
 		killValue = 0;
 		
@@ -73,10 +74,13 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 	}
 	return self;
 }
--(void)multiplyMaxHitPoints:(uint)factor
+-(void)multiplyMaxHitPoints:(uint)factor adjustCurrent:(bool)adjustCurrent;
 {
 	enemyMaxHitPoints *= factor;
-	enemyHitPoints *= factor;
+    if(adjustCurrent)
+    {
+        enemyHitPoints *= factor;
+    }
 }
 
 -(void)takeDamage:(float)d
@@ -173,7 +177,7 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 	if([UIMan showEnemyStats])
 	{
 		[enemyStatusBar setName:objectName speed:(uint)enemySpeed type:type immunity:immunity];
-		[enemyStatusBar setHitPoints:(uint)enemyHitPoints total:enemyMaxHitPoints];
+		[enemyStatusBar setHitPoints:(uint)fmaxf(0.0f, enemyHitPoints) total:enemyMaxHitPoints];
 		[super select];
 	}
 }
@@ -204,6 +208,28 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 		return [target value];
 	return 0;
 }
+-(void)updateDirToTarget
+{
+    if(target)
+    {
+        [dirToTarget setToPointSubtraction:[target nodePosition] :objectPosition];
+        if([Vector2D dot:dirToTarget :objectDirection] <= 0)
+        {
+            if([target next] != nil)
+            {
+                target = [target next];
+                Vector2D *newDir = [Point2D subtract:[target nodePosition] :objectPosition];
+                [self setObjectDirection:newDir];
+                // deallocate our temporary variable
+                [newDir release];
+            }
+            else
+            {
+                target = nil;
+            }
+        }
+    }
+}
 -(int)update:(float)deltaT;
 {
 	if(fadeOut)
@@ -219,24 +245,7 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 	else if(target) // while there is still a target node, do path following
 	{
 		// check if we've reached our destination, change direction if we can.
-		// if the next node is nil, we're at the end of the path. Mark ourselves for removal and subtract from lives.
-		[dirToTarget setToPointSubtraction:[target nodePosition] :objectPosition];
-		if([Vector2D dot:dirToTarget :objectDirection] < 0)
-		{
-			if([target next] != nil)
-			{
-                target = [target next];
-				Vector2D *newDir = [Point2D subtract:[target nodePosition] :objectPosition];
-				[self setObjectDirection:newDir];
-				// deallocate our temporary variable
-				[newDir release];
-			}
-			else
-			{
-				[self remove];
-				[game subtractLife];
-			}
-		}
+        [self updateDirToTarget];
 		[healthBar updateUIObject:deltaT];
 		if(isFrozen)
 		{
@@ -286,6 +295,12 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 				takeDamageOverTime = NO;
 		}
 	}
+    else
+    {
+        // if the target node is nil, mark for removal and subtract from lives.
+        [self remove];
+        [game subtractLife];
+    }
 	
 	return [super update:deltaT];
 }
@@ -303,7 +318,6 @@ const float DEATH_FADE_TIME_MAX = 0.5f;
 	// remove the enemy status bar if the enemy is currently selected
 	if(selected)
 	{
-		[enemyStatusBar setHitPoints:0 total:enemyMaxHitPoints];
 		[UIMan clearBottomStatsBar];
 	}
 	[dirToTarget dealloc];

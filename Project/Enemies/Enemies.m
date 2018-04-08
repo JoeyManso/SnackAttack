@@ -32,7 +32,7 @@ float const C_SPEED = 30.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 5;
+        killValue = 6;
     }
     return self;
 }
@@ -63,7 +63,7 @@ float const J_SPEED = 35.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 3;
+        killValue = 4;
     }
     return self;
 }
@@ -94,7 +94,7 @@ float const L_SPEED = 45.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 4;
+        killValue = 5;
     }
     return self;
 }
@@ -125,7 +125,7 @@ float const S_SPEED = 40.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 3;
+        killValue = 4;
     }
     return self;
 }
@@ -157,7 +157,7 @@ float const A_SPEED = 45.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 5;
+        killValue = 6;
     }
     return self;
 }
@@ -189,7 +189,7 @@ float const BN_SPEED = 60.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 6;
+        killValue = 7;
     }
     return self;
 }
@@ -224,7 +224,7 @@ float const BD_SPEED = 45.0f;
         objectSound.key = deathSoundKey;
         objectSound.gain = 2.0f;
         
-        killValue = 5;
+        killValue = 6;
     }
     return self;
 }
@@ -234,7 +234,7 @@ float const BD_SPEED = 45.0f;
 @implementation Cheerie
 
 float const CH_HIT_POINTS = 60;
-float const CH_SPEED = 180.0f;
+float const CH_SPEED = 160.0f;
 
 -(id)initWithPosition:(Point2D*)p spriteSheet:(SpriteSheet*)ss targetNode:(PathNode*)t
 {
@@ -259,7 +259,7 @@ float const CH_SPEED = 180.0f;
         objectSound.key = deathSoundKey;
         objectSound.gain = 2.0f;
         
-        killValue = 2;
+        killValue = 3;
     }
     return self;
 }
@@ -327,7 +327,7 @@ float const M_SPEED = 40.0f;
         // default sound is death
         objectSound.key = deathSoundKey;
         
-        killValue = 5;
+        killValue = 6;
     }
     return self;
 }

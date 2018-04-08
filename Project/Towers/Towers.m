@@ -152,8 +152,8 @@ float const FR_RANGE = 40.0f;
 										sourcePositionVariance:[[Point2D alloc] initWithX:5.0f y:5.0f]
 														 speed:90.0f
 												 speedVariance:30.0f
-											  particleLifeSpan:0.75f	
-									  particleLifespanVariance:0.15f
+											  particleLifeSpan:([self towerRange] / 90.0f)
+									  particleLifespanVariance:0.0f
 														 angle:0.0f
 												 angleVariance:360.0f
 													   gravity:nil
@@ -314,7 +314,7 @@ float const CL_RANGE = 40.0f;
 		upgrades[0] = [[CookieUpgrade alloc] initWithCost:100 damage:24.0f rateOfFire:0.8f range:50.0f numDirections:6];
 		upgrades[1] = [[CookieUpgrade alloc] initWithCost:225 damage:40.0f rateOfFire:0.7f range:70.0f numDirections:9];
 		
-		[(CookieFactory*)projectileFactory setTowerRange:CL_RANGE];
+		[self setTowerRange:CL_RANGE];
 		// set default animation for Cookie Launcher
 		[self setAni:aniIdle row:0 numFrames:8 delay:0.05];
 		aniAttack = [[Animation alloc] init];
@@ -360,6 +360,11 @@ float const CL_RANGE = 40.0f;
 	return YES;
 }
 
+-(void)setTowerRange:(float)r
+{
+    [super setTowerRange:r];
+    [(CookieFactory*)projectileFactory setTowerRange:towerRange];
+}
 -(void)setNumDirections:(uint)dirs
 {
 	[(CookieFactory*)projectileFactory setCkNumDirections:dirs];
@@ -533,11 +538,11 @@ uint const PF_KERNEL_MAX_COUNT = 3;
 {
 	if(towerState == TOWER_STATE_SHOOT && kernelCounter < PF_KERNEL_MAX_COUNT && kernelLastShotTime+PF_KERNEL_DELAY < [GameObject getCurrentTime])
 	{
-		BOOL explodeFlag = NO;
-		if(kernelCounter == 0)
-			explodeFlag = YES;
-		[(KernelFactory*)projectileFactory createProjectile:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y] 
-											  rotationAngle:[self objectRotationAngle] direction:[self objectDirection] shouldExplode:explodeFlag];
+		BOOL explodeFlag = (kernelCounter == 0);
+        BOOL releaseFlag = (kernelCounter == PF_KERNEL_MAX_COUNT-1);
+
+		[(KernelFactory*)projectileFactory createProjectile:[[Point2D alloc] initWithX:objectPosition.x y:objectPosition.y]
+                                              rotationAngle:[self objectRotationAngle] direction:[self objectDirection] shouldExplode:explodeFlag shouldRelease:releaseFlag];
 		[self playSound];
 		++kernelCounter;
 		kernelLastShotTime = [GameObject getCurrentTime];
@@ -645,9 +650,6 @@ const float RADIAL_MAX_ALPHA = 0.35f;
 	radius2 += registerDeltaRadius * deltaT;
 	radius3 += registerDeltaRadius * deltaT;
 	
-	registerRadialRGBA1[3] = RADIAL_MAX_ALPHA * (1.0f - radius1/towerRange);
-	registerRadialRGBA2[3] = RADIAL_MAX_ALPHA * (1.0f - radius2/towerRange);
-	registerRadialRGBA3[3] = RADIAL_MAX_ALPHA * (1.0f - radius3/towerRange);
 	if(radius1 > towerRange)
 		radius1 = 0.0f;
 	else if(radius2 > towerRange)
@@ -663,6 +665,9 @@ const float RADIAL_MAX_ALPHA = 0.35f;
 }
 -(void)drawRegisterRadius
 {
+    registerRadialRGBA1[3] = RADIAL_MAX_ALPHA * (1.0f - radius1/towerRange);
+    registerRadialRGBA2[3] = RADIAL_MAX_ALPHA * (1.0f - radius2/towerRange);
+    registerRadialRGBA3[3] = RADIAL_MAX_ALPHA * (1.0f - radius3/towerRange);
 	for (int i = 0; i < 720; i+=2) 
 	{
 		registerRadial1[i] = cos([Math convertToRadians:i]) * radius1;

@@ -14,6 +14,7 @@
 {	
 	Image *objectImage; // image that represents this object
 	float objectAlpha;
+    float hitBoxScale;
 }
 @property(nonatomic, readonly)Image* objectImage;
 
