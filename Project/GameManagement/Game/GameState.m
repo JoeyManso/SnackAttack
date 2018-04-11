@@ -219,8 +219,11 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 			
 			[removeQueue removeAllObjects];
 		}
+        
 		if(roundBuffer > 0)
+        {
 			roundBuffer -= deltaTime;
+        }
 		else if(roundBuffer < 0.0f)
 		{
 			roundBuffer = 0.0f;
@@ -385,6 +388,7 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	[self alterCash:bonusToApply];
 	[statusBar setRound:++currentRound];
 	[UIMan roundHasFinished:currentRound currentCash:currentCash];
+    [defeatedEnemiesMap removeAllObjects];
 }
 -(BOOL)isBoostTowerInRange:(Point2D*)startPoint
 {
@@ -417,8 +421,8 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 }
 -(void)goToNextRound
 {
-	enemiesOnMap = YES;
-	uint numberOfEnemiesThisRound;
+    enemiesOnMap = YES;
+
 	// special case for the first round (start button)
 	if(currentRound == 0)
 	{
@@ -426,7 +430,8 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 		[statusBar setRound:++currentRound];
 	}
 	else
-	{			
+	{
+        uint numberOfEnemiesThisRound;
 		[soundMan playSoundWithKey:@"RoundOver" gain:1.0f pitch:1.0f shouldLoop:NO];
 		numberOfEnemiesThisRound = [currentRoundInfo numTotalEnemies];
 		[UIMan showMessageScreenWithRound:currentRound numEnemiesDefeated:[self enemiesDefeatedThisRound]numEnemiesTotal:numberOfEnemiesThisRound
@@ -445,7 +450,6 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
 	{
         [self onGameEnd];
 	}
-	[defeatedEnemiesMap removeAllObjects];
 }
 -(void)showMenu
 {
@@ -675,7 +679,15 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
                 else if([key isEqualToString:@"ENEMIES"])
                 {
                     enemies = (NSArray*)value;
-                    enemiesOnMap = (enemies.count > 0);
+                    if(enemies.count > 0)
+                    {
+                        enemiesOnMap = YES;
+                    }
+                    else
+                    {
+                        enemiesOnMap = NO;
+                        roundBuffer = NEXT_ROUND_BUFFER;
+                    }
                 }
             }
             
