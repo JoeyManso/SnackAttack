@@ -33,7 +33,7 @@
 -(void)setDescription:(NSString*)name cost:(uint)c range:(uint)range damage:(uint)damage rof:(float)rof
 			descLine1:(NSString*)line1 descLine2:(NSString*)line2 descLine3:(NSString*)line3 requiredRound:(uint)rReq;
 -(void)setTowerFactory:(TowerFactory*)tf;
--(void)scaleTransitionSpeed:(float)scaleAmount;
+-(void)setTransitionSpeed:(float)s;
 -(void)roundHasFinished:(uint)newRound currentCash:(uint)cash;
 @end
 @interface ConfirmBar : UIBar 

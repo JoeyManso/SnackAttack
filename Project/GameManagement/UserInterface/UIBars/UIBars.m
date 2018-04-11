@@ -99,7 +99,7 @@
 
 @implementation TowerDetails
 
-const float TRANSITION_SPEED_BASE = 325.0f;
+const float TRANSITION_SPEED_BASE = 225.0f;
 
 -(id)initWithBackground:(Image*)i
 {
@@ -272,9 +272,9 @@ const float TRANSITION_SPEED_BASE = 325.0f;
 	}
     [self updatePurchaseButton];
 }
--(void)scaleTransitionSpeed:(float)scaleAmount
+-(void)setTransitionSpeed:(float)s
 {
-	newTransitionSpeed = TRANSITION_SPEED_BASE * scaleAmount;
+	newTransitionSpeed = s;
 }
 -(void)dealloc
 {

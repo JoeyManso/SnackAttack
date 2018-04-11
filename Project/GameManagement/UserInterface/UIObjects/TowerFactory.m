@@ -81,7 +81,8 @@
 			return NO;
 		[self playScaleAnimation];
         TowerDetails *towerDetails = [[UIManager getInstance] getTowerDetailsBarReference];
-		[towerDetails scaleTransitionSpeed:1.0f + ((UIObjectPosition.x/320.0f)-0.1f)];
+        float s = UIObjectPosition.x / 0.4f;
+		[towerDetails setTransitionSpeed:s];
 		return YES;
 	}
 	return NO;
