@@ -318,8 +318,8 @@ float const CL_RANGE = 40.0f;
 		// set default animation for Cookie Launcher
 		[self setAni:aniIdle row:0 numFrames:8 delay:0.05];
 		aniAttack = [[Animation alloc] init];
-		[self setAni:aniAttack row:1 numFrames:8 delay:0.05f];
-		[aniAttack setRepeat:NO];
+		[self setAni:aniAttack row:1 numFrames:8 delay:0.025f];
+        [aniAttack setRepeat:NO];
 		aniCurrent = aniIdle;
 		// set shoot sound
 		shootSoundKey = @"CookieShoot";

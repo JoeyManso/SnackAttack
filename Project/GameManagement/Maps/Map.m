@@ -152,8 +152,8 @@
             
             if(enemy)
             {
-                float minDelay = 32.0f / (float)[enemy enemySpeed];
-                float maxDelay = 64.0f / (float)[enemy enemySpeed];
+                float minDelay = 24.0f / (float)[enemy enemySpeed];
+                float maxDelay = 48.0f / (float)[enemy enemySpeed];
                 const float rand = RANDOM_0_TO_1();
 
                 int roundNum = [[GameState sharedGameStateInstance] currentRound];
