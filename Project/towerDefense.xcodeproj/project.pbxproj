@@ -39,6 +39,8 @@
 		28FD14FE0DC6FC130079059D /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FD14FD0DC6FC130079059D /* EAGLView.m */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		3301D94D2082979E007E8D1E /* towerDefense-Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3301D94C2082979D007E8D1E /* towerDefense-Assets.xcassets */; };
+		3301D94F2082A275007E8D1E /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3301D94E2082A271007E8D1E /* AppIcon.png */; };
 		33E4523C1F886D3100152974 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33E4523B1F886D3100152974 /* Default-568h@2x.png */; };
 		F60E76541070026700AFDDD8 /* BackgroundMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = F60E763E1070026700AFDDD8 /* BackgroundMenu.png */; };
 		F60E76551070026700AFDDD8 /* BarBlank.png in Resources */ = {isa = PBXBuildFile; fileRef = F60E763F1070026700AFDDD8 /* BarBlank.png */; };
@@ -174,7 +176,6 @@
 		F6A0C5E41024CEC2003665AD /* chubbyWalkCycle.png in Resources */ = {isa = PBXBuildFile; fileRef = F6A0C5E31024CEC2003665AD /* chubbyWalkCycle.png */; };
 		F6A0C7AC102503E5003665AD /* TowerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A0C7AB102503E5003665AD /* TowerFactory.m */; };
 		F6A0D0FB10291D17003665AD /* jeanieWalkCycle.png in Resources */ = {isa = PBXBuildFile; fileRef = F6A0D0FA10291D17003665AD /* jeanieWalkCycle.png */; };
-		F6C5DBD610A76E2500745C4D /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F6C5DBD510A76E2500745C4D /* AppIcon.png */; };
 		F6C5DC0C10A770D900745C4D /* CashRegisterSpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = F6C5DC0510A770D900745C4D /* CashRegisterSpriteSheet.png */; };
 		F6C5DC0D10A770D900745C4D /* CookieShellerSpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = F6C5DC0610A770D900745C4D /* CookieShellerSpriteSheet.png */; };
 		F6C5DC0E10A770D900745C4D /* FreezerSpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = F6C5DC0710A770D900745C4D /* FreezerSpriteSheet.png */; };
@@ -243,6 +244,8 @@
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* towerDefense_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = towerDefense_Prefix.pch; sourceTree = "<group>"; };
+		3301D94C2082979D007E8D1E /* towerDefense-Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "towerDefense-Assets.xcassets"; sourceTree = "<group>"; };
+		3301D94E2082A271007E8D1E /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		33E4523B1F886D3100152974 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* towerDefense-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "towerDefense-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		F60E763E1070026700AFDDD8 /* BackgroundMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundMenu.png; sourceTree = "<group>"; };
@@ -420,7 +423,6 @@
 		F6A0C7AB102503E5003665AD /* TowerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TowerFactory.m; sourceTree = "<group>"; };
 		F6A0D0FA10291D17003665AD /* jeanieWalkCycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jeanieWalkCycle.png; sourceTree = "<group>"; };
 		F6B20A78105D930500681622 /* Upgrades.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Upgrades.h; sourceTree = "<group>"; };
-		F6C5DBD510A76E2500745C4D /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		F6C5DC0510A770D900745C4D /* CashRegisterSpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CashRegisterSpriteSheet.png; sourceTree = "<group>"; };
 		F6C5DC0610A770D900745C4D /* CookieShellerSpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CookieShellerSpriteSheet.png; sourceTree = "<group>"; };
 		F6C5DC0710A770D900745C4D /* FreezerSpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreezerSpriteSheet.png; sourceTree = "<group>"; };
@@ -540,8 +542,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F6C5DBD510A76E2500745C4D /* AppIcon.png */,
+				3301D94E2082A271007E8D1E /* AppIcon.png */,
 				8D1107310486CEB800E47090 /* towerDefense-Info.plist */,
+				3301D94C2082979D007E8D1E /* towerDefense-Assets.xcassets */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1200,6 +1203,7 @@
 				F676DB0D108BCEEE0055BEA8 /* RoundOver.caf in Resources */,
 				F676DB0F108BCF860055BEA8 /* PopcornShoot.caf in Resources */,
 				F676DB12108BCFA60055BEA8 /* PopcornExplode.caf in Resources */,
+				3301D94F2082A275007E8D1E /* AppIcon.png in Resources */,
 				33E4523C1F886D3100152974 /* Default-568h@2x.png in Resources */,
 				F676DB13108BCFA60055BEA8 /* PopcornHit.caf in Resources */,
 				F676DB1A108BD0000055BEA8 /* BandieDeath.caf in Resources */,
@@ -1218,6 +1222,7 @@
 				F67A6A0E1092A22C0050ACA0 /* MessageFont.png in Resources */,
 				F671D7671096A18500BD82B5 /* ButtonMainMenu.png in Resources */,
 				F671D7681096A18500BD82B5 /* TextInstructions3.png in Resources */,
+				3301D94D2082979E007E8D1E /* towerDefense-Assets.xcassets in Resources */,
 				F671D7691096A18500BD82B5 /* TextInstructions4.png in Resources */,
 				F64DCD27109E685100ECD416 /* bandieWalkCycle.png in Resources */,
 				F64DCD28109E685100ECD416 /* bannerFlyCycle.png in Resources */,
@@ -1225,7 +1230,6 @@
 				F64DCD2A109E685100ECD416 /* mascotWalkCycle.png in Resources */,
 				F64DCD2B109E685100ECD416 /* promQueenWalkCycle.png in Resources */,
 				F64DCD2C109E685100ECD416 /* punkWalkCycle.png in Resources */,
-				F6C5DBD610A76E2500745C4D /* AppIcon.png in Resources */,
 				F6C5DC0C10A770D900745C4D /* CashRegisterSpriteSheet.png in Resources */,
 				F6C5DC0D10A770D900745C4D /* CookieShellerSpriteSheet.png in Resources */,
 				F6C5DC0E10A770D900745C4D /* FreezerSpriteSheet.png in Resources */,
@@ -1329,6 +1333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1359,6 +1364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1497,6 +1503,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
