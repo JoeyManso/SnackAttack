@@ -168,9 +168,17 @@ float const FR_RANGE = 40.0f;
 												 blendAdditive:YES];
 	[p release];
 	[game freezeEnemiesInRadius:towerRange origin:objectPosition duration:freezeDuration];
-	lastShotTime = [GameObject getCurrentTime];
+    
+    towerState = TOWER_STATE_SHOOT;
+    if(aniAttack)
+    {
+        aniCurrent = aniAttack;
+        [aniAttack setCurrentFrame:0];
+        [aniAttack setRunning:YES];
+    }
+    lastShotTime = [GameObject getCurrentTime];
     shotCooldownRemain = towerRateOfFire;
-	[self playSound];
+    [self playSound];
 }
 -(BOOL)targetGameObject:(Enemy*)gameObject
 {

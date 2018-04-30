@@ -444,7 +444,7 @@ float const SELL_PERCENT = 0.5f;
     }
 
 	if(towerState == TOWER_STATE_SHOOT
-       && [GameObject getCurrentTime] - lastShotTime > 2.0f*towerRateOfFire)
+       && [GameObject getCurrentTime] - lastShotTime > 1.25f*towerRateOfFire)
 	{
 		aniCurrent = aniIdle;
 		towerState = TOWER_STATE_IDLE;
