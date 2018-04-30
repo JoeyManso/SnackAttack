@@ -14,6 +14,13 @@
 
 @class PathNode;
 
+enum EMapSpawn
+{
+    MS_LOW,
+    MS_MED,
+    MS_HIGH
+};
+
 @interface Map : NSObject 
 {
 	GameState *game;
@@ -49,14 +56,16 @@
 }
 @property(nonatomic, readonly)NSString *mapName;
 @property(nonatomic, readonly)float spawnCooldown;
+@property(nonatomic, readonly)enum EMapSpawn mapSpawn;
 
--(void)initMap:(NSString*)inMapName tiledFile:(NSString*)fileName;
+-(void)initMap:(NSString*)inMapName tiledFile:(NSString*)fileName mapSpawn:(enum EMapSpawn) inMapSpawn;
 -(void)update:(float)deltaTime;
 -(void)draw;
 -(BOOL)getCenterOfValidTile:(Point2D*)point originOut:(Point2D*)outPoint;
 -(void)setTileHighlightToRed;
 -(void)setTileHighlightToGreen;
 -(void)turnOffHighlight;
+-(int)adjustSpawn:(int)s;
 -(Round*)getCurrentRound;
 -(Round*)getFirstRound;
 -(Round*)getNextRound:(BOOL)shouldAppend;

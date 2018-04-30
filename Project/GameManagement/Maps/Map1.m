@@ -4,7 +4,7 @@
 //
 //  Created by Joey Manso on 7/24/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
+// m
 
 #import "Map1.h"
 #import "BaseView.h"
@@ -15,7 +15,7 @@
 {
     if(self = [super init])
     {
-        [self initMap:@"map1.png" tiledFile:@"Map1TileMap"];
+        [self initMap:@"map1.png" tiledFile:@"Map1TileMap" mapSpawn:MS_MED];
     }
     return self;
 }

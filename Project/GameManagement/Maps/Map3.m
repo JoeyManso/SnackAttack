@@ -15,7 +15,7 @@
 {
     if(self = [super init])
     {
-        [self initMap:@"map3.png" tiledFile:@"Map3TileMap"];
+        [self initMap:@"map3.png" tiledFile:@"Map3TileMap" mapSpawn:MS_LOW];
     }
     return self;
 }

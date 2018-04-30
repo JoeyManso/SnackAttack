@@ -512,6 +512,11 @@ const float NEXT_ROUND_BUFFER = 1.5f; // time before next round starts after all
     }
 	++currentScore;
 	[statusBar setScore:currentScore];
+    
+    if([currentMap mapSpawn] == MS_LOW)
+    {
+        enemyValue = ceil((float)(enemyValue) * 1.25f);
+    }
 	[self alterCash:enemyValue];
 }
 -(uint)enemiesDefeatedThisRound
